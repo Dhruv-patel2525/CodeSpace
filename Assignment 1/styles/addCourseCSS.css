@@ -1,0 +1,35 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+}
+.add-course-section {
+    padding: 60px 20px;
+}
+
+.add-course-section h2 {
+    color: #6a5acd;
+    margin-bottom: 40px;
+}
+
+.form-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 1rem;
+}
+
+.btn {
+    background-color: #6a5acd;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.btn:hover {
+    background-color: #836fff;
+    color: white;
+}

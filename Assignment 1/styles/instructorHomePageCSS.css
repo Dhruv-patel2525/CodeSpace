@@ -1,0 +1,50 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+}
+
+.welcome-section {
+    background: linear-gradient(to right, #6a5acd, #836fff);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.welcome-section h1 {
+    font-size: 2.5rem;
+}
+
+.welcome-section p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+.course-management-section {
+    padding: 60px 20px;
+}
+
+.course-management-section h2 {
+    color: #6a5acd;
+}
+
+.course-management-section .card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 8px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.course-management-section .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.course-management-section .btn {
+    background-color: #6a5acd;
+    color: white;
+}
+
+.course-management-section .btn:hover {
+    background-color: #836fff;
+}

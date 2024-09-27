@@ -1,0 +1,29 @@
+.contain {
+    font-family: 'Roboto', sans-serif;
+  }
+.prob-title{
+    margin-top:1rem;
+    font-size:1.5rem;
+    font-weight:bold;
+}
+.code-editor-container {
+    height:900px;
+    background-color: #2d2d2d;
+    overflow: hidden;
+}
+.problem-navbar{
+    justify-content: space-between;
+    padding: 1rem;
+    padding-bottom: 0.5rem;
+    text-align: center;
+    justify-content: center;
+    overflow:hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+/* checking */
+.problem-navbar-active{
+    border-radius: 1rem;
+    padding-bottom: 0rem;
+    background-color: #e9e6e6;
+    font-size:1rem;
+}
