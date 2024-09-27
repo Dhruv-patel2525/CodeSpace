@@ -1,79 +1,29 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f9fb;
+.contain {
+    font-family: 'Roboto', sans-serif;
   }
-
-.table-title {
-    margin: 20px 0;
-    font-size: 2rem;
-    font-weight: bold;
-  }
-
-  .problem-statement {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
-  }
-  .problem-title{
-    font-weight: bold ;
-  }
-  .problem-title a {
-    color: #007bff;
-    text-decoration: none;
-  }
-
-   .problem-title a:hover {
-    text-decoration: underline;
-  }
-  .badge-secondary{
-    background-color: #6C7A89;
-    color: #000000;
-  }
-
-  .badge-medium {
-    background-color: #ffdd99;
-    color: #000000;
-  }
-
-  .badge-easy {
-    background-color: #ccffcc;
-    color: #000000;
-  }
-
-  .badge-hard {
-    background-color: #ff9999;
-    color: #000000;
-  }
-
-  .company-icons i {
-    margin-right: 8px;
-  }
-
-  .icon-button {
-    color: white;
-    background-color: #17a2b8;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
-  }
-  
-  .table-filters {
-    margin-bottom: 1rem;
-  }
-
-  .btn-random {
-    background-color: #00c4cc;
-    border-radius: 50px;
-    color: white;
-    font-size: 1.2rem;
-  }
-    @media all and (max-width:768px){
-        .avgtime{
-            display:none;
-        }
-        .submission{
-            display:none;
-        }
-    }
-   
+.prob-title{
+    margin-top:1rem;
+    font-size:1.5rem;
+    font-weight:bold;
+}
+.code-editor-container {
+    height:900px;
+    background-color: #2d2d2d;
+    overflow: hidden;
+}
+.problem-navbar{
+    justify-content: space-between;
+    padding: 1rem;
+    padding-bottom: 0.5rem;
+    text-align: center;
+    justify-content: center;
+    overflow:hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+/* checking */
+.problem-navbar-active{
+    border-radius: 1rem;
+    padding-bottom: 0rem;
+    background-color: #e9e6e6;
+    font-size:1rem;
+}
