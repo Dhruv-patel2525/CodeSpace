@@ -1,0 +1,59 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+}
+
+.manage-courses-section {
+    padding: 60px 20px;
+}
+
+.manage-courses-section h2 {
+    color: #6a5acd;
+    margin-bottom: 40px;
+}
+
+.table {
+    width: 100%;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: #6a5acd;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.table tbody tr td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
