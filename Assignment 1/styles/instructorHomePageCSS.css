@@ -48,3 +48,7 @@ body {
 .course-management-section .btn:hover {
     background-color: #836fff;
 }
+
+.nav-active{
+    color:#000000;
+}
