@@ -33,3 +33,6 @@ body {
     background-color: #836fff;
     color: white;
 }
+.nav-active{
+    color: #000000;
+}
