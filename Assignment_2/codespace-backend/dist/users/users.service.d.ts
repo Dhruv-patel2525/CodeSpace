@@ -1,6 +1,6 @@
-import { LoginDto } from 'src/dto/login.dto';
-import { ResetPasswordDto } from 'src/dto/resetpwd.dto';
-import { SignupDto } from 'src/dto/signup.dto';
+import { LoginDto } from 'src/users/dto/login.dto';
+import { ResetPasswordDto } from 'src/users/dto/resetpwd.dto';
+import { SignupDto } from 'src/users/dto/signup.dto';
 export declare class UsersService {
     private users;
     private resetTokens;
