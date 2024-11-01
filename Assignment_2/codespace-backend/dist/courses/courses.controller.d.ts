@@ -16,12 +16,11 @@ export declare class CoursesController {
         description: string;
         instructor: string;
     };
-    create(createCourseDto: CreateCourseDto): {
-        title: string;
-        description: string;
-        instructor: string;
-        id: number;
-    };
+    create(createCourseDto: CreateCourseDto): Promise<import("mongoose").Document<unknown, {}, import("./schemas/courses").Course> & import("./schemas/courses").Course & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
     update(courseId: string, updateCourseDto: UpdateCourseDto): {
         title: string;
         description: string;
