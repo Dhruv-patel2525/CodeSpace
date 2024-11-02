@@ -4,7 +4,7 @@ import { UpdateProblemDto } from './dto/update-problem.dto';
 export declare class ProblemController {
     private readonly problemService;
     constructor(problemService: ProblemService);
-    create(createProblemDto: CreateProblemDto): string;
+    create(createProblemDto: CreateProblemDto): Promise<void>;
     findAll(): string;
     findOne(id: string): string;
     update(id: string, updateProblemDto: UpdateProblemDto): string;

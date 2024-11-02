@@ -9,44 +9,55 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateProblemDto = void 0;
-const class_validator_1 = require("class-validator");
-class CreateProblemDto {
-}
-exports.CreateProblemDto = CreateProblemDto;
+exports.ProblemSchema = exports.Problem = void 0;
+const mongoose_1 = require("@nestjs/mongoose");
+let Problem = class Problem {
+};
+exports.Problem = Problem;
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsNumber)(),
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
     __metadata("design:type", Number)
-], CreateProblemDto.prototype, "id", void 0);
+], Problem.prototype, "id", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
     __metadata("design:type", String)
-], CreateProblemDto.prototype, "title", void 0);
+], Problem.prototype, "title", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
     __metadata("design:type", String)
-], CreateProblemDto.prototype, "description", void 0);
+], Problem.prototype, "description", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
     __metadata("design:type", String)
-], CreateProblemDto.prototype, "input", void 0);
+], Problem.prototype, "input", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
     __metadata("design:type", String)
-], CreateProblemDto.prototype, "output", void 0);
+], Problem.prototype, "output", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
     __metadata("design:type", String)
-], CreateProblemDto.prototype, "difficulty", void 0);
+], Problem.prototype, "difficulty", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
     __metadata("design:type", String)
-], CreateProblemDto.prototype, "tag", void 0);
-//# sourceMappingURL=create-problem.dto.js.map
+], Problem.prototype, "tag", void 0);
+exports.Problem = Problem = __decorate([
+    (0, mongoose_1.Schema)()
+], Problem);
+exports.ProblemSchema = mongoose_1.SchemaFactory.createForClass(Problem);
+//# sourceMappingURL=problem.js.map

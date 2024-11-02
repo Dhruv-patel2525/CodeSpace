@@ -1,11 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProblemDto } from './dto/create-problem.dto';
 import { UpdateProblemDto } from './dto/update-problem.dto';
+import { Problem, ProblemDocument } from './schema/problem';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class ProblemService {
-  create(createProblemDto: CreateProblemDto) {
-    return 'This action adds a new problem';
+  constructor(
+    @InjectModel(Problem.name) private readonly problemModel: Model<ProblemDocument>
+) {}
+
+
+  async create(createProblemDto: CreateProblemDto) {
+    const problem =await this.problemModel.create(createProblemDto);
   }
 
   findAll() {

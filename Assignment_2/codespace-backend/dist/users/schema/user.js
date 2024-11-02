@@ -9,31 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CourseSchema = exports.Course = void 0;
+exports.UserSchema = exports.User = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
-let Course = class Course {
+let User = class User {
 };
-exports.Course = Course;
+exports.User = User;
 __decorate([
     (0, mongoose_1.Prop)({
         required: true,
     }),
     __metadata("design:type", String)
-], Course.prototype, "title", void 0);
+], User.prototype, "email", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({
-        required: true,
-    }),
-    __metadata("design:type", Date)
-], Course.prototype, "lastUpdated", void 0);
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], User.prototype, "name", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], User.prototype, "role", void 0);
 __decorate([
     (0, mongoose_1.Prop)({
         required: true,
     }),
     __metadata("design:type", String)
-], Course.prototype, "duration", void 0);
-exports.Course = Course = __decorate([
+], User.prototype, "password", void 0);
+exports.User = User = __decorate([
     (0, mongoose_1.Schema)()
-], Course);
-exports.CourseSchema = mongoose_1.SchemaFactory.createForClass(Course);
-//# sourceMappingURL=courses.js.map
+], User);
+exports.UserSchema = mongoose_1.SchemaFactory.createForClass(User);
+//# sourceMappingURL=user.js.map

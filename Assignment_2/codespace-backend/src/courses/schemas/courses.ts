@@ -5,11 +5,17 @@ export type CourseDocument = HydratedDocument<Course>;
 @Schema()
 export class Course{
 
-@Prop()
+@Prop({
+    required:true,
+})
 title:string;
-@Prop()
+@Prop({
+    required:true,
+})
 lastUpdated:Date;
-@Prop()
+@Prop({
+    required:true,
+})
 duration:String;
 
 }
