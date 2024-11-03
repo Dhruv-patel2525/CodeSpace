@@ -26,10 +26,17 @@ let UsersService = class UsersService {
         this.resetTokens = new Map();
     }
     logoutUser() {
-        throw new Error('Method not implemented.');
+        console.log("User Logged out");
     }
-    forgotpassword() {
-        throw new Error('Method not implemented.');
+    async forgotPassword(email) {
+        const user = await this.userModel.findOne({ email }).exec();
+        if (!user) {
+            throw new common_1.NotFoundException('User with this email does not exist');
+        }
+        const resetToken = `reset-${Math.random().toString(36).substr(2)}`;
+        user.resetToken = resetToken;
+        await user.save();
+        return { message: 'Password reset link has been sent', resetToken };
     }
     async loginUser(logindto) {
         const { email, password } = logindto;

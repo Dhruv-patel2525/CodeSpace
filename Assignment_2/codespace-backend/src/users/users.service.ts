@@ -17,15 +17,22 @@ export class UsersService {
       private resetTokens = new Map<string, string>(); 
       
     logoutUser() {
-        throw new Error('Method not implemented.'); // Implement when authentication and session are being done
+        console.log("User Logged out") // Implement when authentication(JWT) and session are being done
     }
 
-    
-
-    
-    forgotpassword() {
-        throw new Error('Method not implemented.'); // Implement when authentication and session are being done
+    async forgotPassword(email: string): Promise<any> {
+      const user = await this.userModel.findOne({ email }).exec();
+      if (!user) {
+        throw new NotFoundException('User with this email does not exist');
+      }
+  
+      const resetToken = `reset-${Math.random().toString(36).substr(2)}`;
+      user.resetToken = resetToken;
+      await user.save();
+  
+      return { message: 'Password reset link has been sent', resetToken };
     }
+  
 
     async loginUser(logindto: LoginDto) {
       const { email, password } = logindto;

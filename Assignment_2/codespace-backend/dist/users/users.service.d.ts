@@ -9,7 +9,7 @@ export declare class UsersService {
     private users;
     private resetTokens;
     logoutUser(): void;
-    forgotpassword(): void;
+    forgotPassword(email: string): Promise<any>;
     loginUser(logindto: LoginDto): Promise<{
         message: string;
         user: {

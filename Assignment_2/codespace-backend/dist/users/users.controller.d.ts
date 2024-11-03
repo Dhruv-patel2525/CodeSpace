@@ -20,7 +20,7 @@ export declare class UsersController {
         };
     }>;
     logoutUser(): void;
-    forgotpassword(): void;
+    forgotPassword(requestPasswordResetDto: RequestPasswordResetDto): Promise<any>;
     requestPasswordReset(requestPasswordResetDto: RequestPasswordResetDto): Promise<any>;
     resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
 }
