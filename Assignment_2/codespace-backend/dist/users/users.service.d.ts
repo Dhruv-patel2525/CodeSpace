@@ -3,6 +3,7 @@ import { ResetPasswordDto } from 'src/users/dto/resetpwd.dto';
 import { SignupDto } from 'src/users/dto/signup.dto';
 import { User } from './schema/user';
 import { Model } from 'mongoose';
+import { UpdateUserProfileDto } from './dto/updateUserProfile.dto';
 export declare class UsersService {
     private readonly userModel;
     constructor(userModel: Model<User>);
@@ -25,4 +26,6 @@ export declare class UsersService {
     }>;
     requestPasswordReset(email: string): Promise<any>;
     resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
+    getUserProfile(userId: string): Promise<User>;
+    updateUserProfile(userId: string, updateUserProfileDto: UpdateUserProfileDto): Promise<User>;
 }

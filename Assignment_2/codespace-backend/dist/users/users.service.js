@@ -82,6 +82,20 @@ let UsersService = class UsersService {
         await user.save();
         return { message: 'Password has been successfully reset' };
     }
+    async getUserProfile(userId) {
+        const user = await this.userModel.findById(userId).exec();
+        if (!user) {
+            throw new common_1.NotFoundException(`User with ID ${userId} not found`);
+        }
+        return user;
+    }
+    async updateUserProfile(userId, updateUserProfileDto) {
+        const updatedUser = await this.userModel.findByIdAndUpdate(userId, updateUserProfileDto, { new: true }).exec();
+        if (!updatedUser) {
+            throw new common_1.NotFoundException(`User with ID ${userId} not found`);
+        }
+        return updatedUser;
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
