@@ -6,6 +6,7 @@ export type ProblemDocument = HydratedDocument<Problem>;
 export class Problem{
     @Prop({
         required:true,
+        index:true,
     })
     id:number;
     @Prop({

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProblemDto } from './dto/create-problem.dto';
 import { UpdateProblemDto } from './dto/update-problem.dto';
 import { Problem, ProblemDocument } from './schema/problem';
@@ -25,15 +25,24 @@ export class ProblemService {
     return this.problemModel.find().exec(); // Fetches all problems from the database
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} problem`;
-  }
+  // findOne(id: number) {
+  //   return `This action returns a #${id} problem`;
+  // }
+
+  async findOne(id: number): Promise<Problem[]> {
+    
+    const problem =  this.problemModel.find({id:id},'id title').exec();
+   
+    // if (!problem) throw new NotFoundException(`Problem with ID ${id} not found`);
+    return problem;
+   } 
 
   update(id: number, updateProblemDto: UpdateProblemDto) {
     return `This action updates a #${id} problem`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} problem`;
+  async remove(id: number): Promise<{ deleted: boolean }> {
+    const result = await  this.problemModel.findOneAndDelete({id:id}).exec();
+    return {deleted:true};
   }
 }

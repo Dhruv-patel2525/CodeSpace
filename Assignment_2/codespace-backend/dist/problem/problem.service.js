@@ -28,14 +28,16 @@ let ProblemService = class ProblemService {
     async findAll() {
         return this.problemModel.find().exec();
     }
-    findOne(id) {
-        return `This action returns a #${id} problem`;
+    async findOne(id) {
+        const problem = this.problemModel.find({ id: id }, 'id title').exec();
+        return problem;
     }
     update(id, updateProblemDto) {
         return `This action updates a #${id} problem`;
     }
-    remove(id) {
-        return `This action removes a #${id} problem`;
+    async remove(id) {
+        const result = await this.problemModel.findOneAndDelete({ id: id }).exec();
+        return { deleted: true };
     }
 };
 exports.ProblemService = ProblemService;

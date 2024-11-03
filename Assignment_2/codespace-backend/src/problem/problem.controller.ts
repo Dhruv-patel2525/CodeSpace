@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { ProblemService } from './problem.service';
 import { CreateProblemDto } from './dto/create-problem.dto';
 import { UpdateProblemDto } from './dto/update-problem.dto';
@@ -19,7 +19,7 @@ export class ProblemController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id',ParseIntPipe) id: number) {
     return this.problemService.findOne(+id);
   }
 
@@ -29,7 +29,7 @@ export class ProblemController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.problemService.remove(+id);
+  remove(@Param('id',ParseIntPipe) id: number) {
+    return this.problemService.remove(id);
   }
 }

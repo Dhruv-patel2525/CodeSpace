@@ -17,6 +17,7 @@ exports.Problem = Problem;
 __decorate([
     (0, mongoose_1.Prop)({
         required: true,
+        index: true,
     }),
     __metadata("design:type", Number)
 ], Problem.prototype, "id", void 0);
