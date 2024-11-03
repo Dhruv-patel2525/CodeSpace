@@ -9,15 +9,13 @@ export declare class UsersService {
     private users;
     private resetTokens;
     logoutUser(): void;
-    forgotpassword(): void;
+    forgotPassword(email: string): Promise<any>;
     loginUser(logindto: LoginDto): Promise<{
         message: string;
-        user?: undefined;
-    } | {
-        message: string;
         user: {
-            id: number;
             email: string;
+            name: string;
+            role: string;
         };
     }>;
     registerUser(signupDto: SignupDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
@@ -25,6 +23,6 @@ export declare class UsersService {
     } & {
         __v: number;
     }>;
-    resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
     requestPasswordReset(email: string): Promise<any>;
+    resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
 }

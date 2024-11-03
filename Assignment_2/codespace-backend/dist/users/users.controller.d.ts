@@ -13,16 +13,14 @@ export declare class UsersController {
     }>;
     loginUser(logindto: LoginDto): Promise<{
         message: string;
-        user?: undefined;
-    } | {
-        message: string;
         user: {
-            id: number;
             email: string;
+            name: string;
+            role: string;
         };
     }>;
     logoutUser(): void;
-    forgotpassword(): void;
+    forgotPassword(requestPasswordResetDto: RequestPasswordResetDto): Promise<any>;
     requestPasswordReset(requestPasswordResetDto: RequestPasswordResetDto): Promise<any>;
     resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
 }

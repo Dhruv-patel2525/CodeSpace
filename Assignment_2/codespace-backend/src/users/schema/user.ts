@@ -16,5 +16,8 @@ export class User{
         required:true,
     })
     password:string;
+
+    @Prop()
+  resetToken?: string;  
 }
 export const UserSchema=SchemaFactory.createForClass(User);
