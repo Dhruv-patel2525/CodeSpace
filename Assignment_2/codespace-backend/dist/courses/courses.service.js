@@ -28,28 +28,30 @@ let CoursesService = class CoursesService {
     async findAll() {
         return await this.courseModel.find().exec();
     }
-    findOne(courseId) {
-        const course = this.courses.find(course => course.id === courseId);
+    async findByCourseCode(courseCode) {
+        const course = await this.courseModel.findOne({ courseCode }).exec();
         if (!course) {
-            throw new common_1.NotFoundException(`Course with ID ${courseId} not found`);
+            throw new common_1.NotFoundException(`Course with code "${courseCode}" not found`);
         }
         return course;
     }
     async create(courseData) {
         const course = await this.courseModel.create(courseData);
     }
-    update(courseId, updateCourseDto) {
-        const course = this.findOne(courseId);
-        const updatedCourse = { ...course, ...updateCourseDto };
-        this.courses = this.courses.map(c => (c.id === courseId ? updatedCourse : c));
+    async updateCourse(courseCode, updateCourseDto) {
+        const updatedCourse = await this.courseModel
+            .findOneAndUpdate({ courseCode }, updateCourseDto, { new: true })
+            .exec();
+        if (!updatedCourse) {
+            throw new common_1.NotFoundException(`Course with code "${courseCode}" not found`);
+        }
         return updatedCourse;
     }
-    remove(courseId) {
-        const courseIndex = this.courses.findIndex(course => course.id === courseId);
-        if (courseIndex === -1) {
-            throw new common_1.NotFoundException(`Course with ID ${courseId} not found`);
+    async remove(courseCode) {
+        const deletedCourse = await this.courseModel.findOneAndDelete({ courseCode }).exec();
+        if (!deletedCourse) {
+            throw new common_1.NotFoundException(`Course with code "${courseCode}" not found`);
         }
-        this.courses.splice(courseIndex, 1);
     }
 };
 exports.CoursesService = CoursesService;

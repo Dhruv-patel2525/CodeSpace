@@ -17,6 +17,8 @@ lastUpdated:Date;
     required:true,
 })
 duration:String;
+@Prop({ required: true, unique: true })  
+  courseCode: string;
 
 }
 export const CourseSchema =SchemaFactory.createForClass(Course);

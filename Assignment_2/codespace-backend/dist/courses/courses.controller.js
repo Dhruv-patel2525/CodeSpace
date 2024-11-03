@@ -24,17 +24,18 @@ let CoursesController = class CoursesController {
     getAllCourses() {
         return this.courseService.findAll();
     }
-    findOne(courseId) {
-        return this.courseService.findOne(+courseId);
+    findOne(courseCode) {
+        return this.courseService.findByCourseCode(courseCode);
     }
     create(createCourseDto) {
         return this.courseService.create(createCourseDto);
     }
-    update(courseId, updateCourseDto) {
-        return this.courseService.update(+courseId, updateCourseDto);
+    async updateCourse(courseCode, updateCourseDto) {
+        return this.courseService.updateCourse(courseCode, updateCourseDto);
     }
-    remove(courseId) {
-        return this.courseService.remove(+courseId);
+    async deleteCourse(courseCode) {
+        await this.courseService.remove(courseCode);
+        return { message: `Course with code "${courseCode}" has been deleted` };
     }
 };
 exports.CoursesController = CoursesController;
@@ -45,8 +46,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CoursesController.prototype, "getAllCourses", null);
 __decorate([
-    (0, common_1.Get)(':courseId'),
-    __param(0, (0, common_1.Param)('courseId')),
+    (0, common_1.Get)(':courseCode'),
+    __param(0, (0, common_1.Param)('courseCode')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
@@ -59,20 +60,20 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CoursesController.prototype, "create", null);
 __decorate([
-    (0, common_1.Put)(':courseId'),
-    __param(0, (0, common_1.Param)('courseId')),
+    (0, common_1.Put)(':courseCode'),
+    __param(0, (0, common_1.Param)('courseCode')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, updateCourse_dto_1.UpdateCourseDto]),
-    __metadata("design:returntype", void 0)
-], CoursesController.prototype, "update", null);
+    __metadata("design:returntype", Promise)
+], CoursesController.prototype, "updateCourse", null);
 __decorate([
-    (0, common_1.Delete)(':courseId'),
-    __param(0, (0, common_1.Param)('courseId')),
+    (0, common_1.Delete)(':courseCode'),
+    __param(0, (0, common_1.Param)('courseCode')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], CoursesController.prototype, "remove", null);
+    __metadata("design:returntype", Promise)
+], CoursesController.prototype, "deleteCourse", null);
 exports.CoursesController = CoursesController = __decorate([
     (0, common_1.Controller)('courses'),
     __metadata("design:paramtypes", [courses_service_1.CoursesService])

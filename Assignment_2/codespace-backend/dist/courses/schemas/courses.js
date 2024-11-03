@@ -32,6 +32,10 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], Course.prototype, "duration", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, unique: true }),
+    __metadata("design:type", String)
+], Course.prototype, "courseCode", void 0);
 exports.Course = Course = __decorate([
     (0, mongoose_1.Schema)()
 ], Course);

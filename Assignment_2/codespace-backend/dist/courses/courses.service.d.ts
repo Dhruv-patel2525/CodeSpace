@@ -7,18 +7,8 @@ export declare class CoursesService {
     constructor(courseModel: Model<Course>);
     private courses;
     findAll(): Promise<Course[]>;
-    findOne(courseId: number): {
-        id: number;
-        title: string;
-        description: string;
-        instructor: string;
-    };
+    findByCourseCode(courseCode: string): Promise<Course>;
     create(courseData: CreateCourseDto): Promise<void>;
-    update(courseId: number, updateCourseDto: UpdateCourseDto): {
-        title: string;
-        description: string;
-        instructor: string;
-        id: number;
-    };
-    remove(courseId: number): void;
+    updateCourse(courseCode: string, updateCourseDto: UpdateCourseDto): Promise<Course>;
+    remove(courseCode: string): Promise<void>;
 }

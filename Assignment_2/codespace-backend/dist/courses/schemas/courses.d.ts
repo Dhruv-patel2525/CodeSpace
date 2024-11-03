@@ -4,6 +4,7 @@ export declare class Course {
     title: string;
     lastUpdated: Date;
     duration: String;
+    courseCode: string;
 }
 export declare const CourseSchema: import("mongoose").Schema<Course, import("mongoose").Model<Course, any, any, any, import("mongoose").Document<unknown, any, Course> & Course & {
     _id: import("mongoose").Types.ObjectId;
