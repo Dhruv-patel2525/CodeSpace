@@ -29,18 +29,15 @@ export class UsersController {
     }
 
     @Post('forgotPassword')
-    forgotpassword()
-    {
-        return this.userService.forgotpassword();
+    async forgotPassword(@Body() requestPasswordResetDto: RequestPasswordResetDto) {
+      return this.userService.forgotPassword(requestPasswordResetDto.email);
     }
-
-     // Endpoint for requesting password reset
+    
   @Post('requestPasswordReset')
   async requestPasswordReset(@Body() requestPasswordResetDto: RequestPasswordResetDto) {
     return this.userService.requestPasswordReset(requestPasswordResetDto.email);
   }
 
-  // Endpoint for resetting the password
   @Post('resetPassword')
   async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
     return this.userService.resetPassword(resetPasswordDto);

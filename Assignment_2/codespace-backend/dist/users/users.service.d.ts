@@ -5,17 +5,16 @@ export declare class UsersService {
     private users;
     private resetTokens;
     logoutUser(): void;
-    forgotpassword(): void;
+    forgotPassword(email: string): Promise<any>;
     loginUser(logindto: LoginDto): Promise<{
         message: string;
-        user?: undefined;
-    } | {
-        message: string;
         user: {
-            id: number;
             email: string;
+            name: string;
+            role: string;
         };
     }>;
+<<<<<<< HEAD
     registerUser(signupDto: SignupDto): {
         id: number;
         name: string;
@@ -23,5 +22,13 @@ export declare class UsersService {
         role: string;
     };
     resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
+=======
+    registerUser(signupDto: SignupDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+>>>>>>> origin/Develop-vishwa-nest
     requestPasswordReset(email: string): Promise<any>;
+    resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
 }

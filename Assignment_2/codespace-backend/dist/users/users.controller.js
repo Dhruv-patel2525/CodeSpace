@@ -32,8 +32,8 @@ let UsersController = class UsersController {
     logoutUser() {
         return this.userService.logoutUser();
     }
-    forgotpassword() {
-        return this.userService.forgotpassword();
+    async forgotPassword(requestPasswordResetDto) {
+        return this.userService.forgotPassword(requestPasswordResetDto.email);
     }
     async requestPasswordReset(requestPasswordResetDto) {
         return this.userService.requestPasswordReset(requestPasswordResetDto.email);
@@ -64,10 +64,11 @@ __decorate([
 ], UsersController.prototype, "logoutUser", null);
 __decorate([
     (0, common_1.Post)('forgotPassword'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], UsersController.prototype, "forgotpassword", null);
+    __metadata("design:paramtypes", [resetpassword_dto_1.RequestPasswordResetDto]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "forgotPassword", null);
 __decorate([
     (0, common_1.Post)('requestPasswordReset'),
     __param(0, (0, common_1.Body)()),
