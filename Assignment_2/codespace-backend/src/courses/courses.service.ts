@@ -17,24 +17,12 @@ export class CoursesService {
         { id: 1, title: 'Python Programming', description: 'Learn the basics of Python', instructor: 'John Doe' },
         { id: 2, title: 'JavaScript Fundamentals', description: 'Deep dive into advanced JavaScript features', instructor: 'Paul' },
       ];
-    
-      // findAll() {
-      //   return this.courses;
-      // }
+  
 
       async findAll(): Promise<Course[]> {
         return await this.courseModel.find().exec();
       }
 
-      // findOne(courseId: number) {
-      //   const course = this.courses.find(course => course.id === courseId);
-    
-      //   if (!course) {
-      //     throw new NotFoundException(`Course with ID ${courseId} not found`);
-      //   }
-        
-      //   return course;
-      // }
 
       async findByCourseCode(courseCode: string): Promise<Course> {
         const course = await this.courseModel.findOne({ courseCode }).exec();
@@ -47,22 +35,10 @@ export class CoursesService {
       }
 
       async create(courseData: CreateCourseDto) {
-        // const newCourse = {
-        //   id: this.courses.length + 1,  
-        //   ...courseData,
-        // };
-        // this.courses.push(newCourse);
+      
         const course=await this.courseModel.create(courseData);
       }
 
-      // update(courseId: number, updateCourseDto: UpdateCourseDto) {
-      //   const course = this.findOne(courseId);  
-    
-      //   const updatedCourse = { ...course, ...updateCourseDto };
-      //   this.courses = this.courses.map(c => (c.id === courseId ? updatedCourse : c));
-    
-      //   return updatedCourse;
-      // }
 
       async updateCourse(courseCode: string, updateCourseDto: UpdateCourseDto): Promise<Course> {
         const updatedCourse = await this.courseModel
