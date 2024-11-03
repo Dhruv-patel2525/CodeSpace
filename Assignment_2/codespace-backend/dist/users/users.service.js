@@ -33,18 +33,19 @@ let UsersService = class UsersService {
     }
     async loginUser(logindto) {
         const { email, password } = logindto;
-        const user = this.users.find(user => user.email === email);
+        const user = await this.userModel.findOne({ email }).exec();
         if (!user) {
-            return { message: 'User not found' };
+            throw new common_1.NotFoundException('User not found');
         }
         if (user.password !== password) {
-            return { message: 'Invalid credentials' };
+            throw new common_1.UnauthorizedException('Invalid credentials');
         }
         return {
             message: 'Login successful',
             user: {
-                id: user.id,
                 email: user.email,
+                name: user.name,
+                role: user.role,
             },
         };
     }

@@ -13,12 +13,10 @@ export declare class UsersController {
     }>;
     loginUser(logindto: LoginDto): Promise<{
         message: string;
-        user?: undefined;
-    } | {
-        message: string;
         user: {
-            id: number;
             email: string;
+            name: string;
+            role: string;
         };
     }>;
     logoutUser(): void;

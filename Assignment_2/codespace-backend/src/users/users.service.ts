@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { LoginDto } from 'src/users/dto/login.dto';
 import { ResetPasswordDto } from 'src/users/dto/resetpwd.dto';
@@ -28,55 +28,29 @@ export class UsersService {
     }
 
     async loginUser(logindto: LoginDto) {
-       const {email,password} = logindto;
-
-       const user = this.users.find(user => user.email === email);
-
-       if (!user) {
-        return { message: 'User not found' };
+      const { email, password } = logindto;
+  
+      const user = await this.userModel.findOne({ email }).exec();
+      if (!user) {
+        throw new NotFoundException('User not found');
       }
   
       if (user.password !== password) {
-        return { message: 'Invalid credentials' };
+        throw new UnauthorizedException('Invalid credentials');
       }
-  
 
       return {
         message: 'Login successful',
         user: {
-          id: user.id,
           email: user.email,
+          name: user.name,
+          role: user.role,
         },
       };
-
     }
+  
+
     async registerUser(signupDto : SignupDto) {
-    //     const { name, email, role, password, confirmPassword } = signupDto;
-
-
-    // if (password !== confirmPassword) {
-    //   throw new BadRequestException('Passwords do not match');
-    // }
-
-
-    // const existingUser = this.users.find(user => user.email === email);
-    // if (existingUser) {
-    //   throw new BadRequestException('Email already registered');
-    // }
-
-    // const newUser = {
-    //   id: this.users.length + 1,
-    //   name,
-    //   email,
-    //   role,
-    //   password, 
-    // };
-
-    // this.users.push(newUser);
-
-
-    // const { password: _, ...result } = newUser;
-    // return result;
     const signupObj={email:signupDto.email,name:signupDto.name,role:signupDto.role,password:signupDto.password};
     const user = await this.userModel.create(signupObj);
     return user; 

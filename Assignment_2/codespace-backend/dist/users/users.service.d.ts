@@ -12,12 +12,10 @@ export declare class UsersService {
     forgotpassword(): void;
     loginUser(logindto: LoginDto): Promise<{
         message: string;
-        user?: undefined;
-    } | {
-        message: string;
         user: {
-            id: number;
             email: string;
+            name: string;
+            role: string;
         };
     }>;
     registerUser(signupDto: SignupDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
