@@ -1,5 +1,6 @@
 export declare class CreateCourseDto {
     title: string;
-    description: string;
-    instructor: string;
+    lastUpdated: string;
+    duration: string;
+    courseCode: string;
 }

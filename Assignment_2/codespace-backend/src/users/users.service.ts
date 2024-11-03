@@ -1,10 +1,15 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { LoginDto } from 'src/users/dto/login.dto';
 import { ResetPasswordDto } from 'src/users/dto/resetpwd.dto';
 import { SignupDto } from 'src/users/dto/signup.dto';
+import { User } from './schema/user';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class UsersService {
+
+  constructor(@InjectModel(User.name) private readonly userModel:Model<User>){}
 
     private users = [
         { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Learner', password: 'password123' },
@@ -45,33 +50,36 @@ export class UsersService {
       };
 
     }
-    registerUser(signupDto : SignupDto) {
-        const { name, email, role, password, confirmPassword } = signupDto;
+    async registerUser(signupDto : SignupDto) {
+    //     const { name, email, role, password, confirmPassword } = signupDto;
 
 
-    if (password !== confirmPassword) {
-      throw new BadRequestException('Passwords do not match');
-    }
+    // if (password !== confirmPassword) {
+    //   throw new BadRequestException('Passwords do not match');
+    // }
 
 
-    const existingUser = this.users.find(user => user.email === email);
-    if (existingUser) {
-      throw new BadRequestException('Email already registered');
-    }
+    // const existingUser = this.users.find(user => user.email === email);
+    // if (existingUser) {
+    //   throw new BadRequestException('Email already registered');
+    // }
 
-    const newUser = {
-      id: this.users.length + 1,
-      name,
-      email,
-      role,
-      password, 
-    };
+    // const newUser = {
+    //   id: this.users.length + 1,
+    //   name,
+    //   email,
+    //   role,
+    //   password, 
+    // };
 
-    this.users.push(newUser);
+    // this.users.push(newUser);
 
 
-    const { password: _, ...result } = newUser;
-    return result;
+    // const { password: _, ...result } = newUser;
+    // return result;
+    const signupObj={email:signupDto.email,name:signupDto.name,role:signupDto.role,password:signupDto.password};
+    const user = await this.userModel.create(signupObj);
+    return user; 
   }
 
   async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any> {

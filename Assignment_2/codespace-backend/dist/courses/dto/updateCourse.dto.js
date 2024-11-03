@@ -29,4 +29,9 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpdateCourseDto.prototype, "instructor", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateCourseDto.prototype, "courseCode", void 0);
 //# sourceMappingURL=updateCourse.dto.js.map

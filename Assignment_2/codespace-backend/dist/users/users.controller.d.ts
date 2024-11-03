@@ -6,12 +6,11 @@ import { RequestPasswordResetDto } from 'src/users/dto/resetpassword.dto';
 export declare class UsersController {
     private readonly userService;
     constructor(userService: UsersService);
-    registerUser(signup: SignupDto): {
-        id: number;
-        name: string;
-        email: string;
-        role: string;
-    };
+    registerUser(signup: SignupDto): Promise<import("mongoose").Document<unknown, {}, import("./schema/user").User> & import("./schema/user").User & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
     loginUser(logindto: LoginDto): Promise<{
         message: string;
         user?: undefined;

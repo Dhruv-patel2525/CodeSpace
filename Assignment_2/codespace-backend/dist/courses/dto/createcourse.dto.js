@@ -21,12 +21,17 @@ __decorate([
 ], CreateCourseDto.prototype, "title", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsDateString)(),
     __metadata("design:type", String)
-], CreateCourseDto.prototype, "description", void 0);
+], CreateCourseDto.prototype, "lastUpdated", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateCourseDto.prototype, "instructor", void 0);
+], CreateCourseDto.prototype, "duration", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateCourseDto.prototype, "courseCode", void 0);
 //# sourceMappingURL=createcourse.dto.js.map
