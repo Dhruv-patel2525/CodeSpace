@@ -22,10 +22,11 @@ let ProblemService = class ProblemService {
         this.problemModel = problemModel;
     }
     async create(createProblemDto) {
+        console.log("testing");
         const problem = await this.problemModel.create(createProblemDto);
     }
-    findAll() {
-        return `This action returns all problem`;
+    async findAll() {
+        return this.problemModel.find().exec();
     }
     findOne(id) {
         return `This action returns a #${id} problem`;

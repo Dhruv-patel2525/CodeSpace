@@ -25,8 +25,8 @@ let CoursesService = class CoursesService {
             { id: 2, title: 'JavaScript Fundamentals', description: 'Deep dive into advanced JavaScript features', instructor: 'Paul' },
         ];
     }
-    findAll() {
-        return this.courses;
+    async findAll() {
+        return await this.courseModel.find().exec();
     }
     findOne(courseId) {
         const course = this.courses.find(course => course.id === courseId);
@@ -37,7 +37,6 @@ let CoursesService = class CoursesService {
     }
     async create(courseData) {
         const course = await this.courseModel.create(courseData);
-        return course;
     }
     update(courseId, updateCourseDto) {
         const course = this.findOne(courseId);

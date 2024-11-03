@@ -18,8 +18,12 @@ export class CoursesService {
         { id: 2, title: 'JavaScript Fundamentals', description: 'Deep dive into advanced JavaScript features', instructor: 'Paul' },
       ];
     
-      findAll() {
-        return this.courses;
+      // findAll() {
+      //   return this.courses;
+      // }
+
+      async findAll(): Promise<Course[]> {
+        return await this.courseModel.find().exec();
       }
 
       findOne(courseId: number) {
@@ -39,7 +43,6 @@ export class CoursesService {
         // };
         // this.courses.push(newCourse);
         const course=await this.courseModel.create(courseData);
-        return course;
       }
 
       update(courseId: number, updateCourseDto: UpdateCourseDto) {

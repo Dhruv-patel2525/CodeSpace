@@ -4,23 +4,14 @@ import { UpdateCourseDto } from './dto/updateCourse.dto';
 export declare class CoursesController {
     private readonly courseService;
     constructor(courseService: CoursesService);
-    getAllCourses(): {
-        id: number;
-        title: string;
-        description: string;
-        instructor: string;
-    }[];
+    getAllCourses(): Promise<import("./schemas/courses").Course[]>;
     findOne(courseId: string): {
         id: number;
         title: string;
         description: string;
         instructor: string;
     };
-    create(createCourseDto: CreateCourseDto): Promise<import("mongoose").Document<unknown, {}, import("./schemas/courses").Course> & import("./schemas/courses").Course & {
-        _id: import("mongoose").Types.ObjectId;
-    } & {
-        __v: number;
-    }>;
+    create(createCourseDto: CreateCourseDto): Promise<void>;
     update(courseId: string, updateCourseDto: UpdateCourseDto): {
         title: string;
         description: string;

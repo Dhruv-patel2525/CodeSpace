@@ -5,7 +5,7 @@ export declare class ProblemController {
     private readonly problemService;
     constructor(problemService: ProblemService);
     create(createProblemDto: CreateProblemDto): Promise<void>;
-    findAll(): string;
+    findAll(): Promise<import("./schema/problem").Problem[]>;
     findOne(id: string): string;
     update(id: string, updateProblemDto: UpdateProblemDto): string;
     remove(id: string): string;
