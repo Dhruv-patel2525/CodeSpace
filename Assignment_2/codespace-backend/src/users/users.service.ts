@@ -17,14 +17,14 @@ export class UsersService {
       private resetTokens = new Map<string, string>(); 
       
     logoutUser() {
-        throw new Error('Method not implemented.');
+        throw new Error('Method not implemented.'); // Implement when authentication and session are being done
     }
 
     
 
     
     forgotpassword() {
-        throw new Error('Method not implemented.');
+        throw new Error('Method not implemented.'); // Implement when authentication and session are being done
     }
 
     async loginUser(logindto: LoginDto) {
@@ -56,36 +56,34 @@ export class UsersService {
     return user; 
   }
 
-  async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any> {
-    const { resetToken, newPassword } = resetPasswordDto;
-
-    const email = this.resetTokens.get(resetToken);
-    if (!email) {
-      throw new Error('Invalid or expired reset token');
-    }
-
-    const user = this.users.find(user => user.email === email);
-    if (!user) {
-      throw new Error('User not found');
-    }
-
-    user.password = newPassword;
-
-    this.resetTokens.delete(resetToken);
-
-    return { message: 'Password has been successfully reset' };
-  }
-
   async requestPasswordReset(email: string): Promise<any> {
-    const user = this.users.find((user) => user.email === email);
+    
+    const user = await this.userModel.findOne({ email }).exec();
     if (!user) {
-      throw new Error('User with this email does not exist');
+      throw new NotFoundException('User with this email does not exist');
     }
 
     const resetToken = `reset-${Math.random().toString(36).substr(2)}`;
-    
-    this.resetTokens.set(resetToken, email);
+
+    user.resetToken = resetToken;
+    await user.save();
+
     return { message: 'Password reset link generated', resetToken };
+  }
+
+  async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any> {
+    const { resetToken, newPassword } = resetPasswordDto;
+
+    const user = await this.userModel.findOne({ resetToken }).exec();
+    if (!user) {
+      throw new BadRequestException('Invalid or expired reset token');
+    }
+
+    user.password = newPassword;
+    user.resetToken = null;  
+    await user.save();
+
+    return { message: 'Password has been successfully reset' };
   }
 
 

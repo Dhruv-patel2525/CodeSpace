@@ -23,6 +23,6 @@ export declare class UsersService {
     } & {
         __v: number;
     }>;
-    resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
     requestPasswordReset(email: string): Promise<any>;
+    resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
 }

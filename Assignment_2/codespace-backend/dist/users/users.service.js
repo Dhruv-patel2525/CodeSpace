@@ -54,28 +54,26 @@ let UsersService = class UsersService {
         const user = await this.userModel.create(signupObj);
         return user;
     }
-    async resetPassword(resetPasswordDto) {
-        const { resetToken, newPassword } = resetPasswordDto;
-        const email = this.resetTokens.get(resetToken);
-        if (!email) {
-            throw new Error('Invalid or expired reset token');
-        }
-        const user = this.users.find(user => user.email === email);
-        if (!user) {
-            throw new Error('User not found');
-        }
-        user.password = newPassword;
-        this.resetTokens.delete(resetToken);
-        return { message: 'Password has been successfully reset' };
-    }
     async requestPasswordReset(email) {
-        const user = this.users.find((user) => user.email === email);
+        const user = await this.userModel.findOne({ email }).exec();
         if (!user) {
-            throw new Error('User with this email does not exist');
+            throw new common_1.NotFoundException('User with this email does not exist');
         }
         const resetToken = `reset-${Math.random().toString(36).substr(2)}`;
-        this.resetTokens.set(resetToken, email);
+        user.resetToken = resetToken;
+        await user.save();
         return { message: 'Password reset link generated', resetToken };
+    }
+    async resetPassword(resetPasswordDto) {
+        const { resetToken, newPassword } = resetPasswordDto;
+        const user = await this.userModel.findOne({ resetToken }).exec();
+        if (!user) {
+            throw new common_1.BadRequestException('Invalid or expired reset token');
+        }
+        user.password = newPassword;
+        user.resetToken = null;
+        await user.save();
+        return { message: 'Password has been successfully reset' };
     }
 };
 exports.UsersService = UsersService;
