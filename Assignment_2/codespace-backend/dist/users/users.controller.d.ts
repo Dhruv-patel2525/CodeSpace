@@ -3,6 +3,7 @@ import { UsersService } from './users.service';
 import { SignupDto } from 'src/users/dto/signup.dto';
 import { ResetPasswordDto } from 'src/users/dto/resetpwd.dto';
 import { RequestPasswordResetDto } from 'src/users/dto/resetpassword.dto';
+import { UpdateUserProfileDto } from './dto/updateUserProfile.dto';
 export declare class UsersController {
     private readonly userService;
     constructor(userService: UsersService);
@@ -24,4 +25,6 @@ export declare class UsersController {
     forgotPassword(requestPasswordResetDto: RequestPasswordResetDto): Promise<any>;
     requestPasswordReset(requestPasswordResetDto: RequestPasswordResetDto): Promise<any>;
     resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
+    getUserProfile(userId: string): Promise<import("./schema/user").User>;
+    updateUserProfile(userId: string, updateUserProfileDto: UpdateUserProfileDto): Promise<import("./schema/user").User>;
 }

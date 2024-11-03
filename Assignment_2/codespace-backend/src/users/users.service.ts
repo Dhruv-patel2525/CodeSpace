@@ -7,6 +7,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { LoginDto } from 'src/users/dto/login.dto';
 import { ResetPasswordDto } from 'src/users/dto/resetpwd.dto';
 import { SignupDto } from 'src/users/dto/signup.dto';
+<<<<<<< HEAD
+=======
+import { User } from './schema/user';
+import { Model } from 'mongoose';
+import { UpdateUserProfileDto } from './dto/updateUserProfile.dto';
+>>>>>>> origin/Develop-vishwa-nest
 
 @Injectable()
 export class UsersService {
@@ -123,6 +129,22 @@ export class UsersService {
     return { message: 'Password has been successfully reset' };
   }
 
+  async getUserProfile(userId: string): Promise<User> {
+    const user = await this.userModel.findById(userId).exec();
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    return user;
+  }
+
+  
+  async updateUserProfile(userId: string, updateUserProfileDto: UpdateUserProfileDto): Promise<User> {
+    const updatedUser = await this.userModel.findByIdAndUpdate(userId, updateUserProfileDto, { new: true }).exec();
+    if (!updatedUser) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    return updatedUser;
+  }
 
 
 }

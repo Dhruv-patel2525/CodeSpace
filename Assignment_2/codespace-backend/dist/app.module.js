@@ -12,12 +12,22 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const users_module_1 = require("./users/users.module");
 const courses_module_1 = require("./courses/courses.module");
+<<<<<<< HEAD
+=======
+const problem_module_1 = require("./problem/problem.module");
+const mongoose_1 = require("@nestjs/mongoose");
+const submissions_module_1 = require("./submissions/submissions.module");
+>>>>>>> origin/Develop-vishwa-nest
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
+<<<<<<< HEAD
         imports: [users_module_1.UsersModule, courses_module_1.CoursesModule],
+=======
+        imports: [users_module_1.UsersModule, courses_module_1.CoursesModule, problem_module_1.ProblemModule, mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/codespace-data'), submissions_module_1.SubmissionsModule],
+>>>>>>> origin/Develop-vishwa-nest
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
