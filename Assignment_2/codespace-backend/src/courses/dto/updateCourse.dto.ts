@@ -1,19 +1,15 @@
 import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateCourseDto {
-  @IsOptional()  
-  @IsString()    
+  @IsOptional()  // This field is optional during the update
+  @IsString()    // This ensures the value is a string if provided
   title?: string;
 
-  @IsOptional()  
-  @IsString()    
+  @IsOptional()  // Optional field
+  @IsString()    // String validation
   description?: string;
 
-  @IsOptional() 
-  @IsString()    
+  @IsOptional()  // Optional field
+  @IsString()    // String validation
   instructor?: string;
-  
-  @IsOptional()
-  @IsString()
-  courseCode?: string;
 }
