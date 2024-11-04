@@ -22,20 +22,72 @@ let ProblemService = class ProblemService {
         this.problemModel = problemModel;
     }
     async create(createProblemDto) {
-        console.log("testing");
-        const problem = await this.problemModel.create(createProblemDto);
+        try {
+            const problem = await this.problemModel.create(createProblemDto);
+            return problem;
+        }
+        catch (error) {
+            console.error('Error creating problem:', error.message);
+            if (error.name === 'ValidationError') {
+                throw new common_1.BadRequestException('Invalid data provided for creating problem');
+            }
+            throw new common_1.InternalServerErrorException('Failed to create problem. Please try again later.');
+        }
     }
     async findAll() {
-        return this.problemModel.find().exec();
+        try {
+            return await this.problemModel.find().exec();
+        }
+        catch (error) {
+            console.error('Error fetching courses:', error.message);
+            throw new common_1.InternalServerErrorException('Failed to fetch courses. Please try again later.');
+        }
     }
-    findOne(id) {
-        return `This action returns a #${id} problem`;
+    async findOne(id) {
+        try {
+            const problem = await this.problemModel.findOne({ id }).exec();
+            if (!problem) {
+                throw new common_1.NotFoundException(`Problem with ID ${id} not found`);
+            }
+            return problem;
+        }
+        catch (error) {
+            console.error(`Error fetching problem with ID ${id}:`, error.message);
+            if (error instanceof common_1.NotFoundException)
+                throw error;
+            throw new common_1.InternalServerErrorException('Failed to fetch problem. Please try again later.');
+        }
     }
-    update(id, updateProblemDto) {
-        return `This action updates a #${id} problem`;
+    async update(id, updateProblemDto) {
+        try {
+            const updatedProblem = await this.problemModel
+                .findOneAndUpdate({ id }, updateProblemDto, { new: true })
+                .exec();
+            if (!updatedProblem) {
+                throw new common_1.NotFoundException(`Problem with code "${id}" not found`);
+            }
+            return updatedProblem;
+        }
+        catch (error) {
+            console.error(`Error updating problem with ID ${id}:`, error.message);
+            if (error instanceof common_1.NotFoundException)
+                throw error;
+            throw new common_1.InternalServerErrorException('Failed to update problem. Please try again later.');
+        }
     }
-    remove(id) {
-        return `This action removes a #${id} problem`;
+    async remove(id) {
+        try {
+            const result = await this.problemModel.findOneAndDelete({ id: id }).exec();
+            if (!result) {
+                throw new common_1.NotFoundException(`Problem with id - "${id}" not found`);
+            }
+        }
+        catch (error) {
+            console.error(`Error deleting problem with ID ${id}:`, error.message);
+            if (error instanceof common_1.NotFoundException)
+                throw error;
+            throw new common_1.InternalServerErrorException('Failed to delete problem. Please try again later.');
+        }
     }
 };
 exports.ProblemService = ProblemService;

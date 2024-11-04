@@ -6,8 +6,8 @@ import { Model } from 'mongoose';
 import { UpdateUserProfileDto } from './dto/updateUserProfile.dto';
 export declare class UsersService {
     private readonly userModel;
-    constructor(userModel: Model<User>);
     private users;
+    constructor(userModel: Model<User>);
     private resetTokens;
     logoutUser(): void;
     forgotPassword(email: string): Promise<any>;

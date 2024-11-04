@@ -9,7 +9,6 @@ export class ProblemController {
 
   @Post()
   create(@Body() createProblemDto: CreateProblemDto) {
-    //console.log(createProblemDto.description);
     return this.problemService.create(createProblemDto);
   }
 
