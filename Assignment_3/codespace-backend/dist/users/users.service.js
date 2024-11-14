@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_1 = require("./schema/user");
 const mongoose_2 = require("mongoose");
+const bcrypt_1 = require("bcrypt");
 let UsersService = class UsersService {
     constructor(userModel) {
         this.userModel = userModel;
@@ -56,8 +57,17 @@ let UsersService = class UsersService {
             },
         };
     }
+    async hashPassword(password) {
+        const saltOrRounds = 10;
+        const pass = (0, bcrypt_1.hash)(password, saltOrRounds);
+        return pass;
+    }
     async registerUser(signupDto) {
-        const signupObj = { email: signupDto.email, name: signupDto.name, role: signupDto.role, password: signupDto.password };
+        const hashedPassword = await this.hashPassword(signupDto.password);
+        const signupObj = { email: signupDto.email,
+            name: signupDto.name,
+            role: signupDto.role,
+            password: hashedPassword };
         const user = await this.userModel.create(signupObj);
         return user;
     }
@@ -82,10 +92,10 @@ let UsersService = class UsersService {
         await user.save();
         return { message: 'Password has been successfully reset' };
     }
-    async getUserProfile(userId) {
-        const user = await this.userModel.findById(userId).exec();
+    async getUserProfile(email) {
+        const user = await this.userModel.findOne({ email }).exec();
         if (!user) {
-            throw new common_1.NotFoundException(`User with ID ${userId} not found`);
+            throw new common_1.UnauthorizedException(`Email  ${email} not found`);
         }
         return user;
     }

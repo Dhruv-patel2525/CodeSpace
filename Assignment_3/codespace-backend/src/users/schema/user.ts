@@ -4,18 +4,24 @@ import { HydratedDocument } from "mongoose";
 export type UserDocument = HydratedDocument<User>;
 @Schema()
 export class User{
+    @Prop()
+    userId:number;
+    @Prop()
+    name:string;
     @Prop({
         required:true,
     })
     email:string;
-    @Prop()
-    name:string;
+    
+    
     @Prop()
     role:string;
     @Prop({
         required:true,
     })
     password:string;
+    @Prop()
+    confirmPassword:string;
 
     @Prop()
   resetToken?: string;  

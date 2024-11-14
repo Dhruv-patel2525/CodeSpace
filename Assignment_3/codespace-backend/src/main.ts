@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';  // Import ValidationPipe
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { log } from 'console';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +13,9 @@ async function bootstrap() {
     transform: true, // Automatically transforms payloads into DTO types
   }));
 
-  await app.listen(3000);
+  
+  await app.listen(3002);
+  console.log(process.env.dbname);
+
 }
 bootstrap();

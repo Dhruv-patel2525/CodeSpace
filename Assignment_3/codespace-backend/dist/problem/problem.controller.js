@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const problem_service_1 = require("./problem.service");
 const create_problem_dto_1 = require("./dto/create-problem.dto");
 const update_problem_dto_1 = require("./dto/update-problem.dto");
+const auth_guards_1 = require("../auth/guards/auth.guards");
 let ProblemController = class ProblemController {
     constructor(problemService) {
         this.problemService = problemService;
@@ -52,6 +53,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProblemController.prototype, "findAll", null);
 __decorate([
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),

@@ -6,8 +6,8 @@ import { Model } from 'mongoose';
 import { UpdateUserProfileDto } from './dto/updateUserProfile.dto';
 export declare class UsersService {
     private readonly userModel;
-    private users;
     constructor(userModel: Model<User>);
+    private users;
     private resetTokens;
     logoutUser(): void;
     forgotPassword(email: string): Promise<any>;
@@ -19,6 +19,7 @@ export declare class UsersService {
             role: string;
         };
     }>;
+    hashPassword(password: string): Promise<string>;
     registerUser(signupDto: SignupDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     } & {
@@ -26,6 +27,6 @@ export declare class UsersService {
     }>;
     requestPasswordReset(email: string): Promise<any>;
     resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
-    getUserProfile(userId: string): Promise<User>;
+    getUserProfile(email: string): Promise<User>;
     updateUserProfile(userId: string, updateUserProfileDto: UpdateUserProfileDto): Promise<User>;
 }

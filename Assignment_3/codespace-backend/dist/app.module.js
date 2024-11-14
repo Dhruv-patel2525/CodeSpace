@@ -14,12 +14,20 @@ const users_module_1 = require("./users/users.module");
 const courses_module_1 = require("./courses/courses.module");
 const problem_module_1 = require("./problem/problem.module");
 const mongoose_1 = require("@nestjs/mongoose");
+const auth_module_1 = require("./auth/strategies/auth.module");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [users_module_1.UsersModule, courses_module_1.CoursesModule, problem_module_1.ProblemModule, mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/codespace-data')],
+        imports: [config_1.ConfigModule.forRoot({ isGlobal: true }),
+            users_module_1.UsersModule,
+            courses_module_1.CoursesModule,
+            problem_module_1.ProblemModule,
+            auth_module_1.AuthModule,
+            mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/codespace-data'),
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
