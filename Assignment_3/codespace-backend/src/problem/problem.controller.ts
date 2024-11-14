@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ProblemService } from './problem.service';
 import { CreateProblemDto } from './dto/create-problem.dto';
 import { UpdateProblemDto } from './dto/update-problem.dto';
+import { AuthGuard } from 'src/auth/guards/auth.guards';
 
 @Controller('problem')
 export class ProblemController {
@@ -16,7 +17,7 @@ export class ProblemController {
   findAll() {
     return this.problemService.findAll();
   }
-
+  @UseGuards(AuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.problemService.findOne(+id);

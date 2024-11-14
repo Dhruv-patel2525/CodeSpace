@@ -6,12 +6,13 @@ import { SignupDto } from 'src/users/dto/signup.dto';
 import { User } from './schema/user';
 import { Model } from 'mongoose';
 import { UpdateUserProfileDto } from './dto/updateUserProfile.dto';
+import { hash } from 'bcrypt';
 
 @Injectable()
 export class UsersService {
-
    
       constructor(@InjectModel(User.name) private readonly userModel:Model<User>){}
+
       private users = [
         { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Learner', password: 'password123' },
       ];
@@ -56,10 +57,18 @@ export class UsersService {
         },
       };
     }
-  
-
-    async registerUser(signupDto : SignupDto) {
-    const signupObj={email:signupDto.email,name:signupDto.name,role:signupDto.role,password:signupDto.password};
+  async hashPassword(password: string): Promise<string>
+  {
+    const saltOrRounds=10;
+    const pass = hash(password,saltOrRounds);
+    return pass;
+  }
+  async registerUser(signupDto : SignupDto) {
+    const hashedPassword = await this.hashPassword(signupDto.password);
+    const signupObj={email:signupDto.email,
+                      name:signupDto.name,
+                      role:signupDto.role,
+                      password:hashedPassword};
     const user = await this.userModel.create(signupObj);
     return user; 
   }
@@ -94,10 +103,10 @@ export class UsersService {
     return { message: 'Password has been successfully reset' };
   }
 
-  async getUserProfile(userId: string): Promise<User> {
-    const user = await this.userModel.findById(userId).exec();
+  async getUserProfile(email: string): Promise<User> {
+    const user = await this.userModel.findOne({email}).exec();
     if (!user) {
-      throw new NotFoundException(`User with ID ${userId} not found`);
+      throw new UnauthorizedException(`Email  ${email} not found`);
     }
     return user;
   }
