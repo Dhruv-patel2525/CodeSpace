@@ -62,7 +62,7 @@ let UsersService = class UsersService {
         const pass = (0, bcrypt_1.hash)(password, saltOrRounds);
         return pass;
     }
-    async registerUser(signupDto) {
+    async createUser(signupDto) {
         const hashedPassword = await this.hashPassword(signupDto.password);
         const signupObj = { email: signupDto.email,
             name: signupDto.name,

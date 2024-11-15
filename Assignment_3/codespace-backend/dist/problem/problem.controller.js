@@ -18,6 +18,9 @@ const problem_service_1 = require("./problem.service");
 const create_problem_dto_1 = require("./dto/create-problem.dto");
 const update_problem_dto_1 = require("./dto/update-problem.dto");
 const auth_guards_1 = require("../auth/guards/auth.guards");
+const roles_decorator_1 = require("../auth/decorators/roles.decorator");
+const roles_enum_1 = require("../auth/enums/roles.enum");
+const roles_guard_1 = require("../auth/guards/roles.guard");
 let ProblemController = class ProblemController {
     constructor(problemService) {
         this.problemService = problemService;
@@ -40,6 +43,9 @@ let ProblemController = class ProblemController {
 };
 exports.ProblemController = ProblemController;
 __decorate([
+    (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.ADMIN),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -47,12 +53,17 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProblemController.prototype, "create", null);
 __decorate([
+    (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.CODER),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ProblemController.prototype, "findAll", null);
 __decorate([
+    (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.CODER),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
     (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
@@ -61,6 +72,9 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProblemController.prototype, "findOne", null);
 __decorate([
+    (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.ADMIN),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -69,6 +83,9 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProblemController.prototype, "update", null);
 __decorate([
+    (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.ADMIN),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),

@@ -1,4 +1,3 @@
-
 import {
     CanActivate,
     ExecutionContext,
@@ -27,8 +26,9 @@ export class AuthGuard implements CanActivate {
             secret: process.env.secret
           }
         );
-        
+        log(payload);
         request['user'] = payload;
+       // request['roles']=
       } catch {
         throw new UnauthorizedException();
       }
@@ -40,4 +40,3 @@ export class AuthGuard implements CanActivate {
       return type === 'Bearer' ? token : undefined;
     }
 }
-  

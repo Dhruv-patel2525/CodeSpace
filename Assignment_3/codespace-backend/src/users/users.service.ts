@@ -63,7 +63,17 @@ export class UsersService {
     const pass = hash(password,saltOrRounds);
     return pass;
   }
-  async registerUser(signupDto : SignupDto) {
+  // async registerUser(signupDto : SignupDto) {
+  //   const hashedPassword = await this.hashPassword(signupDto.password);
+  //   const signupObj={email:signupDto.email,
+  //                     name:signupDto.name,
+  //                     role:signupDto.role,
+  //                     password:hashedPassword};
+  //   const user = await this.userModel.create(signupObj);
+  //   return user; 
+  // }
+  async createUser(signupDto:SignupDto)
+  {
     const hashedPassword = await this.hashPassword(signupDto.password);
     const signupObj={email:signupDto.email,
                       name:signupDto.name,
@@ -71,6 +81,7 @@ export class UsersService {
                       password:hashedPassword};
     const user = await this.userModel.create(signupObj);
     return user; 
+
   }
 
   async requestPasswordReset(email: string): Promise<any> {
