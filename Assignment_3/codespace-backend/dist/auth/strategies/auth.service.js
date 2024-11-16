@@ -33,14 +33,18 @@ let AuthService = class AuthService {
             return {
                 userId: user.userId,
                 email: user.email,
+                role: user.role,
             };
         }
         return null;
     }
     async signIn(user) {
-        const payload = { sub: user.userId, username: user.email };
+        const payload = { sub: user.userId, username: user.email, role: user.role };
         const accessToken = await this.jwtService.signAsync(payload);
         return { accessToken, userId: user.userId, email: user.email };
+    }
+    async registerUser(signupDto) {
+        return this.userService.createUser(signupDto);
     }
 };
 exports.AuthService = AuthService;

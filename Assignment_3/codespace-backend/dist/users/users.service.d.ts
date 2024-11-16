@@ -16,11 +16,11 @@ export declare class UsersService {
         user: {
             email: string;
             name: string;
-            role: string;
+            role: import("../auth/enums/roles.enum").UserRole;
         };
     }>;
     hashPassword(password: string): Promise<string>;
-    registerUser(signupDto: SignupDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
+    createUser(signupDto: SignupDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;

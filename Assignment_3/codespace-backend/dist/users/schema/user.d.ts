@@ -1,10 +1,11 @@
 import { HydratedDocument } from "mongoose";
+import { UserRole } from "src/auth/enums/roles.enum";
 export type UserDocument = HydratedDocument<User>;
 export declare class User {
     userId: number;
     name: string;
     email: string;
-    role: string;
+    role: UserRole;
     password: string;
     confirmPassword: string;
     resetToken?: string;

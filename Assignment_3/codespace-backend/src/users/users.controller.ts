@@ -11,11 +11,11 @@ export class UsersController {
 
     constructor(private readonly userService: UsersService) {}
 
-    @Post('registerUser')
-    registerUser(@Body() signup : SignupDto)
-    {
-        return this.userService.registerUser(signup);
-    }
+    // @Post('registerUser')
+    // registerUser(@Body() signup : SignupDto)
+    // {
+    //     return this.userService.registerUser(signup);
+    // }
 
     @Post('loginUser')
     loginUser(@Body() logindto: LoginDto)
