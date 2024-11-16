@@ -1,4 +1,3 @@
-import { LoginDto } from 'src/users/dto/login.dto';
 import { ResetPasswordDto } from 'src/users/dto/resetpwd.dto';
 import { User } from './schema/user';
 import { Model } from 'mongoose';
@@ -9,16 +8,7 @@ export declare class UsersService {
     constructor(userModel: Model<User>);
     private users;
     private resetTokens;
-    logoutUser(): void;
     forgotPassword(email: string): Promise<any>;
-    loginUser(logindto: LoginDto): Promise<{
-        message: string;
-        user: {
-            email: string;
-            name: string;
-            role: import("../auth/enums/roles.enum").UserRole;
-        };
-    }>;
     hashPassword(password: string): Promise<string>;
     createUser(signupDto: SignupDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
         _id: import("mongoose").Types.ObjectId;

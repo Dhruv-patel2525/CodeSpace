@@ -26,9 +26,6 @@ let UsersService = class UsersService {
         ];
         this.resetTokens = new Map();
     }
-    logoutUser() {
-        console.log("User Logged out");
-    }
     async forgotPassword(email) {
         const user = await this.userModel.findOne({ email }).exec();
         if (!user) {
@@ -38,24 +35,6 @@ let UsersService = class UsersService {
         user.resetToken = resetToken;
         await user.save();
         return { message: 'Password reset link has been sent', resetToken };
-    }
-    async loginUser(logindto) {
-        const { email, password } = logindto;
-        const user = await this.userModel.findOne({ email }).exec();
-        if (!user) {
-            throw new common_1.NotFoundException('User not found');
-        }
-        if (user.password !== password) {
-            throw new common_1.UnauthorizedException('Invalid credentials');
-        }
-        return {
-            message: 'Login successful',
-            user: {
-                email: user.email,
-                name: user.name,
-                role: user.role,
-            },
-        };
     }
     async hashPassword(password) {
         const saltOrRounds = 10;

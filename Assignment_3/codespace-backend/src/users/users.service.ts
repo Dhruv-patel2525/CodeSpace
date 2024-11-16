@@ -19,9 +19,7 @@ export class UsersService {
       ];
       private resetTokens = new Map<string, string>(); 
       
-    logoutUser() {
-        console.log("User Logged out") // Implement when authentication(JWT) and session are being done
-    }
+   
 
     async forgotPassword(email: string): Promise<any> {
       const user = await this.userModel.findOne({ email }).exec();
@@ -37,42 +35,14 @@ export class UsersService {
     }
   
 
-    async loginUser(logindto: LoginDto) {
-      const { email, password } = logindto;
-  
-      const user = await this.userModel.findOne({ email }).exec();
-      if (!user) {
-        throw new NotFoundException('User not found');
-      }
-  
-      if (user.password !== password) {
-        throw new UnauthorizedException('Invalid credentials');
-      }
-
-      return {
-        message: 'Login successful',
-        user: {
-          email: user.email,
-          name: user.name,
-          role: user.role,
-        },
-      };
-    }
+    
   async hashPassword(password: string): Promise<string>
   {
     const saltOrRounds=10;
     const pass = hash(password,saltOrRounds);
     return pass;
   }
-  // async registerUser(signupDto : SignupDto) {
-  //   const hashedPassword = await this.hashPassword(signupDto.password);
-  //   const signupObj={email:signupDto.email,
-  //                     name:signupDto.name,
-  //                     role:signupDto.role,
-  //                     password:hashedPassword};
-  //   const user = await this.userModel.create(signupObj);
-  //   return user; 
-  // }
+ 
   async createUser(signupDto:SignupDto)
   {
     const hashedPassword = await this.hashPassword(signupDto.password);

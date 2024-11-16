@@ -17,17 +17,9 @@ export class UsersController {
     //     return this.userService.registerUser(signup);
     // }
 
-    @Post('loginUser')
-    loginUser(@Body() logindto: LoginDto)
-    {
-        return this.userService.loginUser(logindto);
-    }
+    
 
-    @Post('logoutuser')
-    logoutUser()
-    {
-        return this.userService.logoutUser();
-    }
+   
 
     @Post('forgotPassword')
     async forgotPassword(@Body() requestPasswordResetDto: RequestPasswordResetDto) {
