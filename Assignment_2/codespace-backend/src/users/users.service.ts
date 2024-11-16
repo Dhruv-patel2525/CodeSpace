@@ -10,11 +10,11 @@ import { UpdateUserProfileDto } from './dto/updateUserProfile.dto';
 @Injectable()
 export class UsersService {
 
-    private users = [
+   
+      constructor(@InjectModel(User.name) private readonly userModel:Model<User>){}
+      private users = [
         { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Learner', password: 'password123' },
       ];
-      constructor(@InjectModel(User.name) private readonly userModel:Model<User>){}
-
       private resetTokens = new Map<string, string>(); 
       
     logoutUser() {
