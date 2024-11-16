@@ -39,7 +39,10 @@ let AuthService = class AuthService {
         return null;
     }
     async signIn(user) {
-        const payload = { sub: user.userId, username: user.email, role: user.role };
+        const payload = { sub: user.userId,
+            username: user.email,
+            role: user.role,
+            iat: Math.floor(Date.now() / 1000) };
         const accessToken = await this.jwtService.signAsync(payload);
         const refreshToken = await this.jwtService.signAsync(payload, { secret: process.env.REFRESH_JWT_SECRET,
             expiresIn: process.env.REFRESH_JWT_EXPIRE_IN,
@@ -51,9 +54,15 @@ let AuthService = class AuthService {
     }
     async refreshToken(input) {
         const user = await this.userService.getUserProfile(input.username);
-        const payload = { sub: user.userId, username: user.email, role: user.role };
+        const payload = { sub: user.userId, username: user.email, role: user.role, iat: Math.floor(Date.now() / 1000) };
         const accessToken = await this.jwtService.signAsync(payload);
         return { accessToken, userId: user.userId, email: user.email };
+    }
+    async logout(user) {
+        await this.userService.logout(user.username);
+    }
+    async getLastLogout(payload) {
+        return this.userService.getLastLogout(payload.username);
     }
 };
 exports.AuthService = AuthService;

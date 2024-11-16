@@ -2,7 +2,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { UserRole } from './enums/roles.enum';
 import { SignupDto } from './dto/signup.dto';
-import { AuthPayload } from './types/auth-jwtPayload';
+import { AuthJwtPayload, AuthPayload } from './types/auth-jwtPayload';
 type AuthInput = {
     email: string;
     password: string;
@@ -25,5 +25,7 @@ export declare class AuthService {
         __v: number;
     }>;
     refreshToken(input: any): Promise<any>;
+    logout(user: any): Promise<void>;
+    getLastLogout(payload: AuthJwtPayload): Promise<any>;
 }
 export {};

@@ -106,6 +106,14 @@ let UsersService = class UsersService {
         }
         return updatedUser;
     }
+    async logout(email) {
+        const user = await this.userModel.findOneAndUpdate({ email }, { $set: { lastLogout: new Date() } })
+            .exec();
+    }
+    async getLastLogout(email) {
+        const user = await this.userModel.findOne({ email }).exec();
+        return user.lastLogout;
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([

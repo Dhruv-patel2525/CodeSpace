@@ -15,7 +15,6 @@ async function bootstrap() {
 
   
   await app.listen(3003);
-  console.log(process.env.dbname);
 
 }
 bootstrap();

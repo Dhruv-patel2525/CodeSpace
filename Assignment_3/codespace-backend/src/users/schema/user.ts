@@ -29,6 +29,8 @@ export class User{
     confirmPassword:string;
 
     @Prop()
-  resetToken?: string;  
+    resetToken?: string;  
+    @Prop({ default: new Date() }) 
+    lastLogout: Date; 
 }
 export const UserSchema=SchemaFactory.createForClass(User);

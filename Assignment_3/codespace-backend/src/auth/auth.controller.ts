@@ -2,6 +2,8 @@ import { Body, Controller, HttpCode, HttpStatus, Post, Req, UseGuards } from '@n
 import { SignupDto } from './dto/signup.dto';
 import { AuthService } from './auth.service';
 import { RefreshAuthGuard } from './guards/refresh-auth/refresh-auth.guard';
+import { log } from 'console';
+import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {  
@@ -25,6 +27,14 @@ export class AuthController {
     refreshToken(@Req() req)
     {
         return this.authService.refreshToken(req.user);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('logout')
+    logout(@Req() req)
+    {
+        log(req.user);
+        return this.authService.logout(req.user);
     }
 }
 

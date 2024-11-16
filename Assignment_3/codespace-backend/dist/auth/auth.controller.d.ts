@@ -13,4 +13,5 @@ export declare class AuthController {
         __v: number;
     }>;
     refreshToken(req: any): Promise<any>;
+    logout(req: any): Promise<void>;
 }

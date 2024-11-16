@@ -11,6 +11,7 @@ import { SignupDto } from 'src/auth/dto/signup.dto';
 @Injectable()
 export class UsersService {
    
+   
       constructor(@InjectModel(User.name) private readonly userModel:Model<User>){}
 
       private users = [
@@ -131,5 +132,17 @@ export class UsersService {
     return updatedUser;
   }
 
+  async logout(email:string):Promise<void>
+  {
+    const user = await this.userModel.findOneAndUpdate(
+      { email }, 
+      { $set: { lastLogout: new Date() } },) // Update operation
+      .exec();// Return the updated documen
+     
+  }
+  async getLastLogout(email: string):Promise<any>{
+    const user= await this.userModel.findOne({email}).exec();
+    return user.lastLogout;
+  }
 
 }

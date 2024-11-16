@@ -1,11 +1,13 @@
 import { PassportStrategy } from "@nestjs/passport";
 import {ExtractJwt,Strategy} from "passport-jwt";
 import { AuthJwtPayload } from "../types/auth-jwtPayload";
-import { Injectable } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { AuthService } from "../auth.service";
+import { log } from "console";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy){
-    constructor()
+    constructor(private authService:AuthService)
     {
         super(
             {
@@ -15,8 +17,12 @@ export class JwtStrategy extends PassportStrategy(Strategy){
             }
         )
     }
-    validate(payload:AuthJwtPayload)
+    async validate(payload:AuthJwtPayload)
     {
+        const lastLogout:Date =  await this.authService.getLastLogout(payload);
+        if (payload.iat < Math.floor(lastLogout.getTime() / 1000)) {
+            throw new UnauthorizedException('Token is invalidated');
+          }
         return payload;
     }
 }

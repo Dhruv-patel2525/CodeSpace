@@ -29,4 +29,6 @@ export declare class UsersService {
     resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any>;
     getUserProfile(email: string): Promise<User>;
     updateUserProfile(userId: string, updateUserProfileDto: UpdateUserProfileDto): Promise<User>;
+    logout(email: string): Promise<void>;
+    getLastLogout(email: string): Promise<any>;
 }

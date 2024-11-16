@@ -11,7 +11,6 @@ async function bootstrap() {
         transform: true,
     }));
     await app.listen(3003);
-    console.log(process.env.dbname);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
