@@ -6,6 +6,7 @@ import { AuthGuard } from 'src/auth/guards/auth.guards';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { UserRole } from 'src/auth/enums/roles.enum';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 
 @Controller('problem')
 export class ProblemController {
@@ -17,30 +18,31 @@ export class ProblemController {
   create(@Body() createProblemDto: CreateProblemDto) {
     return this.problemService.create(createProblemDto);
   }
+
   @Roles(UserRole.CODER)
   @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.problemService.findAll();
   }
   @Roles(UserRole.CODER)
   @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.problemService.findOne(+id);
   }
   @Roles(UserRole.ADMIN)
   @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProblemDto: UpdateProblemDto) {
     return this.problemService.update(+id, updateProblemDto);
   }
   @Roles(UserRole.ADMIN)
   @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard)  
+  @UseGuards(JwtAuthGuard)  
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.problemService.remove(+id);

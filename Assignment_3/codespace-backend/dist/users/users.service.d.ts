@@ -1,9 +1,9 @@
 import { LoginDto } from 'src/users/dto/login.dto';
 import { ResetPasswordDto } from 'src/users/dto/resetpwd.dto';
-import { SignupDto } from 'src/users/dto/signup.dto';
 import { User } from './schema/user';
 import { Model } from 'mongoose';
 import { UpdateUserProfileDto } from './dto/updateUserProfile.dto';
+import { SignupDto } from 'src/auth/dto/signup.dto';
 export declare class UsersService {
     private readonly userModel;
     constructor(userModel: Model<User>);

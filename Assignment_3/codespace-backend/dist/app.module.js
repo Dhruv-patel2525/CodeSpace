@@ -14,7 +14,7 @@ const users_module_1 = require("./users/users.module");
 const courses_module_1 = require("./courses/courses.module");
 const problem_module_1 = require("./problem/problem.module");
 const mongoose_1 = require("@nestjs/mongoose");
-const auth_module_1 = require("./auth/strategies/auth.module");
+const auth_module_1 = require("./auth/auth.module");
 const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };

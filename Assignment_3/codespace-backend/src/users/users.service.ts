@@ -2,12 +2,12 @@ import { BadRequestException, Injectable, NotFoundException, UnauthorizedExcepti
 import { InjectModel } from '@nestjs/mongoose';
 import { LoginDto } from 'src/users/dto/login.dto';
 import { ResetPasswordDto } from 'src/users/dto/resetpwd.dto';
-import { SignupDto } from 'src/users/dto/signup.dto';
+// import { SignupDto } from 'src/users/dto/signup.dto';
 import { User } from './schema/user';
 import { Model } from 'mongoose';
 import { UpdateUserProfileDto } from './dto/updateUserProfile.dto';
 import { hash } from 'bcrypt';
-
+import { SignupDto } from 'src/auth/dto/signup.dto';
 @Injectable()
 export class UsersService {
    

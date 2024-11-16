@@ -1,0 +1,29 @@
+import { JwtService } from '@nestjs/jwt';
+import { UsersService } from 'src/users/users.service';
+import { UserRole } from './enums/roles.enum';
+import { SignupDto } from './dto/signup.dto';
+import { AuthPayload } from './types/auth-jwtPayload';
+type AuthInput = {
+    email: string;
+    password: string;
+};
+type SignInData = {
+    userId: number;
+    email: string;
+    role: UserRole;
+};
+export declare class AuthService {
+    private userService;
+    private jwtService;
+    constructor(userService: UsersService, jwtService: JwtService);
+    authenticate(input: AuthInput): Promise<AuthPayload>;
+    validateUser(input: AuthInput): Promise<SignInData | null>;
+    signIn(user: SignInData): Promise<AuthPayload>;
+    registerUser(signupDto: SignupDto): Promise<import("mongoose").Document<unknown, {}, import("../users/schema/user").User> & import("../users/schema/user").User & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
+    refreshToken(input: any): Promise<any>;
+}
+export {};

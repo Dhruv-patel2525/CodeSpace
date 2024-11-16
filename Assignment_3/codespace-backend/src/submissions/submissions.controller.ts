@@ -5,6 +5,7 @@ import { AuthGuard } from 'src/auth/guards/auth.guards';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { UserRole } from 'src/auth/enums/roles.enum';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 
 @Controller('submissions')
 export class SubmissionsController {
@@ -12,14 +13,14 @@ export class SubmissionsController {
   constructor(private readonly submissionsService: SubmissionsService) {}
   @Roles(UserRole.CODER)
   @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   async submitSolution(@Body() submitSolutionDto: SubmitSolutionDto) {
     return this.submissionsService.submitSolution(submitSolutionDto);
   }
   @Roles(UserRole.CODER)
   @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get(':submissionId')
   async getSubmissionResult(@Param('submissionId') submissionId: string) {
     return this.submissionsService.getSubmissionResult(submissionId);
