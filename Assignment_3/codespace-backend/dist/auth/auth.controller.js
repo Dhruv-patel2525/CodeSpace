@@ -19,6 +19,7 @@ const auth_service_1 = require("./auth.service");
 const refresh_auth_guard_1 = require("./guards/refresh-auth/refresh-auth.guard");
 const console_1 = require("console");
 const jwt_auth_guard_1 = require("./guards/jwt-auth/jwt-auth.guard");
+const changepassword_dto_1 = require("./dto/changepassword.dto");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -35,6 +36,12 @@ let AuthController = class AuthController {
     logout(req) {
         (0, console_1.log)(req.user);
         return this.authService.logout(req.user);
+    }
+    changepassword(req, changepassworddto) {
+        return this.authService.changePassword(req.user, changepassworddto);
+    }
+    forgotpassword(email) {
+        return this.authService.sendEmailFoPassword(email);
     }
 };
 exports.AuthController = AuthController;
@@ -69,6 +76,22 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "logout", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Post)('changepassword'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, changepassword_dto_1.ChangePasswordDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "changepassword", null);
+__decorate([
+    (0, common_1.Post)('forgotpassword'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "forgotpassword", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

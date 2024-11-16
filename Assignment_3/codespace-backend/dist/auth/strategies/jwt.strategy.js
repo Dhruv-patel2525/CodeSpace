@@ -26,7 +26,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
     async validate(payload) {
         const lastLogout = await this.authService.getLastLogout(payload);
         if (payload.iat < Math.floor(lastLogout.getTime() / 1000)) {
-            throw new common_1.UnauthorizedException('Token is invalidated');
+            throw new common_1.UnauthorizedException('Already Logged Out');
         }
         return payload;
     }

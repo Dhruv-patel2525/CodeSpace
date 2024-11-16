@@ -8,8 +8,10 @@ import { Model } from 'mongoose';
 import { UpdateUserProfileDto } from './dto/updateUserProfile.dto';
 import { hash } from 'bcrypt';
 import { SignupDto } from 'src/auth/dto/signup.dto';
+import { AuthJwtPayload } from 'src/auth/types/auth-jwtPayload';
 @Injectable()
 export class UsersService {
+   
    
    
       constructor(@InjectModel(User.name) private readonly userModel:Model<User>){}
@@ -113,6 +115,15 @@ export class UsersService {
   async getLastLogout(email: string):Promise<any>{
     const user= await this.userModel.findOne({email}).exec();
     return user.lastLogout;
+  }
+  async updatePassword(payload: AuthJwtPayload, newpassword: string):Promise<any>{
+    const email=payload.username;
+    const hashedPassword = await this.hashPassword(newpassword);
+    const user = await this.userModel.findOneAndUpdate(
+      { email }, 
+      { $set: { password: hashedPassword } },) 
+      .exec();
+    return user; 
   }
 
 }

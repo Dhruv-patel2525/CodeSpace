@@ -1,17 +1,19 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { compare, hash } from 'bcrypt';
-import { log } from 'console';
+import { compare } from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
 import { UserRole } from './enums/roles.enum';
 import { SignupDto } from './dto/signup.dto';
 import { AuthJwtPayload, AuthPayload } from './types/auth-jwtPayload';
+import { ChangePasswordDto } from './dto/changepassword.dto';
 
 type AuthInput = {email:string,password:string};
 type SignInData = {userId:number,email:string,role:UserRole}; 
 type CurrentUser = {userId:number,roles:UserRole[]}
 @Injectable()
 export class AuthService {
+   
+    
    
    
     constructor(private userService:UsersService,private jwtService:JwtService){}
@@ -82,4 +84,34 @@ export class AuthService {
         return this.userService.getLastLogout(payload.username);
         
     }
+    async changePassword(payload: AuthJwtPayload, changepassworddto: ChangePasswordDto):Promise<any> {
+        //console.log(payload);
+        const user=await this.userService.getUserProfile(payload.username);
+        //console.log(changepassworddto.oldPassword);
+        const isMatched = await compare(changepassworddto.oldPassword,user.password);
+        //console.log(isMatched);
+        if(!isMatched)
+        {
+            throw new UnauthorizedException("Old Password not matched");
+        }
+        return await this.userService.updatePassword(payload,changepassworddto.newPassword);
+        
+    }
+    async sendEmailFoPassword(email: string) {
+        const user= await this.userService.getUserProfile(email);
+        if (!user) {
+            throw new NotFoundException('User not found');
+          }
+      
+    const payload:AuthJwtPayload = { sub: user.userId, 
+            username: user.email,
+            role:user.role, 
+            iat: Math.floor(Date.now() / 1000)};
+          const resetToken = await this.jwtService.signAsync(payload);
+          await this.sendEmail(user.email, resetToken);
+    }
+    private async sendEmail(email: string, content: string) {
+        // Replace with actual email-sending logic
+        console.log(`Email sent to ${email}: ${content}`);
+      }
 }

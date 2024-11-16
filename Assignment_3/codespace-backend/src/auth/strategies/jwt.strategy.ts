@@ -21,7 +21,7 @@ export class JwtStrategy extends PassportStrategy(Strategy){
     {
         const lastLogout:Date =  await this.authService.getLastLogout(payload);
         if (payload.iat < Math.floor(lastLogout.getTime() / 1000)) {
-            throw new UnauthorizedException('Token is invalidated');
+            throw new UnauthorizedException('Already Logged Out');
           }
         return payload;
     }

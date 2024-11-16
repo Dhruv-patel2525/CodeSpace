@@ -1,5 +1,6 @@
 import { SignupDto } from './dto/signup.dto';
 import { AuthService } from './auth.service';
+import { ChangePasswordDto } from './dto/changepassword.dto';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
@@ -14,4 +15,6 @@ export declare class AuthController {
     }>;
     refreshToken(req: any): Promise<any>;
     logout(req: any): Promise<void>;
+    changepassword(req: any, changepassworddto: ChangePasswordDto): Promise<any>;
+    forgotpassword(email: string): Promise<void>;
 }

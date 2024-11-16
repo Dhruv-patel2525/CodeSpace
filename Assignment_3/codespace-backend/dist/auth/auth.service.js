@@ -64,6 +64,29 @@ let AuthService = class AuthService {
     async getLastLogout(payload) {
         return this.userService.getLastLogout(payload.username);
     }
+    async changePassword(payload, changepassworddto) {
+        const user = await this.userService.getUserProfile(payload.username);
+        const isMatched = await (0, bcrypt_1.compare)(changepassworddto.oldPassword, user.password);
+        if (!isMatched) {
+            throw new common_1.UnauthorizedException("Old Password not matched");
+        }
+        return await this.userService.updatePassword(payload, changepassworddto.newPassword);
+    }
+    async sendEmailFoPassword(email) {
+        const user = await this.userService.getUserProfile(email);
+        if (!user) {
+            throw new common_1.NotFoundException('User not found');
+        }
+        const payload = { sub: user.userId,
+            username: user.email,
+            role: user.role,
+            iat: Math.floor(Date.now() / 1000) };
+        const resetToken = await this.jwtService.signAsync(payload);
+        await this.sendEmail(user.email, resetToken);
+    }
+    async sendEmail(email, content) {
+        console.log(`Email sent to ${email}: ${content}`);
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

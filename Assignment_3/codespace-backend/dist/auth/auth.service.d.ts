@@ -3,6 +3,7 @@ import { UsersService } from 'src/users/users.service';
 import { UserRole } from './enums/roles.enum';
 import { SignupDto } from './dto/signup.dto';
 import { AuthJwtPayload, AuthPayload } from './types/auth-jwtPayload';
+import { ChangePasswordDto } from './dto/changepassword.dto';
 type AuthInput = {
     email: string;
     password: string;
@@ -27,5 +28,8 @@ export declare class AuthService {
     refreshToken(input: any): Promise<any>;
     logout(user: any): Promise<void>;
     getLastLogout(payload: AuthJwtPayload): Promise<any>;
+    changePassword(payload: AuthJwtPayload, changepassworddto: ChangePasswordDto): Promise<any>;
+    sendEmailFoPassword(email: string): Promise<void>;
+    private sendEmail;
 }
 export {};

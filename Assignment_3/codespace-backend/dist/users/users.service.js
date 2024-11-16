@@ -93,6 +93,13 @@ let UsersService = class UsersService {
         const user = await this.userModel.findOne({ email }).exec();
         return user.lastLogout;
     }
+    async updatePassword(payload, newpassword) {
+        const email = payload.username;
+        const hashedPassword = await this.hashPassword(newpassword);
+        const user = await this.userModel.findOneAndUpdate({ email }, { $set: { password: hashedPassword } })
+            .exec();
+        return user;
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
