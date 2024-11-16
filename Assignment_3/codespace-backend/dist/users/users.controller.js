@@ -15,21 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
-const resetpwd_dto_1 = require("./dto/resetpwd.dto");
-const resetpassword_dto_1 = require("./dto/resetpassword.dto");
 const updateUserProfile_dto_1 = require("./dto/updateUserProfile.dto");
 let UsersController = class UsersController {
     constructor(userService) {
         this.userService = userService;
-    }
-    async forgotPassword(requestPasswordResetDto) {
-        return this.userService.forgotPassword(requestPasswordResetDto.email);
-    }
-    async requestPasswordReset(requestPasswordResetDto) {
-        return this.userService.requestPasswordReset(requestPasswordResetDto.email);
-    }
-    async resetPassword(resetPasswordDto) {
-        return this.userService.resetPassword(resetPasswordDto);
     }
     async getUserProfile(userId) {
         if (!userId) {
@@ -45,27 +34,6 @@ let UsersController = class UsersController {
     }
 };
 exports.UsersController = UsersController;
-__decorate([
-    (0, common_1.Post)('forgotPassword'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [resetpassword_dto_1.RequestPasswordResetDto]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "forgotPassword", null);
-__decorate([
-    (0, common_1.Post)('requestPasswordReset'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [resetpassword_dto_1.RequestPasswordResetDto]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "requestPasswordReset", null);
-__decorate([
-    (0, common_1.Post)('resetPassword'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [resetpwd_dto_1.ResetPasswordDto]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "resetPassword", null);
 __decorate([
     (0, common_1.Get)('profile'),
     __param(0, (0, common_1.Query)('userId')),

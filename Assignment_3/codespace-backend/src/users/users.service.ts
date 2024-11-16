@@ -14,28 +14,13 @@ export class UsersService {
    
    
    
-      constructor(@InjectModel(User.name) private readonly userModel:Model<User>){}
+  constructor(@InjectModel(User.name) private readonly userModel:Model<User>){}
 
-      private users = [
-        { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Learner', password: 'password123' },
-      ];
-      private resetTokens = new Map<string, string>(); 
+     
       
    
 
-    async forgotPassword(email: string): Promise<any> {
-      const user = await this.userModel.findOne({ email }).exec();
-      if (!user) {
-        throw new NotFoundException('User with this email does not exist');
-      }
-  
-      const resetToken = `reset-${Math.random().toString(36).substr(2)}`;
-      user.resetToken = resetToken;
-      await user.save();
-  
-      return { message: 'Password reset link has been sent', resetToken };
-    }
-  
+    
 
     
   async hashPassword(password: string): Promise<string>
@@ -57,35 +42,8 @@ export class UsersService {
 
   }
 
-  async requestPasswordReset(email: string): Promise<any> {
-    
-    const user = await this.userModel.findOne({ email }).exec();
-    if (!user) {
-      throw new NotFoundException('User with this email does not exist');
-    }
-
-    const resetToken = `reset-${Math.random().toString(36).substr(2)}`;
-
-    user.resetToken = resetToken;
-    await user.save();
-
-    return { message: 'Password reset link generated', resetToken };
-  }
-
-  async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<any> {
-    const { resetToken, newPassword } = resetPasswordDto;
-
-    const user = await this.userModel.findOne({ resetToken }).exec();
-    if (!user) {
-      throw new BadRequestException('Invalid or expired reset token');
-    }
-
-    user.password = newPassword;
-    user.resetToken = null;  
-    await user.save();
-
-    return { message: 'Password has been successfully reset' };
-  }
+ 
+ 
 
   async getUserProfile(email: string): Promise<User> {
     const user = await this.userModel.findOne({email}).exec();

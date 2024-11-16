@@ -21,20 +21,6 @@ const bcrypt_1 = require("bcrypt");
 let UsersService = class UsersService {
     constructor(userModel) {
         this.userModel = userModel;
-        this.users = [
-            { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Learner', password: 'password123' },
-        ];
-        this.resetTokens = new Map();
-    }
-    async forgotPassword(email) {
-        const user = await this.userModel.findOne({ email }).exec();
-        if (!user) {
-            throw new common_1.NotFoundException('User with this email does not exist');
-        }
-        const resetToken = `reset-${Math.random().toString(36).substr(2)}`;
-        user.resetToken = resetToken;
-        await user.save();
-        return { message: 'Password reset link has been sent', resetToken };
     }
     async hashPassword(password) {
         const saltOrRounds = 10;
@@ -49,27 +35,6 @@ let UsersService = class UsersService {
             password: hashedPassword };
         const user = await this.userModel.create(signupObj);
         return user;
-    }
-    async requestPasswordReset(email) {
-        const user = await this.userModel.findOne({ email }).exec();
-        if (!user) {
-            throw new common_1.NotFoundException('User with this email does not exist');
-        }
-        const resetToken = `reset-${Math.random().toString(36).substr(2)}`;
-        user.resetToken = resetToken;
-        await user.save();
-        return { message: 'Password reset link generated', resetToken };
-    }
-    async resetPassword(resetPasswordDto) {
-        const { resetToken, newPassword } = resetPasswordDto;
-        const user = await this.userModel.findOne({ resetToken }).exec();
-        if (!user) {
-            throw new common_1.BadRequestException('Invalid or expired reset token');
-        }
-        user.password = newPassword;
-        user.resetToken = null;
-        await user.save();
-        return { message: 'Password has been successfully reset' };
     }
     async getUserProfile(email) {
         const user = await this.userModel.findOne({ email }).exec();

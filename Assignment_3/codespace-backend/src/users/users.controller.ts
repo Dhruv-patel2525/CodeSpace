@@ -11,30 +11,13 @@ export class UsersController {
 
     constructor(private readonly userService: UsersService) {}
 
-    // @Post('registerUser')
-    // registerUser(@Body() signup : SignupDto)
-    // {
-    //     return this.userService.registerUser(signup);
-    // }
+   
 
     
 
    
 
-    @Post('forgotPassword')
-    async forgotPassword(@Body() requestPasswordResetDto: RequestPasswordResetDto) {
-      return this.userService.forgotPassword(requestPasswordResetDto.email);
-    }
-    
-  @Post('requestPasswordReset')
-  async requestPasswordReset(@Body() requestPasswordResetDto: RequestPasswordResetDto) {
-    return this.userService.requestPasswordReset(requestPasswordResetDto.email);
-  }
-
-  @Post('resetPassword')
-  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
-    return this.userService.resetPassword(resetPasswordDto);
-  }
+   
 
   @Get('profile')
   async getUserProfile(@Query('userId') userId: string) {
