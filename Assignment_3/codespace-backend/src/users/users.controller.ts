@@ -1,7 +1,7 @@
 import { Body, Controller, Get, NotFoundException, Post, Put, Query, Req } from '@nestjs/common';
 import { LoginDto } from 'src/users/dto/login.dto';
 import { UsersService } from './users.service';
-import { SignupDto } from 'src/users/dto/signup.dto';
+// import { SignupDto } from 'src/users/dto/signup.dto';
 import { ResetPasswordDto } from 'src/users/dto/resetpwd.dto';
 import { RequestPasswordResetDto } from 'src/users/dto/resetpassword.dto';
 import { UpdateUserProfileDto } from './dto/updateUserProfile.dto';
@@ -17,17 +17,9 @@ export class UsersController {
     //     return this.userService.registerUser(signup);
     // }
 
-    @Post('loginUser')
-    loginUser(@Body() logindto: LoginDto)
-    {
-        return this.userService.loginUser(logindto);
-    }
+    
 
-    @Post('logoutuser')
-    logoutUser()
-    {
-        return this.userService.logoutUser();
-    }
+   
 
     @Post('forgotPassword')
     async forgotPassword(@Body() requestPasswordResetDto: RequestPasswordResetDto) {

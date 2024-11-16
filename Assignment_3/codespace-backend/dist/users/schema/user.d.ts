@@ -9,6 +9,7 @@ export declare class User {
     password: string;
     confirmPassword: string;
     resetToken?: string;
+    lastLogout: Date;
 }
 export declare const UserSchema: import("mongoose").Schema<User, import("mongoose").Model<User, any, any, any, import("mongoose").Document<unknown, any, User> & User & {
     _id: import("mongoose").Types.ObjectId;

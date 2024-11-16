@@ -21,6 +21,7 @@ const auth_guards_1 = require("../auth/guards/auth.guards");
 const roles_guard_1 = require("../auth/guards/roles.guard");
 const roles_decorator_1 = require("../auth/decorators/roles.decorator");
 const roles_enum_1 = require("../auth/enums/roles.enum");
+const jwt_auth_guard_1 = require("../auth/guards/jwt-auth/jwt-auth.guard");
 let CoursesController = class CoursesController {
     constructor(courseService) {
         this.courseService = courseService;
@@ -54,7 +55,7 @@ __decorate([
 __decorate([
     (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.CODER, roles_enum_1.UserRole.INSTRUCTOR),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
-    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(':courseId'),
     __param(0, (0, common_1.Param)('courseId')),
     __metadata("design:type", Function),
@@ -64,7 +65,7 @@ __decorate([
 __decorate([
     (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.ADMIN, roles_enum_1.UserRole.INSTRUCTOR),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
-    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -74,7 +75,7 @@ __decorate([
 __decorate([
     (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.ADMIN, roles_enum_1.UserRole.INSTRUCTOR),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
-    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Put)(':courseId'),
     __param(0, (0, common_1.Param)('courseId')),
     __param(1, (0, common_1.Body)()),
@@ -85,7 +86,7 @@ __decorate([
 __decorate([
     (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.ADMIN, roles_enum_1.UserRole.INSTRUCTOR),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
-    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Delete)(':courseId'),
     __param(0, (0, common_1.Param)('courseId')),
     __metadata("design:type", Function),

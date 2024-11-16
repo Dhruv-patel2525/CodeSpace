@@ -14,8 +14,7 @@ async function bootstrap() {
   }));
 
   
-  await app.listen(3002);
-  console.log(process.env.dbname);
+  await app.listen(3003);
 
 }
 bootstrap();

@@ -6,6 +6,7 @@ import { AuthGuard } from 'src/auth/guards/auth.guards';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { UserRole } from 'src/auth/enums/roles.enum';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 
 @Controller('courses')
 export class CoursesController {
@@ -20,28 +21,28 @@ export class CoursesController {
   }
   @Roles(UserRole.CODER,UserRole.INSTRUCTOR)
   @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get(':courseId')
   findOne(@Param('courseId') courseId: string) {
     return this.courseService.findOne(+courseId);
   }
   @Roles(UserRole.ADMIN,UserRole.INSTRUCTOR)
   @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createCourseDto: CreateCourseDto) {
     return this.courseService.create(createCourseDto);
   }
   @Roles(UserRole.ADMIN,UserRole.INSTRUCTOR)
   @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Put(':courseId')
   update(@Param('courseId') courseId: string, @Body() updateCourseDto: UpdateCourseDto) {
     return this.courseService.update(+courseId, updateCourseDto);
   }
   @Roles(UserRole.ADMIN,UserRole.INSTRUCTOR)
   @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Delete(':courseId')
   remove(@Param('courseId') courseId: string) {
     return this.courseService.remove(+courseId);

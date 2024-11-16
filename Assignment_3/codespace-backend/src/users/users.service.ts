@@ -2,14 +2,17 @@ import { BadRequestException, Injectable, NotFoundException, UnauthorizedExcepti
 import { InjectModel } from '@nestjs/mongoose';
 import { LoginDto } from 'src/users/dto/login.dto';
 import { ResetPasswordDto } from 'src/users/dto/resetpwd.dto';
-import { SignupDto } from 'src/users/dto/signup.dto';
+// import { SignupDto } from 'src/users/dto/signup.dto';
 import { User } from './schema/user';
 import { Model } from 'mongoose';
 import { UpdateUserProfileDto } from './dto/updateUserProfile.dto';
 import { hash } from 'bcrypt';
-
+import { SignupDto } from 'src/auth/dto/signup.dto';
+import { AuthJwtPayload } from 'src/auth/types/auth-jwtPayload';
 @Injectable()
 export class UsersService {
+   
+   
    
       constructor(@InjectModel(User.name) private readonly userModel:Model<User>){}
 
@@ -18,9 +21,7 @@ export class UsersService {
       ];
       private resetTokens = new Map<string, string>(); 
       
-    logoutUser() {
-        console.log("User Logged out") // Implement when authentication(JWT) and session are being done
-    }
+   
 
     async forgotPassword(email: string): Promise<any> {
       const user = await this.userModel.findOne({ email }).exec();
@@ -36,42 +37,14 @@ export class UsersService {
     }
   
 
-    async loginUser(logindto: LoginDto) {
-      const { email, password } = logindto;
-  
-      const user = await this.userModel.findOne({ email }).exec();
-      if (!user) {
-        throw new NotFoundException('User not found');
-      }
-  
-      if (user.password !== password) {
-        throw new UnauthorizedException('Invalid credentials');
-      }
-
-      return {
-        message: 'Login successful',
-        user: {
-          email: user.email,
-          name: user.name,
-          role: user.role,
-        },
-      };
-    }
+    
   async hashPassword(password: string): Promise<string>
   {
     const saltOrRounds=10;
     const pass = hash(password,saltOrRounds);
     return pass;
   }
-  // async registerUser(signupDto : SignupDto) {
-  //   const hashedPassword = await this.hashPassword(signupDto.password);
-  //   const signupObj={email:signupDto.email,
-  //                     name:signupDto.name,
-  //                     role:signupDto.role,
-  //                     password:hashedPassword};
-  //   const user = await this.userModel.create(signupObj);
-  //   return user; 
-  // }
+ 
   async createUser(signupDto:SignupDto)
   {
     const hashedPassword = await this.hashPassword(signupDto.password);
@@ -131,5 +104,26 @@ export class UsersService {
     return updatedUser;
   }
 
+  async logout(email:string):Promise<void>
+  {
+    const user = await this.userModel.findOneAndUpdate(
+      { email }, 
+      { $set: { lastLogout: new Date() } },) // Update operation
+      .exec();// Return the updated documen
+     
+  }
+  async getLastLogout(email: string):Promise<any>{
+    const user= await this.userModel.findOne({email}).exec();
+    return user.lastLogout;
+  }
+  async updatePassword(payload: AuthJwtPayload, newpassword: string):Promise<any>{
+    const email=payload.username;
+    const hashedPassword = await this.hashPassword(newpassword);
+    const user = await this.userModel.findOneAndUpdate(
+      { email }, 
+      { $set: { password: hashedPassword } },) 
+      .exec();
+    return user; 
+  }
 
 }

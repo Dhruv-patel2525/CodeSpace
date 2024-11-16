@@ -10,8 +10,7 @@ async function bootstrap() {
         forbidNonWhitelisted: true,
         transform: true,
     }));
-    await app.listen(3002);
-    console.log(process.env.dbname);
+    await app.listen(3003);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

@@ -26,9 +26,6 @@ let UsersService = class UsersService {
         ];
         this.resetTokens = new Map();
     }
-    logoutUser() {
-        console.log("User Logged out");
-    }
     async forgotPassword(email) {
         const user = await this.userModel.findOne({ email }).exec();
         if (!user) {
@@ -38,24 +35,6 @@ let UsersService = class UsersService {
         user.resetToken = resetToken;
         await user.save();
         return { message: 'Password reset link has been sent', resetToken };
-    }
-    async loginUser(logindto) {
-        const { email, password } = logindto;
-        const user = await this.userModel.findOne({ email }).exec();
-        if (!user) {
-            throw new common_1.NotFoundException('User not found');
-        }
-        if (user.password !== password) {
-            throw new common_1.UnauthorizedException('Invalid credentials');
-        }
-        return {
-            message: 'Login successful',
-            user: {
-                email: user.email,
-                name: user.name,
-                role: user.role,
-            },
-        };
     }
     async hashPassword(password) {
         const saltOrRounds = 10;
@@ -105,6 +84,21 @@ let UsersService = class UsersService {
             throw new common_1.NotFoundException(`User with ID ${userId} not found`);
         }
         return updatedUser;
+    }
+    async logout(email) {
+        const user = await this.userModel.findOneAndUpdate({ email }, { $set: { lastLogout: new Date() } })
+            .exec();
+    }
+    async getLastLogout(email) {
+        const user = await this.userModel.findOne({ email }).exec();
+        return user.lastLogout;
+    }
+    async updatePassword(payload, newpassword) {
+        const email = payload.username;
+        const hashedPassword = await this.hashPassword(newpassword);
+        const user = await this.userModel.findOneAndUpdate({ email }, { $set: { password: hashedPassword } })
+            .exec();
+        return user;
     }
 };
 exports.UsersService = UsersService;
