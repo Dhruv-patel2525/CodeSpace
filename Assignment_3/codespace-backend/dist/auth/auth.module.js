@@ -12,12 +12,10 @@ const users_module_1 = require("../users/users.module");
 const jwt_1 = require("@nestjs/jwt");
 const passport_1 = require("@nestjs/passport");
 const config_1 = require("@nestjs/config");
-const console_1 = require("console");
 const auth_service_1 = require("./auth.service");
 const auth_controller_1 = require("./auth.controller");
 const jwt_strategy_1 = require("./strategies/jwt.strategy");
 const refresh_startegy_1 = require("./strategies/refresh.startegy");
-(0, console_1.log)("JWT_Scret" + process.env.secret);
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;

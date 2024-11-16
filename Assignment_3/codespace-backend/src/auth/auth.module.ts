@@ -10,7 +10,7 @@ import { AuthController } from './auth.controller';
 import { AuthGuard } from './guards/auth.guards';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { RefreshJwtStrategy } from './strategies/refresh.startegy';
-log("JWT_Scret"+process.env.secret);
+import { RedisModule } from 'nestjs-redis';
 @Module({
   controllers: [AuthController],
   providers: [AuthService,JwtStrategy,RefreshJwtStrategy
