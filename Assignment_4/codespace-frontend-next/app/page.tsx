@@ -1,95 +1,61 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import classes from "./page.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+  <>
+  <section className={classes["intro-section"]}>
+    <div className="container">
+      <h1 className={classes["intro-h1"]}>Master Coding, Solve Problems, Build the Future</h1>
+      <p className={classes["intro-p"]}>Learn by doing, challenge yourself, and collaborate with coders from around the globe.</p>
+      <Link href="/learner" className={`${classes["intro-button"]} btn btn-primary`}>Get Started</Link>      
+      </div>
+  </section>
+    <section className={classes["features-section"]}>
+    <div className="container">
+      <h2 className="mb-5">Our Platform Features</h2>
+      <div className="row">
+        <div className="col-12 col-md-6 col-lg-3 mb-4">
+          <a href="coursePage.html" className="text-decoration-none text-dark">
+              <div className={`card h-100 ${classes["feature-item"]}`}>
+                  <i className={`fas fa-book ${classes["feature-icon"]}`}></i>
+                  <h3>Courses</h3>
+                  <p>Access structured learning paths to master different programming languages.</p>
+              </div>
           </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+      </div>
+        <div className="col-12 col-md-6 col-lg-3 mb-4">
+          <a href="problems.html" className="text-decoration-none text-dark" >
+          <div className={`card ${classes["feature-item"]} h-100`}>
+            <i className={`fas fa-brain ${classes["feature-icon"]}`}></i>
+            <h3>Practice Problems</h3>
+            <p>Solve problems of varying difficulty to hone your skills and boost your confidence.</p>
+          </div>
+        </a>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="col-12 col-md-6 col-lg-3 mb-4">
+          <div className={`card ${classes["feature-item"]} h-100`}>
+            <i className={`fas fa-trophy ${classes["feature-icon"]}`}></i>
+            <h3>Coding Competitions</h3>
+            <p>Challenge yourself with live competitions and win rewards.</p>
+          </div>
+        </div>
+        <div className="col-12 col-md-6 col-lg-3 mb-4">
+          <div className={`card ${classes["feature-item"]} h-100`}>
+            <i className={`fas fa-users ${classes["feature-icon"]}`}></i>
+            <h3>Community Support</h3>
+            <p>Join a vibrant community of coders to ask questions and share knowledge.</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
+  <section className={classes["cta-section"]}>
+    <div className="container">
+      <h2>Ready to Start Your Coding Journey?</h2>
+      <button className="btn btn-light">Join Now</button>
+    </div>
+  </section>
+  </>
   );
 }
