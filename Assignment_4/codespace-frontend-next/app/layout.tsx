@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import InstallBootstrap from "@/components/general/InstallBootstrap";
-import SignUpNavBar from "@/components/navbar/SignUpNavBar";
+import NavBar from "@/components/navbar/NavBar";
 
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default function RootLayout({
       <InstallBootstrap/>
       </head>
       <body >
-        <SignUpNavBar/>
+        <NavBar/>
         {children}
       </body>
     </html>
