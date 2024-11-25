@@ -19,10 +19,11 @@ export default function NavBar()
                 return defaultNavLinks.filter(link => link.href!=="/login");
             case "/signUp":
                 return defaultNavLinks.filter(link=>link.href!=="/signUp");
-            default:
+            case "/":
                 return defaultNavLinks.filter(link => link.href!=="/");
+            default:
+                return defaultNavLinks;
         }
-
     },[pathName]);
     return <header>
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -34,12 +35,6 @@ export default function NavBar()
                 {
                     navLinks.map((link,index)=>(<NavItem key={index} link={link}/>))
                 }
-            {/* <li className="nav-item">
-                <Link className="nav-link" href="/signUp">Sign Up</Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link" href="/login">Login</Link>
-            </li> */}
             </ul>
         </div>
         </div>

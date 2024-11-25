@@ -25,7 +25,7 @@ export default function Home() {
           </a>
       </div>
         <div className="col-12 col-md-6 col-lg-3 mb-4">
-          <a href="problems.html" className="text-decoration-none text-dark" >
+          <a href="/problems" className="text-decoration-none text-dark" >
           <div className={`card ${classes["feature-item"]} h-100`}>
             <i className={`fas fa-brain ${classes["feature-icon"]}`}></i>
             <h3>Practice Problems</h3>

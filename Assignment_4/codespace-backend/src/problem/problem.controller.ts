@@ -19,9 +19,9 @@ export class ProblemController {
     return this.problemService.create(createProblemDto);
   }
 
-  @Roles(UserRole.CODER)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
+  // @Roles(UserRole.CODER)
+  // @UseGuards(RolesGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.problemService.findAll();

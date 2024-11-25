@@ -1,0 +1,56 @@
+.tableTitle {
+    margin: 20px 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.problemStatement {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.problemTitle {
+    font-weight: bold;
+}
+
+.problemTitle a {
+    color: #007bff; 
+    text-decoration: none;
+}
+
+.problemTitle a:hover {
+    text-decoration: underline;
+}
+
+.badgeSecondary {
+    background-color: #6C7A89; 
+    color: #ffffff; 
+}
+
+.badgeMedium {
+    background-color: #ffdd99; 
+    color: #000000; 
+}
+
+.badgeEasy {
+    background-color: #ccffcc; 
+    color: #000000; 
+}
+
+.badgeHard {
+    background-color: #ff9999; 
+    color: #000000;
+}
+
+.tableFilters {
+    margin-bottom: 1rem;
+}
+
+@media all and (max-width:768px) {
+    .avgtime,
+    .submission {
+        display: none;
+    }
+}

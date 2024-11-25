@@ -12,7 +12,7 @@ async function bootstrap() {
     forbidNonWhitelisted: true, // Returns error if extra properties are sent
     transform: true, // Automatically transforms payloads into DTO types
   }));
-
+  app.enableCors();
   
   await app.listen(3003);
 
