@@ -3,61 +3,21 @@ import { useEffect, useState } from 'react';
 import classes from './page.module.css';
 import Link from 'next/link';
 import { fetchALLProblems } from '../api/problemApi';
-const problemsAll=[
-    {
-        problemId:1,
-        title:"Gas Station",
-        tags:"Greedy Algorithm",
-        difficulty:"Medium",
-        avgtime:"56 Mins",
-        submissions:"60,946",
-    },
-    {
-        problemId:2,
-        title:"Majority Element",
-        tags:"Greedy Algorithm",
-        difficulty:"Medium",
-        avgtime:"56 Mins",
-        submissions:"60,946"
-    },
-    {
-        problemId:3,
-        title:"Distribute Candy",
-        tags:"Greedy Algorithm",
-        difficulty:"Medium",
-        avgtime:"56 Mins",
-        submissions:"60,946"
-    },
-    {
-        problemId:4,
-        title:"Longest Increasing Subsequence",
-        tags:"Dynamic Programming",
-        difficulty:"Hard",
-        avgtime:"56 Mins",
-        submissions:"60,946"
-    },
-    {
-        problemId:5,
-        title:"Unique Binary Search Trees",
-        tags:"Dynamic Programming",
-        difficulty:"Easy",
-        avgtime:"56 Mins",
-        submissions:"60,946"
-    }
-]
+import { Problem } from '../interface/problem';
+
+
+  
 
 
 export default function Problems() {
-    const [problem,setProblem]=useState([]);
+    const [problemsAll,setProblemAll]=useState<Problem[]|[]>([]);
     const [error,setError]=useState<string | null>(null);
     useEffect(()=>{
         let isMounted=true;
         const loadProblems=async ()=>{
             try{
-                console.log("try");
                 const data=await fetchALLProblems();
-                console.log(data);
-                setProblem(data);
+                setProblemAll(data);
             }
             catch(err)
             {
@@ -65,7 +25,6 @@ export default function Problems() {
                 console.log(err);
             }
         }
-        console.log("outside");
         loadProblems();
         return ()=>{
             isMounted=false;

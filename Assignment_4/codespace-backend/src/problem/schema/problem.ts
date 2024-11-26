@@ -8,7 +8,7 @@ export class Problem{
         required:true,
         index:true,
     })
-    id:number;
+    problemId:number;
     @Prop({
         required:true,
     })
@@ -16,15 +16,7 @@ export class Problem{
     @Prop({
         required:true,
     })
-    description:string;
-    @Prop({
-        required:true,
-    })
-    input:string;
-    @Prop({
-        required:true,
-    })
-    output:string;
+    tags:string;
     @Prop({
         required:true,
     })
@@ -32,7 +24,29 @@ export class Problem{
     @Prop({
         required:true,
     })
-    tag:string;
+    avgtime:number;
+    @Prop({
+        required:true,
+    })
+    submissions:number;
+    @Prop({
+        required:true,
+    })
+    description:string;
+    @Prop({
+        required:true,
+    })
+    inputFormat:string;
+    @Prop({
+        required:true,
+    })
+    outputFormat:string;
+    @Prop({
+        required:true,
+    })
+    constraints:string;
+    @Prop()
+    examples:[];
     
 }
 export const ProblemSchema = SchemaFactory.createForClass(Problem);

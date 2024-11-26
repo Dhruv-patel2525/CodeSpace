@@ -1,27 +1,40 @@
 "use client"
-import { useParams, usePathname, useRouter } from 'next/navigation';import classes from './page.module.css';
+import { useParams, usePathname, useRouter } from 'next/navigation';
+import classes from './page.module.css';
 import ProblemDescription from '@/components/problem/problemDescription';
 import CodeEditorSection from '@/components/general/codeEditor';
+import { useEffect, useState } from 'react';
+import { fetchProblemById } from '@/app/api/problemApi';
+import { Problem } from '@/app/interface/problem';
 
 
-const problemsAll = [
-    {
-        problemId: 1,
-        title: "Gas Station",
-        tags: "Greedy Algorithm",
-        difficulty: "Medium",
-        avgtime: "56 Mins",
-        submissions: "60,946",
-        description:"123"
-    },
-    // ... other problems ...
-];
+
 
 export default function ProblemDetails() {
   const params = useParams();
   const problemId = params.problemId as string;
-  
-   const problem = problemsAll.find(p => p.problemId === Number(problemId));
+  const [problem,setProblem]=useState<Problem | null>(null)
+  const [error,setError]=useState<string | null>(null);
+  console.log("count");
+  useEffect(()=>{
+    let isMounted=true;
+
+    const loadProblemById = async (problemId:string)=>{
+        try{
+            const data=await fetchProblemById(problemId);
+            setProblem(data);
+        }
+        catch(err)
+        {
+            setError("Problem does not exist");
+            console.log(err);
+        }
+    }
+    loadProblemById(problemId);
+    return ()=>{
+        isMounted=false;
+    }
+  },[]);
 
 
     if (!problem) {

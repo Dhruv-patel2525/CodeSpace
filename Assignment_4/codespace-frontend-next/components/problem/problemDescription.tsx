@@ -2,17 +2,14 @@
 
 import ProblemNavbar from "./problemNavbar";
 import classes from './problemDescription.module.css';
-interface Problem{
-    problemId:number,
-    title:string,
-    tags:string,
-    difficulty:string,
-    avgtime:string,
-    submissions:string,
-    description:string,
-}
+import { Problem } from "@/app/interface/problem";
+
 
 export default function ProblemDescription({ problem }:{problem :Problem}) {
+ 
+  const constraint=problem.constraints;
+  const constraintArray=constraint.split(';');
+  console.log(constraintArray);
   return (
     <>
       <ProblemNavbar />
@@ -24,6 +21,27 @@ export default function ProblemDescription({ problem }:{problem :Problem}) {
         <p><strong>Problem Description:</strong></p>
         <p>{problem.description}</p>
         {/* Add other problem details here */}
+        <h4>Problem Constraints:</h4>
+        <ul>
+          {constraintArray.map((constraint,index)=><li key={index}><strong >{constraint}</strong></li>)}
+          
+        </ul>
+        <h4>Input Format:</h4>
+        <p>{problem.inputFormat}</p>
+        <h4>Output Format:</h4>
+        <p>{problem.outputFormat}</p>   
+        <h4>Example</h4>
+        <ul>
+        {problem.examples.map((example, index) => (
+            <li key={index}>
+              <strong>Input:</strong> {JSON.stringify(example.input, null, 2)}
+              <br />
+              <strong>Output:</strong> {example.output}
+              <br />
+              <strong>Explanation:</strong> {example.explanation}
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );

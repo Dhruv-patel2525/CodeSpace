@@ -20,7 +20,7 @@ __decorate([
         index: true,
     }),
     __metadata("design:type", Number)
-], Problem.prototype, "id", void 0);
+], Problem.prototype, "problemId", void 0);
 __decorate([
     (0, mongoose_1.Prop)({
         required: true,
@@ -32,19 +32,7 @@ __decorate([
         required: true,
     }),
     __metadata("design:type", String)
-], Problem.prototype, "description", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({
-        required: true,
-    }),
-    __metadata("design:type", String)
-], Problem.prototype, "input", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({
-        required: true,
-    }),
-    __metadata("design:type", String)
-], Problem.prototype, "output", void 0);
+], Problem.prototype, "tags", void 0);
 __decorate([
     (0, mongoose_1.Prop)({
         required: true,
@@ -55,8 +43,42 @@ __decorate([
     (0, mongoose_1.Prop)({
         required: true,
     }),
+    __metadata("design:type", Number)
+], Problem.prototype, "avgtime", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
+    __metadata("design:type", Number)
+], Problem.prototype, "submissions", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
     __metadata("design:type", String)
-], Problem.prototype, "tag", void 0);
+], Problem.prototype, "description", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
+    __metadata("design:type", String)
+], Problem.prototype, "inputFormat", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
+    __metadata("design:type", String)
+], Problem.prototype, "outputFormat", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({
+        required: true,
+    }),
+    __metadata("design:type", String)
+], Problem.prototype, "constraints", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", Array)
+], Problem.prototype, "examples", void 0);
 exports.Problem = Problem = __decorate([
     (0, mongoose_1.Schema)()
 ], Problem);

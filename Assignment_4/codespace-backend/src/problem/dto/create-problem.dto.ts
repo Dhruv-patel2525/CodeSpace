@@ -1,25 +1,37 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsArray, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateProblemDto {
     @IsNotEmpty()
     @IsNumber()
-    id:number;
+    problemId:number;
     @IsNotEmpty()
     @IsString()
     title:string;
     @IsNotEmpty()
     @IsString()
-    description:string;
-    @IsNotEmpty()
-    @IsString()
-    input:string;
-    @IsNotEmpty()
-    @IsString()
-    output:string;
+    tags:string;
     @IsNotEmpty()
     @IsString()
     difficulty:string;
     @IsNotEmpty()
+    @IsNumber()
+    avgtime:number;
+    @IsNotEmpty()
+    @IsNumber()
+    submissions:number;
+    @IsNotEmpty()
     @IsString()
-    tag:string;
+    description:string;
+    @IsNotEmpty()
+    @IsString()
+    inputFormat:string;
+    @IsNotEmpty()
+    @IsString()
+    outputFormat:string;
+    @IsNotEmpty()
+    @IsString()
+    constraints:string;
+    @IsArray()
+    examples:[];
+    
 }

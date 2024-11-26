@@ -116,7 +116,7 @@ function editorReducer(state:editorState,action:{type:string,payload:any})
 export default function CodeEditorSection({ problemId }:{problemId:number}) {
 
   const templateState=templates.find(template => template.language==="java");
-  console.log(templateState);
+  // console.log(templateState);
   const initialState=templateState?{
     code:templateState.code,
     language:templateState.language }:

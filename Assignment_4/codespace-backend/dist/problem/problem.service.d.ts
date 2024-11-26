@@ -7,7 +7,7 @@ export declare class ProblemService {
     constructor(problemModel: Model<ProblemDocument>);
     create(createProblemDto: CreateProblemDto): Promise<Problem>;
     findAll(): Promise<Problem[]>;
-    findOne(id: number): Promise<Problem>;
+    findOne(problemId: number): Promise<Problem>;
     update(id: number, updateProblemDto: UpdateProblemDto): Promise<Problem>;
     remove(id: number): Promise<void>;
 }
