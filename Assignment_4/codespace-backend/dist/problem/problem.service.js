@@ -43,16 +43,16 @@ let ProblemService = class ProblemService {
             throw new common_1.InternalServerErrorException('Failed to fetch courses. Please try again later.');
         }
     }
-    async findOne(id) {
+    async findOne(problemId) {
         try {
-            const problem = await this.problemModel.findOne({ id }).exec();
+            const problem = await this.problemModel.findOne({ problemId }).exec();
             if (!problem) {
-                throw new common_1.NotFoundException(`Problem with ID ${id} not found`);
+                throw new common_1.NotFoundException(`Problem with ID ${problemId} not found`);
             }
             return problem;
         }
         catch (error) {
-            console.error(`Error fetching problem with ID ${id}:`, error.message);
+            console.error(`Error fetching problem with ID ${problemId}:`, error.message);
             if (error instanceof common_1.NotFoundException)
                 throw error;
             throw new common_1.InternalServerErrorException('Failed to fetch problem. Please try again later.');

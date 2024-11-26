@@ -1,0 +1,19 @@
+.badge-secondary{
+    background-color: #6C7A89;
+    color: #000000;
+  }
+
+  .badge-medium {
+    background-color: #ffdd99;
+    color: #000000;
+  }
+
+  .badge-easy {
+    background-color: #ccffcc;
+    color: #000000;
+  }
+
+  .badge-hard {
+    background-color: #ff9999;
+    color: #000000;
+  }

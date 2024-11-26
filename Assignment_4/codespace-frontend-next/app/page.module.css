@@ -1,0 +1,75 @@
+.intro-section {
+  background: linear-gradient(to right, #6a5acd, #836fff);
+  color: white;
+  padding: 6rem 1rem;
+  text-align: center;
+}
+
+.intro-h1 {
+  font-size: 2.5rem; 
+}
+
+.intro-p {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.intro-button {
+  margin-top: 2rem;
+  background-color: white;
+  color: #6a5acd;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.intro-button:hover {
+  background-color: #ececec;
+  color: #6a5acd;
+}
+.features-section {
+  padding: 4rem 1rem;
+  background-color: #f8f8f8;
+  text-align: center;
+}
+
+.feature-item {
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 8px; 
+  padding: 1.5rem; 
+  background: white; 
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  color: #6a5acd;
+  margin-bottom: 1rem;
+}
+
+.cta-section {
+  background-color: #6a5acd;
+  padding: 4rem 1rem;
+  color: white;
+  text-align: center;
+}
+
+.cta-section button {
+  background-color: white;
+  color: #6a5acd;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.cta-section button:hover {
+  background-color: #f1f1f1;
+  transform: translateY(-3px);
+}

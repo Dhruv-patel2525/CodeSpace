@@ -11,24 +11,24 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 @Controller('problem')
 export class ProblemController {
   constructor(private readonly problemService: ProblemService) {}
-  @Roles(UserRole.ADMIN)
-  @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard)
+  // @Roles(UserRole.ADMIN)
+  // @UseGuards(RolesGuard)
+  // @UseGuards(AuthGuard)
   @Post()
   create(@Body() createProblemDto: CreateProblemDto) {
     return this.problemService.create(createProblemDto);
   }
 
-  @Roles(UserRole.CODER)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
+  // @Roles(UserRole.CODER)
+  // @UseGuards(RolesGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.problemService.findAll();
   }
-  @Roles(UserRole.CODER)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
+  // @Roles(UserRole.CODER)
+  // @UseGuards(RolesGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.problemService.findOne(+id);

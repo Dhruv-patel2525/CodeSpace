@@ -1,9 +1,13 @@
 export declare class CreateProblemDto {
-    id: number;
+    problemId: number;
     title: string;
-    description: string;
-    input: string;
-    output: string;
+    tags: string;
     difficulty: string;
-    tag: string;
+    avgtime: number;
+    submissions: number;
+    description: string;
+    inputFormat: string;
+    outputFormat: string;
+    constraints: string;
+    examples: [];
 }

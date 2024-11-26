@@ -43,16 +43,16 @@ async create(createProblemDto: CreateProblemDto): Promise<Problem> {
 
 
 
-  async findOne(id: number): Promise<Problem> {
+  async findOne(problemId: number): Promise<Problem> {
     try{
-      const problem  =   await  this.problemModel.findOne({ id }).exec();
+      const problem  =   await  this.problemModel.findOne({ problemId }).exec();
       // const problem =  this.problemModel.find({id:id},'id title').exec();
       if (!problem) {
-        throw new NotFoundException(`Problem with ID ${id} not found`);
+        throw new NotFoundException(`Problem with ID ${problemId} not found`);
       }
       return problem;
     }catch (error) {
-      console.error(`Error fetching problem with ID ${id}:`, error.message);
+      console.error(`Error fetching problem with ID ${problemId}:`, error.message);
       if (error instanceof NotFoundException) throw error;
       throw new InternalServerErrorException('Failed to fetch problem. Please try again later.');
     }
