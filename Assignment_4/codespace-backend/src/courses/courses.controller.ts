@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { CoursesService } from './courses.service';
+import { CourseService } from './courses.service';
 import { CreateCourseDto } from './dto/createcourse.dto';
 import { UpdateCourseDto } from './dto/updateCourse.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guards';
@@ -10,42 +10,42 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 
 @Controller('courses')
 export class CoursesController {
-
-    constructor(private readonly courseService : CoursesService) {}
-  @Roles(UserRole.CODER,UserRole.INSTRUCTOR)
+  constructor(private readonly courseService: CourseService) {}
+  @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
   @UseGuards(RolesGuard)
   @UseGuards(AuthGuard)
   @Get()
-  getAllCourses(){
-        return this.courseService.findAll();
+  getAllCourses() {
+    return this.courseService.findAll();
   }
-  @Roles(UserRole.CODER,UserRole.INSTRUCTOR)
+  @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   @Get(':courseId')
   findOne(@Param('courseId') courseId: string) {
-    return this.courseService.findOne(+courseId);
+    return this.courseService.findOne(courseId);
   }
-  @Roles(UserRole.ADMIN,UserRole.INSTRUCTOR)
+  @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createCourseDto: CreateCourseDto) {
     return this.courseService.create(createCourseDto);
   }
-  @Roles(UserRole.ADMIN,UserRole.INSTRUCTOR)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
+  @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
+  @UseGuards(RolesGuard, JwtAuthGuard)
   @Put(':courseId')
-  update(@Param('courseId') courseId: string, @Body() updateCourseDto: UpdateCourseDto) {
-    return this.courseService.update(+courseId, updateCourseDto);
-  }
-  @Roles(UserRole.ADMIN,UserRole.INSTRUCTOR)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
-  @Delete(':courseId')
-  remove(@Param('courseId') courseId: string) {
-    return this.courseService.remove(+courseId);
+  async update(
+    @Param('courseId') courseId: string,
+    @Body() updateCourseDto: UpdateCourseDto,
+  ) {
+    return this.courseService.update(courseId, updateCourseDto);
   }
 
+  @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
+  @UseGuards(RolesGuard, JwtAuthGuard)
+  @Delete(':courseId')
+  async remove(@Param('courseId') courseId: string) {
+    return this.courseService.remove(courseId);
+  }
 }
