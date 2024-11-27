@@ -30,16 +30,16 @@ let CoursesController = class CoursesController {
         return this.courseService.findAll();
     }
     findOne(courseId) {
-        return this.courseService.findOne(+courseId);
+        return this.courseService.findOne(courseId);
     }
     create(createCourseDto) {
         return this.courseService.create(createCourseDto);
     }
-    update(courseId, updateCourseDto) {
-        return this.courseService.update(+courseId, updateCourseDto);
+    async update(courseId, updateCourseDto) {
+        return this.courseService.update(courseId, updateCourseDto);
     }
-    remove(courseId) {
-        return this.courseService.remove(+courseId);
+    async remove(courseId) {
+        return this.courseService.remove(courseId);
     }
 };
 exports.CoursesController = CoursesController;
@@ -63,7 +63,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CoursesController.prototype, "findOne", null);
 __decorate([
-    (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.ADMIN, roles_enum_1.UserRole.INSTRUCTOR),
+    (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.CODER, roles_enum_1.UserRole.INSTRUCTOR),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
@@ -74,27 +74,25 @@ __decorate([
 ], CoursesController.prototype, "create", null);
 __decorate([
     (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.ADMIN, roles_enum_1.UserRole.INSTRUCTOR),
-    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Put)(':courseId'),
     __param(0, (0, common_1.Param)('courseId')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, updateCourse_dto_1.UpdateCourseDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], CoursesController.prototype, "update", null);
 __decorate([
     (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.ADMIN, roles_enum_1.UserRole.INSTRUCTOR),
-    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Delete)(':courseId'),
     __param(0, (0, common_1.Param)('courseId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], CoursesController.prototype, "remove", null);
 exports.CoursesController = CoursesController = __decorate([
     (0, common_1.Controller)('courses'),
-    __metadata("design:paramtypes", [courses_service_1.CoursesService])
+    __metadata("design:paramtypes", [courses_service_1.CourseService])
 ], CoursesController);
 //# sourceMappingURL=courses.controller.js.map
