@@ -10,13 +10,18 @@ exports.CoursesModule = void 0;
 const common_1 = require("@nestjs/common");
 const courses_controller_1 = require("./courses.controller");
 const courses_service_1 = require("./courses.service");
+const mongoose_1 = require("@nestjs/mongoose");
+const course_1 = require("./schema/course");
 let CoursesModule = class CoursesModule {
 };
 exports.CoursesModule = CoursesModule;
 exports.CoursesModule = CoursesModule = __decorate([
     (0, common_1.Module)({
+        imports: [
+            mongoose_1.MongooseModule.forFeature([{ name: 'Course', schema: course_1.CourseSchema }]),
+        ],
         controllers: [courses_controller_1.CoursesController],
-        providers: [courses_service_1.CoursesService]
+        providers: [courses_service_1.CourseService],
     })
 ], CoursesModule);
 //# sourceMappingURL=courses.module.js.map

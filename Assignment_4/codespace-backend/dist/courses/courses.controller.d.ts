@@ -1,32 +1,12 @@
-import { CoursesService } from './courses.service';
+import { CourseService } from './courses.service';
 import { CreateCourseDto } from './dto/createcourse.dto';
 import { UpdateCourseDto } from './dto/updateCourse.dto';
 export declare class CoursesController {
     private readonly courseService;
-    constructor(courseService: CoursesService);
-    getAllCourses(): {
-        id: number;
-        title: string;
-        description: string;
-        instructor: string;
-    }[];
-    findOne(courseId: string): {
-        id: number;
-        title: string;
-        description: string;
-        instructor: string;
-    };
-    create(createCourseDto: CreateCourseDto): {
-        title: string;
-        description: string;
-        instructor: string;
-        id: number;
-    };
-    update(courseId: string, updateCourseDto: UpdateCourseDto): {
-        title: string;
-        description: string;
-        instructor: string;
-        id: number;
-    };
-    remove(courseId: string): void;
+    constructor(courseService: CourseService);
+    getAllCourses(): Promise<import("./schema/course").Course[]>;
+    findOne(courseId: string): Promise<import("./schema/course").Course>;
+    create(createCourseDto: CreateCourseDto): Promise<import("./schema/course").Course>;
+    update(courseId: string, updateCourseDto: UpdateCourseDto): Promise<import("./schema/course").Course>;
+    remove(courseId: string): Promise<import("./schema/course").Course>;
 }
