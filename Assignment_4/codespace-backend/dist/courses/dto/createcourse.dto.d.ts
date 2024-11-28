@@ -4,4 +4,5 @@ export declare class CreateCourseDto {
     instructor: string;
     duration: string;
     courseCode: string;
+    startDate: string;
 }

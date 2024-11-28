@@ -1,49 +1,46 @@
-import { useEffect } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import "bootstrap/dist/css/bootstrap.min.css";
-import classes from "./page.module.css";
+import classes from "./styles/page.module.css";
+import CourseGrid from "./components/courseGrid";
 
 const CourseDetails = () => {
-  // useEffect(() => {
-  //   // Dynamically import Bootstrap JS for interactive features like the navbar toggler
-  //   import("bootstrap/dist/js/bootstrap.bundle.min.js");
-  // }, []);
+  const [courses, setCourses] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    fetch("http://localhost:3003/courses")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => setCourses(data))
+      .catch((error) => setError(error.message));
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!courses) {
+    return <div>Loading...</div>;
+  }
+  console.log("Current data state:", courses);
   return (
     <>
       <Head>
-        <title>Course Details - CodeSpace</title>
+        <title>All Courses - CodeSpace</title>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <section className={`${classes.courseDetailsSection} py-5`}>
-        <div className="container">
-          <h2 className={`text-center mb-5 ${classes.courseTitle}`}>TEST</h2>
-
-          <div className={`mb-4 ${classes.courseDescription}`}>
-            <h4>Course Description:</h4>
-            <p>Test</p>
-          </div>
-
-          <div className={`mb-4 ${classes.courseSyllabus}`}>
-            <h4>Syllabus:</h4>
-            <ul>
-              <li>TEST</li>
-            </ul>
-          </div>
-
-          <div className={`mb-4 ${classes.instructorDetails}`}>
-            <h4>Instructor:</h4>
-            <p>TEST</p>
-          </div>
-
-          <div className="text-center">
-            <button className={`btn btn-success ${classes.enrollButton}`}>
-              Enroll Now
-            </button>
-          </div>
-        </div>
-      </section>
+      <div className="container py-5">
+        <h2 className="text-center mb-5">All Courses</h2>
+        <CourseGrid courses={courses} />
+      </div>
     </>
   );
 };

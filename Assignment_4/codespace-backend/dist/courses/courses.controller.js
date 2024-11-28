@@ -17,7 +17,6 @@ const common_1 = require("@nestjs/common");
 const courses_service_1 = require("./courses.service");
 const createcourse_dto_1 = require("./dto/createcourse.dto");
 const updateCourse_dto_1 = require("./dto/updateCourse.dto");
-const auth_guards_1 = require("../auth/guards/auth.guards");
 const roles_guard_1 = require("../auth/guards/roles.guard");
 const roles_decorator_1 = require("../auth/decorators/roles.decorator");
 const roles_enum_1 = require("../auth/enums/roles.enum");
@@ -44,9 +43,6 @@ let CoursesController = class CoursesController {
 };
 exports.CoursesController = CoursesController;
 __decorate([
-    (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.CODER, roles_enum_1.UserRole.INSTRUCTOR),
-    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
-    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -63,9 +59,6 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CoursesController.prototype, "findOne", null);
 __decorate([
-    (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.CODER, roles_enum_1.UserRole.INSTRUCTOR),
-    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

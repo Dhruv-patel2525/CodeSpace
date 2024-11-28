@@ -7,6 +7,8 @@ export class Course {
   lastUpdated: Date;
   duration: string;
   courseCode: string;
+  instructor: string;
+  description: string;
 }
 
 export const CourseSchema = new Schema<Course>({
@@ -14,6 +16,8 @@ export const CourseSchema = new Schema<Course>({
   lastUpdated: { type: Date, default: Date.now },
   duration: { type: String, required: true },
   courseCode: { type: String, required: true, unique: true },
+  instructor: { type: String, required: true },
+  description: { type: String, required: true },
 });
 
 export const CourseModel = model<Course>('Course', CourseSchema);
