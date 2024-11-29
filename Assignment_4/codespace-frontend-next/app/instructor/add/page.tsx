@@ -1,8 +1,11 @@
 "use client";
 
+import { headers } from "next/headers";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const AddCourse = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -11,6 +14,8 @@ const AddCourse = () => {
     courseCode: "",
     instructorEmail: "",
   });
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -18,9 +23,40 @@ const AddCourse = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+    setLoading(true);
+    //console.log(formData);
+    if (
+      !formData.title ||
+      !formData.description ||
+      !formData.instructor ||
+      !formData.duration ||
+      !formData.courseCode ||
+      !formData.instructorEmail
+    ) {
+      setError("All fields are required.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const courseData = await fetch("http://localhost:3003/courses", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!courseData.ok) {
+        throw new Error("Failed to create course");
+      }
+      router.push("/instructor");
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
