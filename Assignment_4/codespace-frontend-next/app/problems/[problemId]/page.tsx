@@ -20,15 +20,45 @@ export default function ProblemDetails() {
     let isMounted=true;
 
     const loadProblemById = async (problemId:string)=>{
-        try{
-            const data=await fetchProblemById(problemId);
-            setProblem(data);
-        }
-        catch(err)
-        {
-            setError("Problem does not exist");
-            console.log(err);
-        }
+        // try{
+        //     const data=await fetchProblemById(problemId);
+        //     setProblem(data);
+        // }
+        // catch(err)
+        // {
+        //     setError("Problem does not exist");
+        //     console.log(err);
+        // }
+        const url=`${process.env.NEXT_PUBLIC_API_BASE_URL}/problem/${problemId}`;
+        fetch(url)
+        .then( response =>{
+          if(!response.ok){
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => setProblem(data))
+        .catch(error => {
+          setError(error.message)
+        })
+
+
+        // fetch("http://localhost:3003/courses")
+        // .then((response) => {
+        //   if (!response.ok) {
+        //     throw new Error(`HTTP error! status: ${response.status}`);
+        //   }
+        //   return response.json();
+        // })
+        // .then((data) =>
+        //   setCourses(
+        //     data.map((course: any) => ({
+        //       ...course,
+        //       id: course._id,
+        //     }))
+        //   )
+        // )
+        // .catch((error) => setError(error.message));
     }
     loadProblemById(problemId);
     return ()=>{
@@ -40,7 +70,10 @@ export default function ProblemDetails() {
     if (!problem) {
         return <div>Problem Not found.</div>;
     }
-
+    const editorDetails={
+      problemId:problem.problemId,
+      templates:problem.templates,
+    }
     return (
         <div className="container-fluid">
        <div className="row">
@@ -48,7 +81,7 @@ export default function ProblemDetails() {
           <ProblemDescription problem={problem} />
         </div>
         <div className="col-md-6">
-          <CodeEditorSection problemId={problem.problemId} />
+          <CodeEditorSection problem={editorDetails} />
         </div>
       </div>
     </div>

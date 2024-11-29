@@ -8,8 +8,9 @@ export  interface Problem {
     description: string;
     inputFormat: string;
     outputFormat: string;
-    constraints:string;
+    constraints:String[];
     examples: Example[];
+    templates:Template[];
   }
 
 export interface Example {
@@ -19,3 +20,7 @@ export interface Example {
     output: number; // Expected output
     explanation: string; // Explanation of the result
   }
+export interface Template{
+  language:string,
+  code:string
+}

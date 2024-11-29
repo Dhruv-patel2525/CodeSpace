@@ -61,11 +61,15 @@ __decorate([
 ], CreateProblemDto.prototype, "outputFormat", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
 ], CreateProblemDto.prototype, "constraints", void 0);
 __decorate([
     (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
 ], CreateProblemDto.prototype, "examples", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], CreateProblemDto.prototype, "templates", void 0);
 //# sourceMappingURL=create-problem.dto.js.map
