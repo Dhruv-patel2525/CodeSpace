@@ -7,7 +7,6 @@ import CourseGrid from "./components/courseGrid";
 import { useRouter } from "next/router";
 
 const CourseDetails = () => {
-  const router = useRouter();
   const [courses, setCourses] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,10 +29,6 @@ const CourseDetails = () => {
       .catch((error) => setError(error.message));
   }, []);
 
-  const handleViewCourse = (id: string) => {
-    router.push(`/courses/${id}`);
-  };
-
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -51,7 +46,7 @@ const CourseDetails = () => {
       </Head>
       <div className="container py-5">
         <h2 className="text-center mb-5">All Courses</h2>
-        <CourseGrid courses={courses} handleCourse={handleViewCourse} />
+        <CourseGrid courses={courses} />
       </div>
     </>
   );

@@ -7,7 +7,7 @@ interface CourseCardProps {
   title: string;
   description: string;
   instructor: string;
-  handleCourse: (id: string) => void;
+  //handleCourse: (id: string) => void;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
@@ -15,7 +15,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
   title,
   description,
   instructor,
-  handleCourse,
+  //handleCourse,
 }) => {
   return (
     <div className={`card ${styles.courseCard}`}>
@@ -25,11 +25,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
         <p>
           <strong>Instructor:</strong> {instructor}
         </p>
-        <button
-          className="btn btn-success me-2"
-          onClick={() => handleCourse(id)}>
-          View Course
-        </button>
+        <button className="btn btn-success me-2">View Course</button>
         <button className="btn btn-success">Enroll Now</button>
       </div>
     </div>
