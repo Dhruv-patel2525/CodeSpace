@@ -8,6 +8,7 @@ export declare class CreateProblemDto {
     description: string;
     inputFormat: string;
     outputFormat: string;
-    constraints: string;
+    constraints: [];
     examples: [];
+    templates: [];
 }

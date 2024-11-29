@@ -10,8 +10,9 @@ export declare class Problem {
     description: string;
     inputFormat: string;
     outputFormat: string;
-    constraints: string;
+    constraints: [];
     examples: [];
+    templates: [];
 }
 export declare const ProblemSchema: import("mongoose").Schema<Problem, import("mongoose").Model<Problem, any, any, any, import("mongoose").Document<unknown, any, Problem> & Problem & {
     _id: import("mongoose").Types.ObjectId;

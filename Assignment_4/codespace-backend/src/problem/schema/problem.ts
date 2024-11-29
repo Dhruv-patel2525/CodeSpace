@@ -44,9 +44,10 @@ export class Problem{
     @Prop({
         required:true,
     })
-    constraints:string;
+    constraints:[];
     @Prop()
     examples:[];
-    
+    @Prop()
+    templates:[];
 }
 export const ProblemSchema = SchemaFactory.createForClass(Problem);
