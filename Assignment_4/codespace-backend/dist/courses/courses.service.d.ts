@@ -8,4 +8,5 @@ export declare class CourseService {
     findOne(id: string): Promise<Course | null>;
     update(id: string, updateCourseDto: Partial<Course>): Promise<Course | null>;
     remove(id: string): Promise<Course | null>;
+    getCoursesByInstructor(email: string): Promise<Course[]>;
 }

@@ -41,7 +41,7 @@ __decorate([
 ], CreateCourseDto.prototype, "courseCode", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsDateString)(),
+    (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
-], CreateCourseDto.prototype, "startDate", void 0);
+], CreateCourseDto.prototype, "instructorEmail", void 0);
 //# sourceMappingURL=createcourse.dto.js.map

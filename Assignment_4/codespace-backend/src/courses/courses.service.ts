@@ -34,6 +34,11 @@ export class CourseService {
   }
 
   async remove(id: string): Promise<Course | null> {
-    return this.courseModel.findByIdAndDelete(id).exec();
+    return 
+    this.courseModel.findByIdAndDelete(id).exec();
+  }
+
+  async getCoursesByInstructor(email: string): Promise<Course[]> {
+    return this.courseModel.find({ instructorEmail: email }).exec();
   }
 }

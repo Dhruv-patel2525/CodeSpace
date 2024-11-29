@@ -28,7 +28,7 @@ let CoursesController = class CoursesController {
     getAllCourses() {
         return this.courseService.findAll();
     }
-    findOne(courseId) {
+    async findOne(courseId) {
         return this.courseService.findOne(courseId);
     }
     create(createCourseDto) {
@@ -40,6 +40,12 @@ let CoursesController = class CoursesController {
     async remove(courseId) {
         return this.courseService.remove(courseId);
     }
+    async getCoursesByInstructor(email) {
+        if (!email) {
+            throw new common_1.BadRequestException('Email query parameter is required');
+        }
+        return this.courseService.getCoursesByInstructor(email);
+    }
 };
 exports.CoursesController = CoursesController;
 __decorate([
@@ -49,14 +55,11 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CoursesController.prototype, "getAllCourses", null);
 __decorate([
-    (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.CODER, roles_enum_1.UserRole.INSTRUCTOR),
-    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Get)(':courseId'),
+    (0, common_1.Get)('details/:courseId'),
     __param(0, (0, common_1.Param)('courseId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], CoursesController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Post)(),
@@ -84,6 +87,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CoursesController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Get)('instructor'),
+    __param(0, (0, common_1.Query)('email')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CoursesController.prototype, "getCoursesByInstructor", null);
 exports.CoursesController = CoursesController = __decorate([
     (0, common_1.Controller)('courses'),
     __metadata("design:paramtypes", [courses_service_1.CourseService])

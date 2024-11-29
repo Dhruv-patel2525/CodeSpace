@@ -38,7 +38,11 @@ let CourseService = class CourseService {
             .exec();
     }
     async remove(id) {
-        return this.courseModel.findByIdAndDelete(id).exec();
+        return;
+        this.courseModel.findByIdAndDelete(id).exec();
+    }
+    async getCoursesByInstructor(email) {
+        return this.courseModel.find({ instructorEmail: email }).exec();
     }
 };
 exports.CourseService = CourseService;

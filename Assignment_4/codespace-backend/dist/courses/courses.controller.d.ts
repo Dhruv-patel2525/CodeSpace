@@ -9,4 +9,5 @@ export declare class CoursesController {
     create(createCourseDto: CreateCourseDto): Promise<import("./schema/course").Course>;
     update(courseId: string, updateCourseDto: UpdateCourseDto): Promise<import("./schema/course").Course>;
     remove(courseId: string): Promise<import("./schema/course").Course>;
+    getCoursesByInstructor(email: string): Promise<import("./schema/course").Course[]>;
 }
