@@ -3,7 +3,7 @@ import CourseCard from "./courseCard";
 
 interface CoursesGridProps {
   courses: Courses[];
-  handleCourse: (id: string) => void;
+  // handleCourse: (id: string) => void;
 }
 interface Courses {
   id: string;
@@ -12,7 +12,7 @@ interface Courses {
   instructor: string;
 }
 
-const CourseGrid: React.FC<CoursesGridProps> = ({ courses, handleCourse }) => {
+const CourseGrid: React.FC<CoursesGridProps> = ({ courses }) => {
   return (
     <div className="row">
       {courses.map((course, index) => (
@@ -24,7 +24,7 @@ const CourseGrid: React.FC<CoursesGridProps> = ({ courses, handleCourse }) => {
             title={course.title}
             description={course.description}
             instructor={course.instructor}
-            handleCourse={handleCourse}
+            // handleCourse={handleCourse}
           />
         </div>
       ))}
