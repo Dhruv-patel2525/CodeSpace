@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { CourseService } from './courses.service';
 import { CreateCourseDto } from './dto/createcourse.dto';
 import { UpdateCourseDto } from './dto/updateCourse.dto';
@@ -11,23 +22,23 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly courseService: CourseService) {}
-  @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
-  @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard)
+  // @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
+  // @UseGuards(RolesGuard)
+  // @UseGuards(AuthGuard)
   @Get()
   getAllCourses() {
     return this.courseService.findAll();
   }
-  @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
-  @Get(':courseId')
-  findOne(@Param('courseId') courseId: string) {
+  // @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
+  // @UseGuards(RolesGuard)
+  // @UseGuards(JwtAuthGuard)
+  @Get('details/:courseId')
+  async findOne(@Param('courseId') courseId: string) {
     return this.courseService.findOne(courseId);
   }
-  @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
+  // @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
+  // @UseGuards(RolesGuard)
+  // @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createCourseDto: CreateCourseDto) {
     return this.courseService.create(createCourseDto);
@@ -47,5 +58,13 @@ export class CoursesController {
   @Delete(':courseId')
   async remove(@Param('courseId') courseId: string) {
     return this.courseService.remove(courseId);
+  }
+
+  @Get('instructor') // Specific route comes before generic routes
+  async getCoursesByInstructor(@Query('email') email: string) {
+    if (!email) {
+      throw new BadRequestException('Email query parameter is required');
+    }
+    return this.courseService.getCoursesByInstructor(email);
   }
 }

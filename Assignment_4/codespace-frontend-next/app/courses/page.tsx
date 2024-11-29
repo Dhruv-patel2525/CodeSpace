@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import "bootstrap/dist/css/bootstrap.min.css";
-import classes from "./styles/page.module.css";
 import CourseGrid from "./components/courseGrid";
+import { useRouter } from "next/router";
 
 const CourseDetails = () => {
   const [courses, setCourses] = useState<any>(null);
@@ -18,7 +18,14 @@ const CourseDetails = () => {
         }
         return response.json();
       })
-      .then((data) => setCourses(data))
+      .then((data) =>
+        setCourses(
+          data.map((course: any) => ({
+            ...course,
+            id: course._id,
+          }))
+        )
+      )
       .catch((error) => setError(error.message));
   }, []);
 
