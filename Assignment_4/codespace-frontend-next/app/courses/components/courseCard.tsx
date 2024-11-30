@@ -33,23 +33,20 @@ const CourseCard: React.FC<CourseCardProps> = ({
           <>
             <button
               className="btn btn-success me-2"
-              onClick={() => handleCourse(id)} // View course button
-            >
+              onClick={() => handleCourse(id)}>
               View Course
             </button>
-            <button className="btn btn-success">Enroll Now</button>{" "}
-            {/* Enroll button */}
+            <button className="btn btn-success">Enroll Now</button>
           </>
         ) : (
           <>
+            <button className="btn btn-success me-2">Edit Course</button>
+            <p> id: {id}</p>
             <button
-              className="btn btn-success me-2"
-              onClick={() => handleCourse(id)} // Edit course button
-            >
-              Edit Course
+              className="btn btn-success"
+              onClick={() => handleCourse(id)}>
+              Delete Course
             </button>
-            <button className="btn btn-success">Delete Course</button>{" "}
-            {/* Delete button */}
           </>
         )}
       </div>

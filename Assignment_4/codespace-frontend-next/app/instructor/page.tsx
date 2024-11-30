@@ -22,7 +22,12 @@ const InstructorPage = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setCourses(data);
+        setCourses(
+          data.map((course: any) => ({
+            ...course,
+            id: course._id,
+          }))
+        );
       } catch (err: any) {
         setError(err.message);
       }
@@ -42,10 +47,12 @@ const InstructorPage = () => {
     router.push("/instructor/add");
   };
 
-  function handleCourse(id: string): void {
-    throw new Error("Function not implemented.");
+  function deleteCourse(id: string): void {
+    console.log(id);
+    fetch(`http://localhost:3003/courses/${id}`, {
+      method: "DELETE",
+    });
   }
-
   return (
     <div className={`container py-5 ${styles.courseDetailsSection}`}>
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -56,7 +63,7 @@ const InstructorPage = () => {
       </div>
       <CourseGrid
         courses={courses}
-        handleCourse={handleCourse}
+        handleCourse={deleteCourse}
         role={"instructor"}
       />
     </div>
