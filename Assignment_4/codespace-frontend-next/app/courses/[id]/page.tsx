@@ -1,15 +1,17 @@
-import { useRouter } from "next/router";
+"use client";
+
+import { useParams } from "next/navigation"; // Import useParams from next/navigation
 import { useEffect, useState } from "react";
 
 const ViewCourse = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  const { id } = useParams(); // Use useParams() to get the course id from the URL
   const [course, setCourse] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:3003/courses/${id}`)
+      // Fetch the course data from the backend using the courseId
+      fetch(`http://localhost:3003/courses/details/${id}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -47,6 +49,7 @@ const ViewCourse = () => {
       </p>
 
       <h3>Syllabus</h3>
+      {/* Optionally render the syllabus if it exists */}
       {/* <ul>
         {course.syllabus?.map((topic, index) => (
           <li key={index}>{topic}</li>

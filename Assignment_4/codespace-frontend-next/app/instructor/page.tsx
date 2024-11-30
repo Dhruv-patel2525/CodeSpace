@@ -42,6 +42,10 @@ const InstructorPage = () => {
     router.push("/instructor/add");
   };
 
+  function handleCourse(id: string): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <div className={`container py-5 ${styles.courseDetailsSection}`}>
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -50,7 +54,11 @@ const InstructorPage = () => {
           Create New Course
         </button>
       </div>
-      <CourseGrid courses={courses} />
+      <CourseGrid
+        courses={courses}
+        handleCourse={handleCourse}
+        role={"instructor"}
+      />
     </div>
   );
 };

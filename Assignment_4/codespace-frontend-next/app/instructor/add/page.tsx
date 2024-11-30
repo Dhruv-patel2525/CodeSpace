@@ -16,6 +16,7 @@ const AddCourse = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -52,6 +53,10 @@ const AddCourse = () => {
         throw new Error("Failed to create course");
       }
       router.push("/instructor");
+      setSuccessMessage("Course Created Successfully");
+      setTimeout(() => {
+        router.push("/instructor");
+      }, 1500);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -62,7 +67,10 @@ const AddCourse = () => {
   return (
     <div className="container py-5">
       <h2 className="text-center mb-4">Add New Course</h2>
-
+      {successMessage && (
+        <div className="alert alert-success">{successMessage}</div>
+      )}
+      {error && <div className="alert alert-danger">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
