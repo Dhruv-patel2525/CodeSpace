@@ -53,13 +53,18 @@ export default function LandingPage(){
                 </Link>
               </div>
               <div className="col-12 col-md-6 col-lg-3 mb-4">
-                <div className={`card ${classes["feature-item"]} h-100`}>
-                  <i className={`fas fa-trophy ${classes["feature-icon"]}`}></i>
-                  <h3>Coding Competitions</h3>
-                  <p>
-                    Challenge yourself with live competitions and win rewards.
-                  </p>
-                </div>
+                <Link
+                  href="/coding_competition"
+                  className="text-decoration-none text-dark">
+                  <div className={`card ${classes["feature-item"]} h-100`}>
+                    <i
+                      className={`fas fa-trophy ${classes["feature-icon"]}`}></i>
+                    <h3>Coding Competitions</h3>
+                    <p>
+                      Challenge yourself with live competitions and win rewards.
+                    </p>
+                  </div>
+                </Link>
               </div>
               <div className="col-12 col-md-6 col-lg-3 mb-4">
                 <Link
