@@ -43,8 +43,8 @@ export class CoursesController {
   create(@Body() createCourseDto: CreateCourseDto) {
     return this.courseService.create(createCourseDto);
   }
-  @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
-  @UseGuards(RolesGuard, JwtAuthGuard)
+  // @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
+  // @UseGuards(RolesGuard, JwtAuthGuard)
   @Put(':courseId')
   async update(
     @Param('courseId') courseId: string,
@@ -53,8 +53,8 @@ export class CoursesController {
     return this.courseService.update(courseId, updateCourseDto);
   }
 
-  @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
-  @UseGuards(RolesGuard, JwtAuthGuard)
+  // @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
+  // @UseGuards(RolesGuard, JwtAuthGuard)
   @Delete(':courseId')
   async remove(@Param('courseId') courseId: string) {
     return this.courseService.remove(courseId);

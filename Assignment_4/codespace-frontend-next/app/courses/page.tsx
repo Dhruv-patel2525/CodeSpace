@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CourseGrid from "./components/courseGrid";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const CourseDetails = () => {
   const [courses, setCourses] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-
+  const router = useRouter();
   useEffect(() => {
     fetch("http://localhost:3003/courses")
       .then((response) => {
@@ -37,6 +37,11 @@ const CourseDetails = () => {
     return <div>Loading...</div>;
   }
   console.log("Current data state:", courses);
+
+  const handleCourse = (courseId: string) => {
+    router.push(`/courses/${courseId}`);
+  };
+
   return (
     <>
       <Head>
@@ -46,7 +51,12 @@ const CourseDetails = () => {
       </Head>
       <div className="container py-5">
         <h2 className="text-center mb-5">All Courses</h2>
-        <CourseGrid courses={courses} />
+        <CourseGrid
+          courses={courses}
+          handleCourse={handleCourse}
+          handleCourse2={handleCourse}
+          role={"learner"}
+        />
       </div>
     </>
   );

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import styles from "../styles/page.module.css";
 import router, { Router, useRouter } from "next/router";
@@ -7,7 +8,9 @@ interface CourseCardProps {
   title: string;
   description: string;
   instructor: string;
-  //handleCourse: (id: string) => void;
+  role: string;
+  handleCourse: (id: string) => void;
+  handleCourse2: (id: string) => void;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
@@ -15,7 +18,9 @@ const CourseCard: React.FC<CourseCardProps> = ({
   title,
   description,
   instructor,
-  //handleCourse,
+  role,
+  handleCourse,
+  handleCourse2,
 }) => {
   return (
     <div className={`card ${styles.courseCard}`}>
@@ -25,8 +30,30 @@ const CourseCard: React.FC<CourseCardProps> = ({
         <p>
           <strong>Instructor:</strong> {instructor}
         </p>
-        <button className="btn btn-success me-2">View Course</button>
-        <button className="btn btn-success">Enroll Now</button>
+
+        {role === "learner" ? (
+          <>
+            <button
+              className="btn btn-success me-2"
+              onClick={() => handleCourse(id)}>
+              View Course
+            </button>
+            <button className="btn btn-success">Enroll Now</button>
+          </>
+        ) : (
+          <>
+            <button
+              className="btn btn-success me-2"
+              onClick={() => handleCourse2(id)}>
+              Edit Course
+            </button>
+            <button
+              className="btn btn-success"
+              onClick={() => handleCourse(id)}>
+              Delete Course
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

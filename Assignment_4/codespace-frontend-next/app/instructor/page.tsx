@@ -11,6 +11,9 @@ const InstructorPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   const instructorEmail = "hirad@example.com";
+  const addCourses = () => {
+    router.push("/instructor/add");
+  };
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -22,7 +25,12 @@ const InstructorPage = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setCourses(data);
+        setCourses(
+          data.map((course: any) => ({
+            ...course,
+            id: course._id,
+          }))
+        );
       } catch (err: any) {
         setError(err.message);
       }
@@ -36,12 +44,27 @@ const InstructorPage = () => {
   }
 
   if (!courses.length) {
-    return <div className="container py-5">No courses available...</div>;
+    <>
+      <div className="container py-5">
+        <div className="centered-content">
+          <div className="mb-3">No courses available...</div>
+          <button className="btn btn-primary" onClick={addCourses}>
+            Create New Course
+          </button>
+        </div>
+      </div>
+    </>;
   }
-  const addCourses = () => {
-    router.push("/instructor/add");
-  };
-
+  
+  function deleteCourse(id: string): void {
+    console.log(id);
+    fetch(`http://localhost:3003/courses/${id}`, {
+      method: "DELETE",
+    });
+  }
+  function editCourse(id: string): void {
+    router.push(`/instructor/edit/${id}`);
+  }
   return (
     <div className={`container py-5 ${styles.courseDetailsSection}`}>
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -50,7 +73,12 @@ const InstructorPage = () => {
           Create New Course
         </button>
       </div>
-      <CourseGrid courses={courses} />
+      <CourseGrid
+        courses={courses}
+        handleCourse={deleteCourse}
+        handleCourse2={editCourse}
+        role={"instructor"}
+      />
     </div>
   );
 };

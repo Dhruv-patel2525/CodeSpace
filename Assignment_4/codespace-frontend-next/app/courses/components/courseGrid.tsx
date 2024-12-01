@@ -1,18 +1,27 @@
+"use client";
 import React from "react";
 import CourseCard from "./courseCard";
 
 interface CoursesGridProps {
   courses: Courses[];
-  // handleCourse: (id: string) => void;
+  handleCourse: (id: string) => void;
+  handleCourse2: (id: string) => void;
+  role: string;
 }
 interface Courses {
   id: string;
   title: string;
   description: string;
   instructor: string;
+  role: string;
 }
 
-const CourseGrid: React.FC<CoursesGridProps> = ({ courses }) => {
+const CourseGrid: React.FC<CoursesGridProps> = ({
+  courses,
+  handleCourse,
+  handleCourse2,
+  role,
+}) => {
   return (
     <div className="row">
       {courses.map((course, index) => (
@@ -24,7 +33,9 @@ const CourseGrid: React.FC<CoursesGridProps> = ({ courses }) => {
             title={course.title}
             description={course.description}
             instructor={course.instructor}
-            // handleCourse={handleCourse}
+            role={role}
+            handleCourse={handleCourse}
+            handleCourse2={handleCourse2}
           />
         </div>
       ))}
