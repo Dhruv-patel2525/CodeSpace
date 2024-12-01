@@ -59,6 +59,10 @@ export class AuthService {
 
     
     async registerUser(signupDto : SignupDto) {
+        if(signupDto.password!==signupDto.confirmPassword)
+        {
+            throw new UnauthorizedException('Password does not match');
+        }
        return this.userService.createUser(signupDto);
       }
     
