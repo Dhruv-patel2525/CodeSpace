@@ -1,28 +1,59 @@
-import classes from "./page.module.css";
+"use client"
+import { redirect, useRouter } from "next/navigation";
+import Login from "@/components/forms/login";
+import { cookies } from "next/headers";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { useAuth } from "@/components/contexts/AuthContext";
 
-export default function Login() {
+export default function LoginPage() {
+    const router= useRouter();
+    const {dispatch}=useAuth();
+    const handleLogin=async (email:string,password:string,res: NextApiResponse)=>{
+        try{
+            const res=await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`,{
+                method:'POST',
+                headers:{ "Content-Type": "application/json" },
+                body:JSON.stringify({ email, password }),}
+            );
+            if (res.ok) {
+                const response = await res.json();
+                const { accesstoken,refreshToken, email,role,name}=response;
+                document.cookie = `authToken=${accesstoken}; path=/; Secure; HttpOnly`;
+                const user={
+                    email:email,
+                    name:name,
+                    role:role,
+                }            
+                //    document.cookie = "authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;"; for logout
+                console.log(response);
+                console.log("LoginPage"+user);
+                dispatch({type:"LOGIN",payload:{user,token:accesstoken}});
+                if(user.role==="instructor")
+                {
+                    router.push("/instructor");
+                }
+                else if(user.role==="coder")
+                {
+                    router.push("/problems");
+                }
+                else
+                {
+                    router.push("/admin");
+                }
+                
+              } else {
+                const error=await res.json();
+                console.log("Login failed:", error.message || "Unknown error");
+                alert(`Login failed: ${error.message || "Please try again."}`);
+              }        
+        }
+        catch(error)
+        {
+            console.log("Error Logging In"+error);
+            
+        }
+    }
     return (
-        <section className={classes.loginSection}>
-            <h1 className={classes.title}>Login To Your Account</h1>
-            <form action="/login" id="login-form" method="POST" className={classes.form}>
-                <div className={classes.formGroup}>
-                    <label htmlFor="email" className={classes.label}>Email:</label>
-                    <input type="email" id="email" name="email" className={classes.input} required />
-                </div>
-                <div className={classes.formGroup}>
-                    <label htmlFor="password" className={classes.label}>Password:</label>
-                    <input type="password" id="password" name="password" className={classes.input} required />
-                </div>
-                <div className={classes.formGroup}>
-                    <input type="checkbox" className={classes.checkboxInput} id="remember" />
-                    <label className={classes.label} htmlFor="remember">Remember Me</label>
-                </div>
-                <button type="submit" className={classes.button}>Login</button>
-            </form>
-            <div className={classes.links}>
-                <a href="#" className={classes.link}>Forgot Password?</a>
-                <a href="/signUp" className={classes.link}>Sign Up</a>
-            </div>
-        </section>
+        <Login onHandleLogin={handleLogin}></Login>
     );
 }

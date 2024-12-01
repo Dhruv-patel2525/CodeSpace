@@ -3,6 +3,8 @@ export type AuthPayload = {
     refreshToken: string;
     userId: number;
     email: string;
+    role: string;
+    name: string;
 };
 export type AuthJwtPayload = {
     sub: number;

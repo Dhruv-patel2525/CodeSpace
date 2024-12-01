@@ -34,6 +34,7 @@ let AuthService = class AuthService {
                 userId: user.userId,
                 email: user.email,
                 role: user.role,
+                name: user.name,
             };
         }
         return null;
@@ -47,7 +48,7 @@ let AuthService = class AuthService {
         const refreshToken = await this.jwtService.signAsync(payload, { secret: process.env.REFRESH_JWT_SECRET,
             expiresIn: process.env.REFRESH_JWT_EXPIRE_IN,
         });
-        return { accessToken, refreshToken, userId: user.userId, email: user.email };
+        return { accessToken, refreshToken, userId: user.userId, email: user.email, role: user.role, name: user.name };
     }
     async registerUser(signupDto) {
         return this.userService.createUser(signupDto);

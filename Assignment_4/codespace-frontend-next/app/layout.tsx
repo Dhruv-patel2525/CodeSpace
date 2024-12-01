@@ -3,6 +3,7 @@ import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import InstallBootstrap from "@/components/general/InstallBootstrap";
 import NavBar from "@/components/navbar/NavBar";
+import AuthProvider from "@/components/contexts/AuthContext";
 
 
 export const metadata: Metadata = {
@@ -14,7 +15,8 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) 
+{
   return (
     <html lang="en">
       <head>
@@ -22,8 +24,10 @@ export default function RootLayout({
       <InstallBootstrap/>
       </head>
       <body >
+        <AuthProvider>
         <NavBar/>
         {children}
+        </AuthProvider>
       </body>
     </html>
   );

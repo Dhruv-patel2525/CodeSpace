@@ -2,8 +2,11 @@
 import { useEffect, useState } from 'react';
 import classes from './page.module.css';
 import Link from 'next/link';
-import { fetchALLProblems } from '../api/problemApi';
-import { Problem } from '../interface/problem';
+import { Problem } from '../utils/interface/problem';
+import { useAuth } from '@/components/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
+import { fetchWithAuth } from '../utils/api/api';
+import ProtectedRoute from '@/components/Authetication/protectedRoute';
 
 
   
@@ -12,12 +15,25 @@ import { Problem } from '../interface/problem';
 export default function Problems() {
     const [problemsAll,setProblemAll]=useState<Problem[]|[]>([]);
     const [error,setError]=useState<string | null>(null);
+    const {state} = useAuth();
+    const router=useRouter();
     useEffect(()=>{
         let isMounted=true;
         const loadProblems=async ()=>{
             try{
-                const data=await fetchALLProblems();
-                setProblemAll(data);
+                const url=`${process.env.NEXT_PUBLIC_API_BASE_URL}/problem/`;
+                fetchWithAuth(url,{},state.token || '');
+                fetch(url)
+                .then( response =>{
+                  if(!response.ok){
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+                  return response.json();
+                })
+                .then(data => setProblemAll(data))
+                .catch(error => {
+                  setError(error.message)
+                })
             }
             catch(err)
             {
@@ -29,12 +45,13 @@ export default function Problems() {
         return ()=>{
             isMounted=false;
         }
-    },[]);
+    },[state.isAuthenticated]);
     if(error)
     {
         return <p>{error}</p>
     }
     return (
+        <ProtectedRoute roles={["coder"]}>
         <div className="container my-4">
             <div className={`row ${classes.tableFilters} align-items-center`}>
                 <div className="col-md-6">
@@ -71,5 +88,6 @@ export default function Problems() {
                 </tbody>
             </table>
         </div>
+        </ProtectedRoute>
     );
 }
