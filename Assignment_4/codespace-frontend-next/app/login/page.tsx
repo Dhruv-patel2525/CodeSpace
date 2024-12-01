@@ -1,14 +1,12 @@
 "use client"
-import { redirect, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import Login from "@/components/forms/login";
-import { cookies } from "next/headers";
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { useAuth } from "@/components/contexts/AuthContext";
 
 export default function LoginPage() {
     const router= useRouter();
     const {dispatch}=useAuth();
-    const handleLogin=async (email:string,password:string,res: NextApiResponse)=>{
+    const handleLogin=async (email:string,password:string)=>{
         try{
             const res=await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`,{
                 method:'POST',
@@ -24,7 +22,6 @@ export default function LoginPage() {
                     name:name,
                     role:role,
                 }            
-                //    document.cookie = "authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;"; for logout
                 console.log(response);
                 console.log("LoginPage"+user);
                 dispatch({type:"LOGIN",payload:{user,token:accesstoken}});

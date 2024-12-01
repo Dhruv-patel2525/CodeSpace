@@ -20,7 +20,9 @@ export default function NavBar()
             const url=`${process.env.NEXTNEXT_PUBLIC_API_BASE_URL}/auth/logout`;
             fetchWithAuth(url,{},state.token||"");
             dispatch({type:"LOGOUT",});
+            document.cookie = "authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
             router.push("/");
+            return;
         }
         catch(error)
         {

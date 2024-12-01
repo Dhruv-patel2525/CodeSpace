@@ -1,14 +1,17 @@
-import { useRouter } from 'next/navigation';
-import { useAuth } from '../contexts/AuthContext';
 import classes from './login.module.css';
+import { useRef } from 'react';
 export default function Login(props:any)
 {
+    const emailRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
     const submitHandler=((e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const email=formData.get('email')as string;
-        const password=formData.get('password') as string;
+        const email = emailRef.current?.value || '';
+        const password = passwordRef.current?.value || '';
         props.onHandleLogin(email,password);
+        if (emailRef.current) emailRef.current.value = '';
+        if (passwordRef.current) passwordRef.current.value = '';
+
     });
     return <>
      <section className={classes.loginSection}>
@@ -16,11 +19,11 @@ export default function Login(props:any)
             <form onSubmit={submitHandler} id="login-form" method="POST" className={classes.form}>
                 <div className={classes.formGroup}>
                     <label htmlFor="email" className={classes.label}>Email:</label>
-                    <input type="email" id="email" name="email" className={classes.input} required />
+                    <input type="email" id="email" name="email" className={classes.input} ref={emailRef} required />
                 </div>
                 <div className={classes.formGroup}>
                     <label htmlFor="password" className={classes.label}>Password:</label>
-                    <input type="password" id="password" name="password" className={classes.input} required />
+                    <input type="password" id="password" name="password" className={classes.input} ref={passwordRef} required />
                 </div>
                 <div className={classes.formGroup}>
                     <input type="checkbox" className={classes.checkboxInput} id="remember" />

@@ -51,6 +51,9 @@ let AuthService = class AuthService {
         return { accessToken, refreshToken, userId: user.userId, email: user.email, role: user.role, name: user.name };
     }
     async registerUser(signupDto) {
+        if (signupDto.password !== signupDto.confirmPassword) {
+            throw new common_1.UnauthorizedException('Password does not match');
+        }
         return this.userService.createUser(signupDto);
     }
     async refreshToken(input) {
