@@ -1,16 +1,15 @@
 "use client";
 
-import { useParams } from "next/navigation"; // Import useParams from next/navigation
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const ViewCourse = () => {
-  const { id } = useParams(); // Use useParams() to get the course id from the URL
+  const { id } = useParams();
   const [course, setCourse] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (id) {
-      // Fetch the course data from the backend using the courseId
       fetch(`http://localhost:3003/courses/details/${id}`)
         .then((response) => {
           if (!response.ok) {

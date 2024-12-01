@@ -41,7 +41,6 @@ const CourseCard: React.FC<CourseCardProps> = ({
         ) : (
           <>
             <button className="btn btn-success me-2">Edit Course</button>
-            <p> id: {id}</p>
             <button
               className="btn btn-success"
               onClick={() => handleCourse(id)}>

@@ -11,6 +11,9 @@ const InstructorPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   const instructorEmail = "hirad@example.com";
+  const addCourses = () => {
+    router.push("/instructor/add");
+  };
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -41,12 +44,18 @@ const InstructorPage = () => {
   }
 
   if (!courses.length) {
-    return <div className="container py-5">No courses available...</div>;
+    <>
+      <div className="container py-5">
+        <div className="centered-content">
+          <div className="mb-3">No courses available...</div>
+          <button className="btn btn-primary" onClick={addCourses}>
+            Create New Course
+          </button>
+        </div>
+      </div>
+    </>;
   }
-  const addCourses = () => {
-    router.push("/instructor/add");
-  };
-
+  
   function deleteCourse(id: string): void {
     console.log(id);
     fetch(`http://localhost:3003/courses/${id}`, {
