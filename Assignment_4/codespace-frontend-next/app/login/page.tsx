@@ -15,16 +15,22 @@ export default function LoginPage() {
             );
             if (res.ok) {
                 const response = await res.json();
-                const { accesstoken,refreshToken, email,role,name}=response;
-                document.cookie = `authToken=${accesstoken}; path=/; Secure; HttpOnly`;
-                const user={
-                    email:email,
-                    name:name,
-                    role:role,
-                }            
+                const { accessToken, refreshToken, email, role, name } =
+                  response;
+
+                document.cookie = `authToken=${accessToken}; path=/; Secure; HttpOnly`;
+                const user = {
+                  email: email,
+                  name: name,
+                  role: role,
+                };
                 console.log(response);
-                console.log("LoginPage"+user);
-                dispatch({type:"LOGIN",payload:{user,token:accesstoken}});
+                console.log(`access Token ${accessToken}`);
+                console.log("LoginPage" + user);
+                dispatch({
+                  type: "LOGIN",
+                  payload: { user, token: accessToken },
+                });
                 if(user.role==="instructor")
                 {
                     router.push("/instructor");
