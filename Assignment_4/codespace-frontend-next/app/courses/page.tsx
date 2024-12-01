@@ -54,6 +54,7 @@ const CourseDetails = () => {
         <CourseGrid
           courses={courses}
           handleCourse={handleCourse}
+          handleCourse2={handleCourse}
           role={"learner"}
         />
       </div>

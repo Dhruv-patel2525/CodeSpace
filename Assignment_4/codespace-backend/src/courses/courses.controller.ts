@@ -43,8 +43,8 @@ export class CoursesController {
   create(@Body() createCourseDto: CreateCourseDto) {
     return this.courseService.create(createCourseDto);
   }
-  @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
-  @UseGuards(RolesGuard, JwtAuthGuard)
+  // @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
+  // @UseGuards(RolesGuard, JwtAuthGuard)
   @Put(':courseId')
   async update(
     @Param('courseId') courseId: string,

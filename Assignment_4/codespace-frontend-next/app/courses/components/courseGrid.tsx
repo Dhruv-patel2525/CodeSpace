@@ -5,6 +5,7 @@ import CourseCard from "./courseCard";
 interface CoursesGridProps {
   courses: Courses[];
   handleCourse: (id: string) => void;
+  handleCourse2: (id: string) => void;
   role: string;
 }
 interface Courses {
@@ -18,6 +19,7 @@ interface Courses {
 const CourseGrid: React.FC<CoursesGridProps> = ({
   courses,
   handleCourse,
+  handleCourse2,
   role,
 }) => {
   return (
@@ -33,6 +35,7 @@ const CourseGrid: React.FC<CoursesGridProps> = ({
             instructor={course.instructor}
             role={role}
             handleCourse={handleCourse}
+            handleCourse2={handleCourse2}
           />
         </div>
       ))}

@@ -62,6 +62,9 @@ const InstructorPage = () => {
       method: "DELETE",
     });
   }
+  function editCourse(id: string): void {
+    router.push(`/instructor/edit/${id}`);
+  }
   return (
     <div className={`container py-5 ${styles.courseDetailsSection}`}>
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -73,6 +76,7 @@ const InstructorPage = () => {
       <CourseGrid
         courses={courses}
         handleCourse={deleteCourse}
+        handleCourse2={editCourse}
         role={"instructor"}
       />
     </div>
