@@ -2,7 +2,7 @@
 
 import ProblemNavbar from "./problemNavbar";
 import classes from './problemDescription.module.css';
-import { Problem } from "@/app/interface/problem";
+import { Problem } from "@/app/utils/interface/problem";
 
 
 export default function ProblemDescription({ problem }:{problem :Problem}) {

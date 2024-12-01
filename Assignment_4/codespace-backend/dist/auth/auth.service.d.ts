@@ -12,6 +12,7 @@ type SignInData = {
     userId: number;
     email: string;
     role: UserRole;
+    name: string;
 };
 export declare class AuthService {
     private userService;

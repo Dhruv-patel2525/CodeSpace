@@ -4,8 +4,8 @@ import classes from './page.module.css';
 import ProblemDescription from '@/components/problem/problemDescription';
 import CodeEditorSection from '@/components/general/codeEditor';
 import { useEffect, useState } from 'react';
-import { fetchProblemById } from '@/app/api/problemApi';
-import { Problem } from '@/app/interface/problem';
+import { Problem } from '@/app/utils/interface/problem';
+import ProtectedRoute from '@/components/Authetication/protectedRoute';
 
 
 
@@ -20,15 +20,7 @@ export default function ProblemDetails() {
     let isMounted=true;
 
     const loadProblemById = async (problemId:string)=>{
-        // try{
-        //     const data=await fetchProblemById(problemId);
-        //     setProblem(data);
-        // }
-        // catch(err)
-        // {
-        //     setError("Problem does not exist");
-        //     console.log(err);
-        // }
+       
         const url=`${process.env.NEXT_PUBLIC_API_BASE_URL}/problem/${problemId}`;
         fetch(url)
         .then( response =>{
@@ -41,24 +33,6 @@ export default function ProblemDetails() {
         .catch(error => {
           setError(error.message)
         })
-
-
-        // fetch("http://localhost:3003/courses")
-        // .then((response) => {
-        //   if (!response.ok) {
-        //     throw new Error(`HTTP error! status: ${response.status}`);
-        //   }
-        //   return response.json();
-        // })
-        // .then((data) =>
-        //   setCourses(
-        //     data.map((course: any) => ({
-        //       ...course,
-        //       id: course._id,
-        //     }))
-        //   )
-        // )
-        // .catch((error) => setError(error.message));
     }
     loadProblemById(problemId);
     return ()=>{
@@ -75,6 +49,7 @@ export default function ProblemDetails() {
       templates:problem.templates,
     }
     return (
+      <ProtectedRoute roles={["coder"]}>
         <div className="container-fluid">
        <div className="row">
         <div className="col-md-6">
@@ -85,6 +60,7 @@ export default function ProblemDetails() {
         </div>
       </div>
     </div>
+    </ProtectedRoute>
        
     );
 }

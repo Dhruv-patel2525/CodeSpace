@@ -4,7 +4,7 @@ import { useState, useEffect, useReducer } from 'react';
 import dynamic from 'next/dynamic';
 import classes from './CodeEditorSection.module.css';
 import { languages } from 'monaco-editor';
-import { Template } from '@/app/interface/problem';
+import { Template } from '@/app/utils/interface/problem';
 
 const MonacoEditor = dynamic(
   () => import('@monaco-editor/react'),
