@@ -2,13 +2,13 @@
 
 import ProblemNavbar from "./problemNavbar";
 import classes from './problemDescription.module.css';
-import { Problem } from "@/app/interface/problem";
+import { Problem } from "@/app/utils/interface/problem";
 
 
 export default function ProblemDescription({ problem }:{problem :Problem}) {
  
   const constraint=problem.constraints;
-  const constraintArray=constraint.split(';');
+  const constraintArray=constraint;
   console.log(constraintArray);
   return (
     <>
@@ -20,7 +20,6 @@ export default function ProblemDescription({ problem }:{problem :Problem}) {
         <span>52.5% Success</span>
         <p><strong>Problem Description:</strong></p>
         <p>{problem.description}</p>
-        {/* Add other problem details here */}
         <h4>Problem Constraints:</h4>
         <ul>
           {constraintArray.map((constraint,index)=><li key={index}><strong >{constraint}</strong></li>)}

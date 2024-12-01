@@ -17,14 +17,14 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_1 = require("./schema/user");
 const mongoose_2 = require("mongoose");
-const bcrypt_1 = require("bcrypt");
+const bcryptjs_1 = require("bcryptjs");
 let UsersService = class UsersService {
     constructor(userModel) {
         this.userModel = userModel;
     }
     async hashPassword(password) {
         const saltOrRounds = 10;
-        const pass = (0, bcrypt_1.hash)(password, saltOrRounds);
+        const pass = (0, bcryptjs_1.hash)(password, saltOrRounds);
         return pass;
     }
     async createUser(signupDto) {

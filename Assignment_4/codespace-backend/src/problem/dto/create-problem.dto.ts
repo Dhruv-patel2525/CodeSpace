@@ -29,9 +29,11 @@ export class CreateProblemDto {
     @IsString()
     outputFormat:string;
     @IsNotEmpty()
-    @IsString()
-    constraints:string;
+    @IsArray()
+    constraints:[];
     @IsArray()
     examples:[];
+    @IsArray()
+    templates:[];
     
 }

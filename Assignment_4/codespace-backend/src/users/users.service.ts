@@ -6,7 +6,7 @@ import { ResetPasswordDto } from 'src/users/dto/resetpwd.dto';
 import { User } from './schema/user';
 import { Model } from 'mongoose';
 import { UpdateUserProfileDto } from './dto/updateUserProfile.dto';
-import { hash } from 'bcrypt';
+import { hash } from 'bcryptjs';
 import { SignupDto } from 'src/auth/dto/signup.dto';
 import { AuthJwtPayload } from 'src/auth/types/auth-jwtPayload';
 @Injectable()

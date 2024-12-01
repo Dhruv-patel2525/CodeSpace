@@ -73,12 +73,16 @@ __decorate([
     (0, mongoose_1.Prop)({
         required: true,
     }),
-    __metadata("design:type", String)
+    __metadata("design:type", Array)
 ], Problem.prototype, "constraints", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", Array)
 ], Problem.prototype, "examples", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", Array)
+], Problem.prototype, "templates", void 0);
 exports.Problem = Problem = __decorate([
     (0, mongoose_1.Schema)()
 ], Problem);
