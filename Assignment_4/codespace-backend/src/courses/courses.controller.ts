@@ -29,22 +29,23 @@ export class CoursesController {
   getAllCourses() {
     return this.courseService.findAll();
   }
-  // @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
-  // @UseGuards(RolesGuard)
-  // @UseGuards(JwtAuthGuard)
+  @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
   @Get('details/:courseId')
   async findOne(@Param('courseId') courseId: string) {
     return this.courseService.findOne(courseId);
   }
-  // @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
-  // @UseGuards(RolesGuard)
-  // @UseGuards(JwtAuthGuard)
+  @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createCourseDto: CreateCourseDto) {
     return this.courseService.create(createCourseDto);
   }
-  // @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
-  // @UseGuards(RolesGuard, JwtAuthGuard)
+  @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
   @Put(':courseId')
   async update(
     @Param('courseId') courseId: string,
