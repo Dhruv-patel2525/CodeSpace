@@ -29,7 +29,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
         if (payload.iat < Math.floor(lastLogout.getTime() / 1000)) {
             throw new common_1.UnauthorizedException('Already Logged Out');
         }
-        (0, console_1.log)("Payload jwt strategy " + payload);
+        (0, console_1.log)("Payload jwt strategy " + payload.username);
         return payload;
     }
 };

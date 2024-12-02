@@ -1,6 +1,7 @@
 import { ReactNode, useContext, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../contexts/AuthContext';
+import { getAccessToken } from '@/app/utils/TokenUtils';
 
 interface ProtectedRouteProps {
   roles:string[],
@@ -13,7 +14,16 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ roles,children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    const accessToken =getAccessToken()|| '';
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+  //   if(user)
+  //   {
+  //     dispatch({
+  //       type: "LOGIN",
+  //       payload: { user, token: accessToken },
+  //     });
+  //  }
+    if (user===null) {
       router.push('/login'); 
       return;
     }
@@ -28,9 +38,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ roles,children }) => {
 
   }, [isAuthenticated, user, router]);
 
-  if ( !isAuthenticated || !user) {
-    return <div>Loading...</div>; 
-  }
+  // if ( !isAuthenticated || !user) {
+  //   return <div>Loading...</div>; 
+  // }
 
   return <>{children}</>;
 };
