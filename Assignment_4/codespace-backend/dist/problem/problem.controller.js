@@ -43,6 +43,9 @@ let ProblemController = class ProblemController {
 };
 exports.ProblemController = ProblemController;
 __decorate([
+    (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.ADMIN),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -50,12 +53,18 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProblemController.prototype, "create", null);
 __decorate([
+    (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.CODER),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ProblemController.prototype, "findAll", null);
 __decorate([
+    (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.CODER),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
