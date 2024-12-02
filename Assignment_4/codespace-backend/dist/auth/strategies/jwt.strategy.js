@@ -14,6 +14,7 @@ const passport_1 = require("@nestjs/passport");
 const passport_jwt_1 = require("passport-jwt");
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("../auth.service");
+const console_1 = require("console");
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
     constructor(authService) {
         super({
@@ -28,6 +29,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
         if (payload.iat < Math.floor(lastLogout.getTime() / 1000)) {
             throw new common_1.UnauthorizedException('Already Logged Out');
         }
+        (0, console_1.log)("Payload jwt strategy " + payload);
         return payload;
     }
 };
