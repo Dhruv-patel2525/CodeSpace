@@ -24,7 +24,8 @@ export class JwtStrategy extends PassportStrategy(Strategy){
         if (payload.iat < Math.floor(lastLogout.getTime() / 1000)) {
             throw new UnauthorizedException('Already Logged Out');
           }
-        log("Payload jwt strategy "+payload);
+        log("Payload jwt strategy "+payload.username);
+
         return payload;
     }
 }

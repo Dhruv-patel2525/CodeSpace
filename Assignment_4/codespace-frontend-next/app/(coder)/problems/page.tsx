@@ -2,10 +2,10 @@
 import { useEffect, useState } from 'react';
 import classes from './page.module.css';
 import Link from 'next/link';
-import { Problem } from '../utils/interface/problem';
+import { Problem } from '../../utils/interface/problem';
 import { useAuth } from '@/components/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
-import { fetchWithAuth } from '../utils/api/api';
+import { fetchWithAuth } from '../../utils/api/api';
 import ProtectedRoute from '@/components/Authetication/protectedRoute';
 
 
@@ -22,8 +22,8 @@ export default function Problems() {
         const loadProblems=async ()=>{
             try{
                 const url=`${process.env.NEXT_PUBLIC_API_BASE_URL}/problem/`;
-                fetchWithAuth(url,{},state.token || '');
-                fetch(url)
+                console.log(state.token);
+                fetchWithAuth(url,{},state.token || '')
                 .then( response =>{
                   if(!response.ok){
                     throw new Error(`HTTP error! status: ${response.status}`);
