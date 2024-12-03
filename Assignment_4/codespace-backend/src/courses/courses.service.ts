@@ -40,4 +40,21 @@ export class CourseService {
   async getCoursesByInstructor(email: string): Promise<Course[]> {
     return this.courseModel.find({ instructorEmail: email }).exec();
   }
+
+  async enrollUserInCourse(
+    courseId: string,
+    userEmail: string,
+  ): Promise<Course | null> {
+    return this.courseModel
+      .findByIdAndUpdate(
+        courseId,
+        { $addToSet: { enrolledStudents: userEmail } },
+        { new: true },
+      )
+      .exec();
+  }
+
+  async getEnrolledCourses(userEmail: string): Promise<Course[]> {
+    return this.courseModel.find({ enrolledStudents: userEmail }).exec();
+  }
 }

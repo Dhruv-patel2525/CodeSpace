@@ -7,6 +7,7 @@ export interface Course {
   duration: string;
   courseCode: string;
   instructorEmail: string;
+  enrolledStudents: string[];
   lastUpdated?: Date;
 }
 
@@ -19,6 +20,7 @@ export const CourseSchema = new Schema<Course>({
   duration: { type: String, required: true },
   courseCode: { type: String, required: true, unique: true },
   instructorEmail: { type: String, required: true },
+  enrolledStudents: { type: [String], default: [] },
   lastUpdated: { type: Date, default: Date.now },
 });
 

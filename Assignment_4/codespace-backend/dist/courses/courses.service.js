@@ -43,6 +43,14 @@ let CourseService = class CourseService {
     async getCoursesByInstructor(email) {
         return this.courseModel.find({ instructorEmail: email }).exec();
     }
+    async enrollUserInCourse(courseId, userEmail) {
+        return this.courseModel
+            .findByIdAndUpdate(courseId, { $addToSet: { enrolledStudents: userEmail } }, { new: true })
+            .exec();
+    }
+    async getEnrolledCourses(userEmail) {
+        return this.courseModel.find({ enrolledStudents: userEmail }).exec();
+    }
 };
 exports.CourseService = CourseService;
 exports.CourseService = CourseService = __decorate([
