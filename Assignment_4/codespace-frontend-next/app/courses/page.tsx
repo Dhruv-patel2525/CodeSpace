@@ -5,29 +5,40 @@ import Head from "next/head";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CourseGrid from "./components/courseGrid";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/contexts/AuthContext";
 
 const CourseDetails = () => {
+  const { state } = useAuth();
   const [courses, setCourses] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [selectedTab, setSelectedTab] = useState("all");
   const router = useRouter();
+  const userEmail = state.user?.email;
+
+  const fetchCourses = async (tab: string) => {
+    const url =
+      tab === "enrolled"
+        ? `http://localhost:3003/courses/enrolled/${userEmail}`
+        : `http://localhost:3003/courses`;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setCourses(data.map((course: any) => ({ ...course, id: course._id })));
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred");
+      }
+    }
+  };
+
   useEffect(() => {
-    fetch("http://localhost:3003/courses")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) =>
-        setCourses(
-          data.map((course: any) => ({
-            ...course,
-            id: course._id,
-          }))
-        )
-      )
-      .catch((error) => setError(error.message));
-  }, []);
+    fetchCourses(selectedTab);
+  }, [selectedTab]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -36,7 +47,6 @@ const CourseDetails = () => {
   if (!courses) {
     return <div>Loading...</div>;
   }
-  console.log("Current data state:", courses);
 
   const handleCourse = (courseId: string) => {
     router.push(`/courses/${courseId}`);
@@ -50,7 +60,26 @@ const CourseDetails = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <div className="container py-5">
-        <h2 className="text-center mb-5">All Courses</h2>
+        <h2 className="text-center mb-5">Courses</h2>
+
+        {/* Tab Navigation */}
+        <div className="mb-4 text-center">
+          <button
+            className={`btn ${
+              selectedTab === "all" ? "btn-primary" : "btn-secondary"
+            }`}
+            onClick={() => setSelectedTab("all")}>
+            All Courses
+          </button>
+          <button
+            className={`btn ${
+              selectedTab === "enrolled" ? "btn-primary" : "btn-secondary"
+            }`}
+            onClick={() => setSelectedTab("enrolled")}>
+            Enrolled Courses
+          </button>
+        </div>
+
         <CourseGrid
           courses={courses}
           handleCourse={handleCourse}
