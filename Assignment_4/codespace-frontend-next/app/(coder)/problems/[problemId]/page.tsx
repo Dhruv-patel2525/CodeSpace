@@ -6,6 +6,8 @@ import CodeEditorSection from '@/components/general/codeEditor';
 import { useEffect, useState } from 'react';
 import { Problem } from '@/app/utils/interface/problem';
 import ProtectedRoute from '@/components/Authetication/protectedRoute';
+import { fetchWithAuth } from '@/app/utils/api/api';
+import { useAuth } from '@/components/contexts/AuthContext';
 
 
 
@@ -15,6 +17,7 @@ export default function ProblemDetails() {
   const problemId = params.problemId as string;
   const [problem,setProblem]=useState<Problem | null>(null)
   const [error,setError]=useState<string | null>(null);
+  const {state}=useAuth();
   console.log("count");
   useEffect(()=>{
     let isMounted=true;
@@ -22,7 +25,7 @@ export default function ProblemDetails() {
     const loadProblemById = async (problemId:string)=>{
        
         const url=`${process.env.NEXT_PUBLIC_API_BASE_URL}/problem/${problemId}`;
-        fetch(url)
+        fetchWithAuth(url,{})
         .then( response =>{
           if(!response.ok){
             throw new Error(`HTTP error! status: ${response.status}`);

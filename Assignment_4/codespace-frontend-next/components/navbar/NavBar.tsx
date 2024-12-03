@@ -6,6 +6,7 @@ import NavToggle from "./NavToggle";
 import { NavItem } from "./NavItem";
 import { useAuth } from "../contexts/AuthContext";
 import { fetchWithAuth } from "@/app/utils/api/api";
+import { clearTokens, getUser } from "@/app/utils/TokenUtils";
 
 
 export default function NavBar()
@@ -13,14 +14,18 @@ export default function NavBar()
     const {state,dispatch}=useAuth();
     const router=useRouter();
     const pathName=usePathname();
-    const { isAuthenticated, user } = state;
-   
+    // const { isAuthenticated, user } = state;
+    const user =JSON.parse(getUser()||'null');
+
+
     const logoutHandler=()=>{
         try{
+        
             const url=`${process.env.NEXTNEXT_PUBLIC_API_BASE_URL}/auth/logout`;
-            fetchWithAuth(url,{},state.token||"");
-            dispatch({type:"LOGOUT",});
-            document.cookie = "authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+            fetchWithAuth(url,{});
+            clearTokens();
+            // dispatch({type:"LOGOUT",});
+            // document.cookie = "authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
             router.push("/");
             return;
         }
@@ -48,13 +53,15 @@ export default function NavBar()
           { href: "", label: "Logout", onClick: logoutHandler },
         ],
         instructor: [
+          { href: "/", label: "Home" },
           { href: "/add", label: "Add" },
           { href: "", label: "Logout", onClick: logoutHandler },
+
         ],
       };
     
     const navLinks=useMemo(()=>{
-        if (!isAuthenticated) {
+        if (user==='null') {
             switch (pathName) {
               case "/login":
                 return defaultNavLinks.filter(link => link.href !== "/login" && link.label !== "Logout");
@@ -69,7 +76,7 @@ export default function NavBar()
             const userRole = (user?.role || "user") as keyof typeof loggedInNavLinks;
             return loggedInNavLinks[userRole] || [];
           }
-    },[isAuthenticated, user, pathName]);
+    },[ user, pathName]);
     return <header>
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div className="container">

@@ -1,10 +1,12 @@
 "use client"
-import {  useRouter } from "next/navigation";
+import {  usePathname, useRouter } from "next/navigation";
 import Login from "@/components/forms/login";
 import { useAuth } from "@/components/contexts/AuthContext";
+import { setTokens } from "@/app/utils/TokenUtils";
 
 export default function LoginPage() {
     const router= useRouter();
+    const pathname= usePathname();
     const {dispatch}=useAuth();
     const handleLogin=async (email:string,password:string)=>{
         try{
@@ -15,15 +17,15 @@ export default function LoginPage() {
             );
             if (res.ok) {
                 const response = await res.json();
-                const { accessToken, refreshToken, email, role, name } =
-                  response;
-
-                document.cookie = `authToken=${accessToken}; path=/; Secure; HttpOnly`;
-                const user = {
-                  email: email,
-                  name: name,
-                  role: role,
-                };
+                const { accessToken, refreshToken, email, role, name } =response;
+                setTokens(accessToken);
+                const user={
+                  email:email,
+                  role:role,
+                  name:name,
+                }
+                localStorage.setItem('user',JSON.stringify(user));
+                //document.cookie = `authToken=${accessToken}; path=/; Secure; HttpOnly`;
                 console.log(response);
                 console.log(`access Token ${accessToken}`);
                 console.log("LoginPage" + user);
@@ -31,6 +33,7 @@ export default function LoginPage() {
                   type: "LOGIN",
                   payload: { user, token: accessToken },
                 });
+                console.log(pathname);
                 if(user.role==="instructor")
                 {
                     router.push("/instructor");
