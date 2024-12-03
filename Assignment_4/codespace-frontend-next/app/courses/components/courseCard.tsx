@@ -38,7 +38,11 @@ const CourseCard: React.FC<CourseCardProps> = ({
               onClick={() => handleCourse(id)}>
               View Course
             </button>
-            <button className="btn btn-success">Enroll Now</button>
+            <button
+              className="btn btn-success"
+              onClick={() => handleCourse2(id)}>
+              Enroll Now
+            </button>
           </>
         ) : (
           <>

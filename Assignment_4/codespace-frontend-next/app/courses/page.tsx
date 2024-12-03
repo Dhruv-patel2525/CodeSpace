@@ -52,6 +52,37 @@ const CourseDetails = () => {
     router.push(`/courses/${courseId}`);
   };
 
+  const enrollUser = async (courseId: string) => {
+    if (!userEmail) {
+      console.error("User is not logged in or email is missing.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:3003/courses/${courseId}/enroll`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userEmail: userEmail,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error enrolling user");
+      }
+
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.error("Enrollment error:", err);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -62,7 +93,6 @@ const CourseDetails = () => {
       <div className="container py-5">
         <h2 className="text-center mb-5">Courses</h2>
 
-        {/* Tab Navigation */}
         <div className="mb-4 text-center">
           <button
             className={`btn ${
@@ -83,7 +113,7 @@ const CourseDetails = () => {
         <CourseGrid
           courses={courses}
           handleCourse={handleCourse}
-          handleCourse2={handleCourse}
+          handleCourse2={enrollUser}
           role={"learner"}
         />
       </div>
