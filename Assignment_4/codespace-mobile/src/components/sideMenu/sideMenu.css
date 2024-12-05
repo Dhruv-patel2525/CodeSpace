@@ -1,11 +1,11 @@
 ion-menu {
-    --background: #333;
-    --color: white;
+    --background: #6a5acd; 
+    --color: white; 
   }
   
   ion-item {
-    --background-hover: #444;
-    --color-hover: white;
-    font-size: 16px;
+    --background-hover: #6a5acd; 
+    --color-hover: white; 
+    font-size: 16px; 
   }
   

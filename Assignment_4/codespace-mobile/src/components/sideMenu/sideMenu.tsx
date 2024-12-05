@@ -10,7 +10,7 @@ import {
   IonMenuToggle,
 } from "@ionic/react";
 import "./sideMenu.css";
-
+import Courses from "../../pages/courses/courses";
 const SideMenu: React.FC = () => {
   return (
     <IonMenu contentId="main-content">
