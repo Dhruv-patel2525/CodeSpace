@@ -21,16 +21,16 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly courseService: CourseService) {}
-  @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
+  // @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
+  // @UseGuards(RolesGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
   getAllCourses() {
     return this.courseService.findAll();
   }
-  @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
+  // @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
+  // @UseGuards(RolesGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('details/:courseId')
   async findOne(@Param('courseId') courseId: string) {
     return this.courseService.findOne(courseId);
@@ -42,17 +42,11 @@ export class CoursesController {
   create(@Body() createCourseDto: CreateCourseDto) {
     return this.courseService.create(createCourseDto);
   }
-<<<<<<< HEAD
-  // @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
-  // @UseGuards(RolesGuard)
-  // @UseGuards(JwtAuthGuard)
-  // @Put(':courseId')
-=======
+
   @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   @Put(':courseId')
->>>>>>> origin/develop
   async update(
     @Param('courseId') courseId: string,
     @Body() updateCourseDto: UpdateCourseDto,

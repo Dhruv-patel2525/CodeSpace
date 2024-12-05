@@ -21,7 +21,13 @@ const CourseDetails = () => {
         ? `http://localhost:3003/courses/enrolled/${userEmail}`
         : `http://localhost:3003/courses`;
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${state.token}`,
+        },
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
