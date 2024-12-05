@@ -9,4 +9,6 @@ export declare class CourseService {
     update(id: string, updateCourseDto: Partial<Course>): Promise<Course | null>;
     remove(id: string): Promise<Course | null>;
     getCoursesByInstructor(email: string): Promise<Course[]>;
+    enrollUserInCourse(courseId: string, userEmail: string): Promise<Course | null>;
+    getEnrolledCourses(userEmail: string): Promise<Course[]>;
 }

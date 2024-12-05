@@ -10,4 +10,17 @@ export declare class CoursesController {
     update(courseId: string, updateCourseDto: UpdateCourseDto): Promise<import("./schema/course").Course>;
     remove(courseId: string): Promise<import("./schema/course").Course>;
     getCoursesByInstructor(email: string): Promise<import("./schema/course").Course[]>;
+    enrollUserInCourse(courseId: string, userEmail: string): Promise<{
+        message: string;
+        updatedCourse: import("./schema/course").Course;
+        error?: undefined;
+    } | {
+        message: string;
+        error: any;
+        updatedCourse?: undefined;
+    }>;
+    getEnrolledCourses(userEmail: string): Promise<import("./schema/course").Course[] | {
+        message: string;
+        error: any;
+    }>;
 }

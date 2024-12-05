@@ -1,7 +1,9 @@
+import { useAuth } from "@/components/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export const useCourseForm = (courseId?: string) => {
+  const { state } = useAuth();
   const router = useRouter();
   const [formData, setFormData] = useState({
     title: "",
@@ -18,7 +20,13 @@ export const useCourseForm = (courseId?: string) => {
   useEffect(() => {
     if (courseId) {
       setLoading(true);
-      fetch(`http://localhost:3003/courses/details/${courseId}`)
+      fetch(`http://localhost:3003/courses/details/${courseId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${state.token}`,
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           setFormData(data);
@@ -68,6 +76,7 @@ export const useCourseForm = (courseId?: string) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${state.token}`,
           },
           body: JSON.stringify(updatedFormData),
         });
@@ -76,6 +85,7 @@ export const useCourseForm = (courseId?: string) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${state.token}`,
           },
           body: JSON.stringify(formData),
         });
