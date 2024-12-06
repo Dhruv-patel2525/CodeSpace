@@ -35,9 +35,9 @@ export class CoursesController {
   async findOne(@Param('courseId') courseId: string) {
     return this.courseService.findOne(courseId);
   }
-  @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
+  // @Roles(UserRole.CODER, UserRole.INSTRUCTOR)
+  // @UseGuards(RolesGuard)
+  // @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createCourseDto: CreateCourseDto) {
     return this.courseService.create(createCourseDto);
@@ -54,9 +54,9 @@ export class CoursesController {
     return this.courseService.update(courseId, updateCourseDto);
   }
 
-  @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
-  @UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
+  // @Roles(UserRole.ADMIN, UserRole.INSTRUCTOR)
+  // @UseGuards(RolesGuard)
+  // @UseGuards(JwtAuthGuard)
   @Delete(':courseId')
   async remove(@Param('courseId') courseId: string) {
     return this.courseService.remove(courseId);

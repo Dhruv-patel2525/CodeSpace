@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import {
   IonPage,
   IonHeader,
@@ -17,12 +18,14 @@ import CourseGrid from "../../components/courseGrid";
 import "./instructorPage.css";
 
 const InstructorPage: React.FC = () => {
+  const history = useHistory();
   const instructorEmail = "hirad@example.com";
   const [courses, setCourses] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   const addCourses = () => {
+    history.push(`/instructor/addCourse`);
     console.log("Navigate to create course page");
   };
 
