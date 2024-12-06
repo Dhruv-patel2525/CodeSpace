@@ -26,9 +26,9 @@ const AddCourse: React.FC = () => {
   } = useCourseForm();
 
   const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     const apiUrl = "http://localhost:3003/courses";
-    handleSubmit(e, apiUrl); // Submit the form data using the API URL
+    handleSubmit(e, apiUrl);
   };
 
   return (
@@ -40,7 +40,6 @@ const AddCourse: React.FC = () => {
       </IonHeader>
       <IonContent className="ion-padding">
         <form onSubmit={handleFormSubmit}>
-          {/* Title Field */}
           <IonItem>
             <IonLabel position="stacked">Course Title</IonLabel>
             <IonInput
@@ -52,7 +51,6 @@ const AddCourse: React.FC = () => {
             />
           </IonItem>
 
-          {/* Description Field */}
           <IonItem>
             <IonLabel position="stacked">Course Description</IonLabel>
             <IonTextarea
@@ -64,8 +62,6 @@ const AddCourse: React.FC = () => {
               placeholder="Enter course description"
             />
           </IonItem>
-
-          {/* Instructor Name Field */}
           <IonItem>
             <IonLabel position="stacked">Instructor Name</IonLabel>
             <IonInput
@@ -79,7 +75,6 @@ const AddCourse: React.FC = () => {
             />
           </IonItem>
 
-          {/* Duration Field */}
           <IonItem>
             <IonLabel position="stacked">Course Duration</IonLabel>
             <IonInput
@@ -92,8 +87,6 @@ const AddCourse: React.FC = () => {
               placeholder="Enter course duration"
             />
           </IonItem>
-
-          {/* Course Code Field */}
           <IonItem>
             <IonLabel position="stacked">Course Code</IonLabel>
             <IonInput
@@ -107,7 +100,6 @@ const AddCourse: React.FC = () => {
             />
           </IonItem>
 
-          {/* Instructor Email Field */}
           <IonItem>
             <IonLabel position="stacked">Instructor Email</IonLabel>
             <IonInput
@@ -121,21 +113,18 @@ const AddCourse: React.FC = () => {
             />
           </IonItem>
 
-          {/* Error Message */}
           {error && (
             <IonText color="danger">
               <p>{error}</p>
             </IonText>
           )}
 
-          {/* Success Message */}
           {successMessage && (
             <IonText color="success">
               <p>{successMessage}</p>
             </IonText>
           )}
 
-          {/* Submit Button */}
           <IonButton
             expand="block"
             type="submit"
@@ -145,7 +134,6 @@ const AddCourse: React.FC = () => {
           </IonButton>
         </form>
 
-        {/* Loading Indicator */}
         <IonLoading isOpen={loading} message={"Processing..."} />
       </IonContent>
     </IonPage>

@@ -47,7 +47,7 @@ export const useCourseForm = (courseId?: string) => {
 
   const handleSubmit = async (e: React.FormEvent, apiUrl: string) => {
     if (e) {
-      e.preventDefault(); // Ensure the event is available before calling preventDefault
+      e.preventDefault();
     }
 
     setLoading(true);
@@ -69,13 +69,11 @@ export const useCourseForm = (courseId?: string) => {
       let courseData;
       const updatedFormData = { ...formData };
 
-      // Clean up unnecessary fields
       delete updatedFormData._id;
       delete updatedFormData.lastUpdated;
       delete updatedFormData.__v;
 
       if (courseId) {
-        // Update existing course
         courseData = await fetch(`${apiUrl}/${courseId}`, {
           method: "PUT",
           headers: {
@@ -84,7 +82,6 @@ export const useCourseForm = (courseId?: string) => {
           body: JSON.stringify(updatedFormData),
         });
       } else {
-        // Create new course
         courseData = await fetch(apiUrl, {
           method: "POST",
           headers: {
