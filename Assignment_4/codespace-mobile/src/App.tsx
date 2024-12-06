@@ -34,6 +34,10 @@ import "@ionic/react/css/palettes/dark.system.css";
 import "./theme/variables.css";
 import SideMenu from "./components/sideMenu/sideMenu";
 import Landing from "./pages/landing/landing";
+import CourseList from "./pages/courses/courses";
+import InstructorPage from "./pages/instructor/instructor";
+import ViewCourse from "./pages/courses/viewCourse";
+import AddCourse from "./pages/instructor/addCourse";
 
 setupIonicReact();
 
@@ -45,6 +49,13 @@ const App: React.FC = () => (
       <IonRouterOutlet>
         <Route exact path="/landing">
           <Landing />
+        </Route>
+        <Route exact path="/courses" component={CourseList} />
+        <Route exact path="/instructor" component={InstructorPage} />
+        <Route exact path="/courses/:id" component={ViewCourse} />
+        <Route exact path="/instructor/addCourse" component={AddCourse} />
+        <Route exact path="/">
+          <Redirect to="/courses" />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
