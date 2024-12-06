@@ -36,6 +36,7 @@ import SideMenu from "./components/sideMenu/sideMenu";
 import Landing from "./pages/landing/landing";
 import CourseList from "./pages/courses/courses";
 import InstructorPage from "./pages/instructor/instructor";
+import ViewCourse from "./pages/courses/viewCourse";
 
 setupIonicReact();
 
@@ -50,6 +51,7 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/courses" component={CourseList} />
         <Route exact path="/instructor" component={InstructorPage} />
+        <Route exact path="/courses/:id" component={ViewCourse} />
         <Route exact path="/">
           <Redirect to="/courses" />
         </Route>

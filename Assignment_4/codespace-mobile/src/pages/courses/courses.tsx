@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   IonPage,
   IonHeader,
@@ -18,6 +19,8 @@ import CourseGrid from "../../components/courseGrid";
 import "./courses.css";
 
 const CourseDetails: React.FC = () => {
+  const userEmail = "viswa@example.com";
+  const history = useHistory();
   const [courses, setCourses] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [selectedTab, setSelectedTab] = useState("all");
@@ -26,7 +29,7 @@ const CourseDetails: React.FC = () => {
   const fetchCourses = async (tab: string) => {
     const url =
       tab === "enrolled"
-        ? `http://localhost:3003/courses/enrolled`
+        ? `http://localhost:3003/courses/enrolled/${userEmail}`
         : `http://localhost:3003/courses`;
     try {
       const response = await fetch(url, {
@@ -54,8 +57,8 @@ const CourseDetails: React.FC = () => {
     fetchCourses(selectedTab);
   }, [selectedTab]);
 
-  const handleCourse = (courseId: string) => {
-    console.log(`Navigate to course details for course ID: ${courseId}`);
+  const goToCourseDetails = (courseId: string) => {
+    history.push(`/courses/${courseId}`);
   };
 
   const enrollUser = (courseId: string) => {
@@ -121,7 +124,7 @@ const CourseDetails: React.FC = () => {
           <IonRow>
             <CourseGrid
               courses={courses}
-              handleCourse={handleCourse}
+              handleCourse={goToCourseDetails}
               handleCourse2={enrollUser}
               role={"learner"}
             />
