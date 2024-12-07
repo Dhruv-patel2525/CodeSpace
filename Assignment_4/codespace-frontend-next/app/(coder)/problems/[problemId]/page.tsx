@@ -46,7 +46,7 @@ export default function ProblemDetails() {
       templates:problem.templates,
     }
     return (
-      <ProtectedRoute roles={["coder"]}>
+      <>
         <div className="container-fluid">
        <div className="row">
         <div className="col-md-6">
@@ -57,7 +57,7 @@ export default function ProblemDetails() {
         </div>
       </div>
     </div>
-    </ProtectedRoute>
+    </>
        
     );
 }

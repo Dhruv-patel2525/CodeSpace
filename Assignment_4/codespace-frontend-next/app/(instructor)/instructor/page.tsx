@@ -1,43 +1,47 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CourseGrid from "../../(coder)/courses/components/courseGrid";
-import styles from "../courses/styles/page.module.css";
+import styles from "@/app/(coder)/courses/styles/page.module.css";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/contexts/AuthContext";
+import { fetchWithAuth } from "@/app/utils/api/api";
+type Role = 'defaultNavLinks' | 'coder' | 'instructor' | 'admin';
+
 const InstructorPage = () => {
   const router = useRouter();
   const [courses, setCourses] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const { state } = useAuth();
-  const instructorEmail = state.user?.email;
+
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  //const role: Role = user?.role || "defaultNavLinks";
+
+
+  //const { state } = useAuth();
+  const instructorEmail = user?.email;
   const addCourses = () => {
     router.push("/instructor/add");
   };
-
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3003/courses/instructor?email=${instructorEmail}`
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setCourses(
-          data.map((course: any) => ({
-            ...course,
-            id: course._id,
-          }))
-        );
-      } catch (err: any) {
-        setError(err.message);
+  const fetchCourses = async () => {
+    try {
+      const url =  `http://localhost:3003/courses/instructor?email=${instructorEmail}`;
+      const response = await fetchWithAuth(url,{});
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
-
+      const data = await response.json();
+      setCourses(
+        data.map((course: any) => ({
+          ...course,
+          id: course._id,
+        }))
+      );
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+  useEffect(() => {
     fetchCourses();
   }, []);
 
@@ -63,6 +67,8 @@ const InstructorPage = () => {
     fetch(`http://localhost:3003/courses/${id}`, {
       method: "DELETE",
     });
+    fetchCourses();
+    
   }
   function editCourse(id: string): void {
     router.push(`/instructor/edit/${id}`);

@@ -1,12 +1,42 @@
+"use client"
 import Link from "next/link";
 import classes from "./landing.module.css";
 import NavBar from "../navbar/NavBar";
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/login", label: "Login" },
-  { href: "/signUp", label: "Sign Up" },
-];
+import { getUser } from "@/app/utils/TokenUtils";
+type Role = 'defaultNavLinks' | 'coder' | 'instructor' | 'admin';
+
+type User = {
+  role?: Role; // Role is optional to handle cases where no role is found
+};
+const navLinksList: Record<Role, { href: string; label: string }[]> = {
+  defaultNavLinks: [
+    { href: "/", label: "Home" },
+    { href: "/login", label: "Login" },
+    { href: "/signUp", label: "Sign Up" },
+    { href: "", label: "Logout" },
+  ],
+  coder: [
+    { href: "/", label: "Home" },
+    { href: "/problems", label: "Problems" },
+    { href: "/courses", label: "Courses" },
+    { href: "", label: "Logout" },
+  ],
+  instructor: [
+    { href: "/", label: "Home" },
+    { href: "/instructor", label: "Courses" },
+    { href: "", label: "Logout" },
+  ],
+  admin: [
+    { href: "/dashboard", label: "Dashboard" },
+    { href: "/users", label: "Manage Users" },
+    { href: "", label: "Logout" },
+  ],
+};
+
 export default function LandingPage(){
+  const user:User = JSON.parse(localStorage.getItem('user') || 'null');
+  const role: Role = user?.role || "defaultNavLinks";
+  const navLinks = navLinksList[role];
     return (
       <>
         <NavBar navLinks={navLinks} />
