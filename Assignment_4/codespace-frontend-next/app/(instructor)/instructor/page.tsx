@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CourseGrid from "../../(coder)/courses/components/courseGrid";
-import styles from "../courses/styles/page.module.css";
+import styles from "@/app/(coder)/courses/styles/page.module.css";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/contexts/AuthContext";
 const InstructorPage = () => {

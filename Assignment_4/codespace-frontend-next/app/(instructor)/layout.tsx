@@ -10,7 +10,7 @@ export default function InstructorLayout({
 }) {
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/add", label: "Add" },
+    { href: "/instructor", label: "Courses" },
     { href: "", label: "Logout" },
   ];
 
