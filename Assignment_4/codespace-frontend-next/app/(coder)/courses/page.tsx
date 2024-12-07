@@ -5,6 +5,7 @@ import Head from "next/head";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CourseGrid from "./components/courseGrid";
 import { useRouter } from "next/navigation";
+import { fetchWithAuth } from "@/app/utils/api/api";
 import { useAuth } from "@/components/contexts/AuthContext";
 
 const CourseDetails = () => {

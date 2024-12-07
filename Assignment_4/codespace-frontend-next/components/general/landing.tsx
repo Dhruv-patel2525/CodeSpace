@@ -1,8 +1,16 @@
 import Link from "next/link";
 import classes from "./landing.module.css";
+import NavBar from "../navbar/NavBar";
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/login", label: "Login" },
+  { href: "/signUp", label: "Sign Up" },
+];
 export default function LandingPage(){
     return (
       <>
+        <NavBar navLinks={navLinks} />
+
         <section className={classes["intro-section"]}>
           <div className="container">
             <h1 className={classes["intro-h1"]}>

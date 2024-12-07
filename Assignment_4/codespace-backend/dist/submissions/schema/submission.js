@@ -11,8 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubmissionSchema = exports.Submission = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
-const mongoose_2 = require("mongoose");
-let Submission = class Submission extends mongoose_2.Document {
+let Submission = class Submission {
 };
 exports.Submission = Submission;
 __decorate([
@@ -21,7 +20,7 @@ __decorate([
 ], Submission.prototype, "problemId", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], Submission.prototype, "userId", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
@@ -31,10 +30,6 @@ __decorate([
     (0, mongoose_1.Prop)({ default: 'pending' }),
     __metadata("design:type", String)
 ], Submission.prototype, "result", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ default: Date.now }),
-    __metadata("design:type", Date)
-], Submission.prototype, "submittedAt", void 0);
 exports.Submission = Submission = __decorate([
     (0, mongoose_1.Schema)()
 ], Submission);

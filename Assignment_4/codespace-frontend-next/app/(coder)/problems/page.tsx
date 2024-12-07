@@ -22,8 +22,7 @@ export default function Problems() {
         const loadProblems=async ()=>{
             try{
                 const url=`${process.env.NEXT_PUBLIC_API_BASE_URL}/problem/`;
-                console.log(state.token);
-                fetchWithAuth(url,{},state.token || '')
+                fetchWithAuth(url,{})
                 .then( response =>{
                   if(!response.ok){
                     throw new Error(`HTTP error! status: ${response.status}`);

@@ -1,13 +1,13 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class SubmitSolutionDto {
   @IsNotEmpty()
-  @IsString()
-  problemId: string;
+  @IsNumber()
+  problemId: number;
 
   @IsNotEmpty()
-  @IsString()
-  userId: string;
+  @IsNumber()
+  userId: number;
 
   @IsNotEmpty()
   @IsString()
