@@ -50,7 +50,7 @@ export default function Problems() {
         return <p>{error}</p>
     }
     return (
-        <ProtectedRoute roles={["coder"]}>
+        <>
         <div className="container my-4">
             <div className={`row ${classes.tableFilters} align-items-center`}>
                 <div className="col-md-6">
@@ -87,6 +87,6 @@ export default function Problems() {
                 </tbody>
             </table>
         </div>
-        </ProtectedRoute>
+        </>
     );
 }
