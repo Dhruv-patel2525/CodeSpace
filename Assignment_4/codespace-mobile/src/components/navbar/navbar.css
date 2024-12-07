@@ -1,0 +1,13 @@
+ion-toolbar {
+    --background: black; 
+    --color: white; 
+  }
+  
+  ion-menu {
+    --background: #f8f8f8;
+  }
+  
+  ion-item {
+    --background-hover: #ddd;
+  }
+  

@@ -1,0 +1,14 @@
+.courseDetailsSection {
+    padding: 60px 20px;
+  }
+  
+  .centered-content {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .centered-content .mb-3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  

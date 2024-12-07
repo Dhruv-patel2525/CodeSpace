@@ -2,15 +2,17 @@
 
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import CourseGrid from "../(coder)/courses/components/courseGrid";
+import CourseGrid from "../../(coder)/courses/components/courseGrid";
 import styles from "../courses/styles/page.module.css";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/contexts/AuthContext";
 const InstructorPage = () => {
   const router = useRouter();
   const [courses, setCourses] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const instructorEmail = "hirad@example.com";
+  const { state } = useAuth();
+  const instructorEmail = state.user?.email;
   const addCourses = () => {
     router.push("/instructor/add");
   };
@@ -55,7 +57,7 @@ const InstructorPage = () => {
       </div>
     </>;
   }
-  
+
   function deleteCourse(id: string): void {
     console.log(id);
     fetch(`http://localhost:3003/courses/${id}`, {
