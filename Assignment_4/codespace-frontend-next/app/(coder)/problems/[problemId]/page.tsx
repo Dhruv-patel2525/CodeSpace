@@ -7,18 +7,12 @@ import { useEffect, useState } from 'react';
 import { Problem } from '@/app/utils/interface/problem';
 import ProtectedRoute from '@/components/Authetication/protectedRoute';
 import { fetchWithAuth } from '@/app/utils/api/api';
-import { useAuth } from '@/components/contexts/AuthContext';
-
-
-
 
 export default function ProblemDetails() {
   const params = useParams();
   const problemId = params.problemId as string;
   const [problem,setProblem]=useState<Problem | null>(null)
   const [error,setError]=useState<string | null>(null);
-  const {state}=useAuth();
-  console.log("count");
   useEffect(()=>{
     let isMounted=true;
 

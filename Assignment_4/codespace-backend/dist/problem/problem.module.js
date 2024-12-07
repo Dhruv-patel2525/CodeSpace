@@ -20,6 +20,7 @@ exports.ProblemModule = ProblemModule = __decorate([
         imports: [mongoose_1.MongooseModule.forFeature([{ name: problem_1.Problem.name, schema: problem_1.ProblemSchema }])],
         controllers: [problem_controller_1.ProblemController],
         providers: [problem_service_1.ProblemService],
+        exports: [problem_service_1.ProblemService]
     })
 ], ProblemModule);
 //# sourceMappingURL=problem.module.js.map

@@ -5,13 +5,14 @@ import Head from "next/head";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CourseGrid from "./components/courseGrid";
 import { useRouter } from "next/navigation";
+import { fetchWithAuth } from "@/app/utils/api/api";
 
 const CourseDetails = () => {
   const [courses, setCourses] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   useEffect(() => {
-    fetch("http://localhost:3003/courses")
+    fetchWithAuth("http://localhost:3003/courses")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

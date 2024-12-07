@@ -9,7 +9,6 @@ export default function ProblemDescription({ problem }:{problem :Problem}) {
  
   const constraint=problem.constraints;
   const constraintArray=constraint;
-  console.log(constraintArray);
   return (
     <>
       <ProblemNavbar />

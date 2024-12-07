@@ -131,26 +131,14 @@ export default function CodeEditorSection({ problem }:{problem:editorDetails}) {
     }
   const [state,dispatch]=useReducer(editorReducer,initialState);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    // const fetchTemplate = async () => {
-    //   const response = await fetch(`/api/templates?problemId=${problemId}&language=${editorState.language}`);
-    //   const data = await response.json();
-    //   setEditorState((prevState) => ({
-    //     ...prevState,
-    //     code: data.templateCode || '',
-    //   }));
-    // };
-
-    // fetchTemplate();
-    //const fetchTemplate = templates.find(template=>template.language === state.language);
-    
-    // Initialize timer, fetch initial code, etc.
-  }, [problem.problemId]);
+  //   console.log(state.code);
+  //   }, [problem.problemId]);
 
   const handleSubmit = () => {
-    // Handle code submission
-  };
+    console.log(state.code);
+    };
   const handleEditorChange = (value: string | undefined) => {
     dispatch({type:'SET_CODE',payload:value||''}); 
   };

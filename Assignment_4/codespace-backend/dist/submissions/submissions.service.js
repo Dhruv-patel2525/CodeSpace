@@ -17,16 +17,46 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const submission_1 = require("./schema/submission");
+const axios_1 = require("axios");
+const problem_service_1 = require("../problem/problem.service");
 let SubmissionsService = class SubmissionsService {
-    constructor(submissionModel) {
+    constructor(submissionModel, problemService) {
         this.submissionModel = submissionModel;
+        this.problemService = problemService;
     }
     async submitSolution(submitSolutionDto) {
+        try {
+            const input = "{ \"gas\": [2, 3, 4], \"cost\": [3, 4, 3] }";
+            const { solution } = submitSolutionDto;
+            const response = await this.executeCode(solution, 'java', input);
+            console.log(response);
+        }
+        catch (error) {
+        }
         const newSubmission = new this.submissionModel({
             ...submitSolutionDto,
             result: 'pending',
         });
         return newSubmission.save();
+    }
+    async executeCode(code, language, input) {
+        const API_URL = 'https://api.jdoodle.com/v1/execute';
+        const requestBody = {
+            script: code,
+            language,
+            stdin: input,
+            versionIndex: '3',
+            clientId: 'your-client-id',
+            clientSecret: 'your-client-secret',
+        };
+        try {
+            const response = await axios_1.default.post(API_URL, requestBody);
+            return response.data.output.trim();
+        }
+        catch (error) {
+            console.error('Error executing code:', error.response?.data || error.message);
+            throw new Error('Code execution failed.');
+        }
     }
     async getSubmissionResult(submissionId) {
         const submission = await this.submissionModel.findById(submissionId).exec();
@@ -40,6 +70,6 @@ exports.SubmissionsService = SubmissionsService;
 exports.SubmissionsService = SubmissionsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(submission_1.Submission.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [mongoose_2.Model, problem_service_1.ProblemService])
 ], SubmissionsService);
 //# sourceMappingURL=submissions.service.js.map

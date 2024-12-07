@@ -1,29 +1,15 @@
-// export const fetchWithAuth = async (url: string, options: RequestInit = {}, token?: string): Promise<Response> => {
-//     const headers = new Headers(options.headers || {});
-
 import { redirect } from "next/navigation";
-import { getAccessToken, getRefreshToken, setTokens, clearTokens }  from "../TokenUtils";
-
-//     if (token) {
-//       headers.set("Authorization", `Bearer ${token}`);
-//     }
-  
-//     return fetch(url, {
-//       ...options,
-//       headers,
-//     });
-//   };
-// import { getAccessToken, getRefreshToken, setTokens, clearTokens } from './tokenUtils';
+import { getAccessToken, clearTokens } from "../TokenUtils";
 
 export const fetchWithAuth = async (
   url: string,
   options: RequestInit = {}
 ): Promise<Response> => {
   const headers = new Headers(options.headers || {});
-  let token = getAccessToken();
+  const token = getAccessToken();
 
   if (token) {
-    headers.set('Authorization', `Bearer ${token}`);
+    headers.set("Authorization", `Bearer ${token}`);
   }
 
   const config: RequestInit = {
@@ -31,14 +17,27 @@ export const fetchWithAuth = async (
     headers,
   };
 
-  let response = await fetch(url, config);
+  try {
+    const response = await fetch(url, config);
 
-  // Handle token expiration (401 Unauthorized)
-  if (response.status === 401) {
-    redirect('/login');
+    // Handle 401 Unauthorized by clearing tokens and redirecting
+    if (response.status === 401) {
+      console.warn("Unauthorized. Clearing tokens and redirecting to login.");
+      clearTokens();
+      redirect("/login");
+    }
+
+    // Handle general HTTP errors
+    if (!response.ok) {
+      console.error(
+        `HTTP error! Status: ${response.status} - ${response.statusText}`
+      );
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    return response;
+  } catch (error) {
+    console.error("Error in fetchWithAuth:", error);
+    throw error; // Propagate the error for higher-level handling
   }
-
-  return response;
 };
-
-  

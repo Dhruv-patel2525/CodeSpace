@@ -16,13 +16,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ roles,children }) => {
   useEffect(() => {
     const accessToken =getAccessToken()|| '';
     const user = JSON.parse(localStorage.getItem('user') || 'null');
-  //   if(user)
-  //   {
-  //     dispatch({
-  //       type: "LOGIN",
-  //       payload: { user, token: accessToken },
-  //     });
-  //  }
     if (user===null) {
       router.push('/login'); 
       return;
