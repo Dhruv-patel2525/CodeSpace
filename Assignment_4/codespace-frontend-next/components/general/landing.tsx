@@ -13,7 +13,6 @@ const navLinksList: Record<Role, { href: string; label: string }[]> = {
     { href: "/", label: "Home" },
     { href: "/login", label: "Login" },
     { href: "/signUp", label: "Sign Up" },
-    { href: "", label: "Logout" },
   ],
   coder: [
     { href: "/", label: "Home" },

@@ -28,7 +28,7 @@ exports.AppModule = AppModule = __decorate([
             problem_module_1.ProblemModule,
             auth_module_1.AuthModule,
             submissions_module_1.SubmissionsModule,
-            mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/codespace-data'),
+            mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/codespace-data'),
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
