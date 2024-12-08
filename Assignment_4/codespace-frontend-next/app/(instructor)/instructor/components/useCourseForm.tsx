@@ -1,3 +1,5 @@
+import { fetchWithAuth } from "@/app/utils/api/api";
+import { getAccessToken } from "@/app/utils/TokenUtils";
 import { useAuth } from "@/components/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -20,14 +22,20 @@ export const useCourseForm = (courseId?: string) => {
   useEffect(() => {
     if (courseId) {
       setLoading(true);
-      fetch(`http://localhost:3003/courses/details/${courseId}`, {
+      const url = `http://localhost:3003/courses/details/${courseId}`;
+      fetchWithAuth(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${state.token}`,
+          Authorization: `Bearer ${getAccessToken()}`,
         },
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
         .then((data) => {
           setFormData(data);
           setLoading(false);
@@ -68,15 +76,15 @@ export const useCourseForm = (courseId?: string) => {
       delete updatedFormData._id;
       delete updatedFormData.lastUpdated;
       delete updatedFormData.__v;
-      console.log(updatedFormData);
+      delete updatedFormData.enrolledStudents;
+
       if (courseId) {
         const url = `${apiUrl}/${courseId}`;
-        console.log("Making request to:", url);
-        courseData = await fetch(`${apiUrl}/${courseId}`, {
+        courseData = await fetch(url, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${state.token}`,
+            Authorization: `Bearer ${getAccessToken()}`,
           },
           body: JSON.stringify(updatedFormData),
         });
@@ -95,9 +103,11 @@ export const useCourseForm = (courseId?: string) => {
         throw new Error("Failed to submit course data");
       }
 
+      const responseData = await courseData.json();
       setSuccessMessage(
         courseId ? "Course Updated Successfully" : "Course Created Successfully"
       );
+
       setTimeout(() => {
         router.push("/instructor");
       }, 1500);
