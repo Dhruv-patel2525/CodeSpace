@@ -9,11 +9,10 @@ import {
   IonItem,
   IonMenuToggle,
 } from "@ionic/react";
-import "./sideMenu.css";
-import Courses from "../../pages/courses/courses";
+
 const SideMenu: React.FC = () => {
   return (
-    <IonMenu contentId="main-content">
+    <IonMenu contentId="main-content" side="start">
       <IonHeader>
         <IonToolbar>
           <IonTitle>Menu</IonTitle>
@@ -22,23 +21,28 @@ const SideMenu: React.FC = () => {
       <IonContent>
         <IonList>
           <IonMenuToggle>
-            <IonItem button routerLink="/login">
-              Login
-            </IonItem>
-          </IonMenuToggle>
-          <IonMenuToggle>
-            <IonItem button routerLink="/home">
+            <IonItem routerLink="/landing" button>
               Home
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
-            <IonItem button routerLink="/courses">
+            <IonItem routerLink="/courses" button>
               Courses
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
-            <IonItem button routerLink="/problems">
-              Problems
+            <IonItem routerLink="/instructor" button>
+              Instructor
+            </IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/login" button>
+              Login
+            </IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/signup" button>
+              Sign Up
             </IonItem>
           </IonMenuToggle>
         </IonList>

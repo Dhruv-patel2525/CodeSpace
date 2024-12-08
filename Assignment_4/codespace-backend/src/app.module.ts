@@ -16,8 +16,7 @@ import { SubmissionsModule } from './submissions/submissions.module';
     ProblemModule,
     AuthModule,
     SubmissionsModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/codespace-data'),  
-
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/codespace-data'),  
      ],
   controllers: [AppController],
   providers: [AppService],
