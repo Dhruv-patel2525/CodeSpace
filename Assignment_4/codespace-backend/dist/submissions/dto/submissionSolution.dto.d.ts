@@ -1,5 +1,5 @@
 export declare class SubmitSolutionDto {
-    problemId: string;
-    userId: string;
+    problemId: number;
+    userId: number;
     solution: string;
 }

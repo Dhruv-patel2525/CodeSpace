@@ -1,13 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
+export type ProblemDocument = HydratedDocument<Submission>; 
+
 
 @Schema()
-export class Submission extends Document {
+export class Submission {
   @Prop({ required: true })
   problemId: string;  
 
   @Prop({ required: true })
-  userId: string;  
+  userId: number;  
 
   @Prop({ required: true })
   solution: string;  
@@ -15,8 +17,8 @@ export class Submission extends Document {
   @Prop({ default: 'pending' })
   result: 'success' | 'failure' | 'pending';  
 
-  @Prop({ default: Date.now })
-  submittedAt: Date;
+  // @Prop({ default: Date.now })
+  // submittedAt: Date;
 }
 
 export const SubmissionSchema = SchemaFactory.createForClass(Submission);

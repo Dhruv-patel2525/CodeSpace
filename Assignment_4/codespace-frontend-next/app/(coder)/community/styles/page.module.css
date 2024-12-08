@@ -1,0 +1,62 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .communityPage {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .section {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+ 
+  .eventItem {
+    background-color: #e3f2fd;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #0277bd;
+    transition: background-color 0.3s ease;
+  }
+  
+  .eventItem:hover {
+    background-color: #0277bd;
+    color: white;
+  }
+  
+  .btn {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+  .btn-primary {
+    background-color: #0277bd;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #01579b;
+  }
+  
+  .btn-secondary {
+    background-color: #8e24aa;
+    border: none;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #6a1b9a;
+  }
+  

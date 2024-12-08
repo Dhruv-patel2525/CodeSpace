@@ -1,30 +1,14 @@
-import { CreateCourseDto } from 'src/courses/dto/createcourse.dto';
-import { UpdateCourseDto } from 'src/courses/dto/updateCourse.dto';
-export declare class CoursesService {
-    private courses;
-    findAll(): {
-        id: number;
-        title: string;
-        description: string;
-        instructor: string;
-    }[];
-    findOne(courseId: number): {
-        id: number;
-        title: string;
-        description: string;
-        instructor: string;
-    };
-    create(courseData: CreateCourseDto): {
-        title: string;
-        description: string;
-        instructor: string;
-        id: number;
-    };
-    update(courseId: number, updateCourseDto: UpdateCourseDto): {
-        title: string;
-        description: string;
-        instructor: string;
-        id: number;
-    };
-    remove(courseId: number): void;
+import { Model } from 'mongoose';
+import { Course, CourseDocument } from './schema/course';
+export declare class CourseService {
+    private readonly courseModel;
+    constructor(courseModel: Model<CourseDocument>);
+    create(createCourseDto: Partial<Course>): Promise<Course>;
+    findAll(): Promise<Course[]>;
+    findOne(id: string): Promise<Course | null>;
+    update(id: string, updateCourseDto: Partial<Course>): Promise<Course | null>;
+    remove(id: string): Promise<Course | null>;
+    getCoursesByInstructor(email: string): Promise<Course[]>;
+    enrollUserInCourse(courseId: string, userEmail: string): Promise<Course | null>;
+    getEnrolledCourses(userEmail: string): Promise<Course[]>;
 }

@@ -1,0 +1,62 @@
+
+  
+  .courseDetailsSection {
+    padding: 60px 20px;
+  }
+  
+  .courseTitle {
+    color: #6a5acd;
+    margin-bottom: 40px;
+  }
+  
+  .courseDescription,
+  .courseSyllabus,
+  .instructorDetails {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .courseDescription h4,
+  .courseSyllabus h4,
+  .instructorDetails h4 {
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+
+  
+  .enrollButton {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .enrollButton:hover {
+    background-color: #218838;
+  }
+  .courseCard {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+    background-color: #fff;
+  }
+  
+  .courseCard:hover {
+    transform: translateY(-5px);
+  }
+  
+  .courseCard .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .courseCard .btn {
+    margin-top: 10px;
+  }
+  
+  

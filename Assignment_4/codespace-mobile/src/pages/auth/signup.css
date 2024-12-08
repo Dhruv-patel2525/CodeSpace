@@ -1,0 +1,25 @@
+.signup-link {
+    color: #6a5acd;
+    text-decoration: none;
+  }
+  
+  .signup-link:hover {
+    text-decoration: underline;
+  }
+  
+  .ion-padding form {
+    margin: 20px auto;
+    max-width: 500px;
+  }
+  
+  .ion-padding button {
+    background-color: #6a5acd;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s;
+  }
+  
+  .ion-padding button:hover {
+    background-color: #5a4cb2;
+  }
+  

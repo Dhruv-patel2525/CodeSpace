@@ -8,5 +8,6 @@ import { Problem, ProblemSchema } from './schema/problem';
   imports:[MongooseModule.forFeature([{name:Problem.name,schema:ProblemSchema}])],
   controllers: [ProblemController],
   providers: [ProblemService],
+  exports:[ProblemService]
 })
 export class ProblemModule {}

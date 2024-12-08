@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { compare } from 'bcrypt';
+import { compare } from 'bcryptjs';
 import { UsersService } from 'src/users/users.service';
 import { UserRole } from './enums/roles.enum';
 import { SignupDto } from './dto/signup.dto';
@@ -8,7 +8,7 @@ import { AuthJwtPayload, AuthPayload } from './types/auth-jwtPayload';
 import { ChangePasswordDto } from './dto/changepassword.dto';
 
 type AuthInput = {email:string,password:string};
-type SignInData = {userId:number,email:string,role:UserRole}; 
+type SignInData = {userId:number,email:string,role:UserRole,name:string}; 
 type CurrentUser = {userId:number,roles:UserRole[]}
 @Injectable()
 export class AuthService {
@@ -39,6 +39,7 @@ export class AuthService {
                 userId:user.userId,
                 email:user.email,
                 role:user.role,
+                name:user.name,
             }
         }
         
@@ -53,11 +54,15 @@ export class AuthService {
         const refreshToken = await this.jwtService.signAsync(payload,{secret: process.env.REFRESH_JWT_SECRET,
                                                                      expiresIn: process.env.REFRESH_JWT_EXPIRE_IN ,
           })
-        return {accessToken,refreshToken,userId:user.userId,email:user.email};
+        return {accessToken,refreshToken,userId:user.userId,email:user.email,role:user.role,name:user.name};
     }
 
     
     async registerUser(signupDto : SignupDto) {
+        if(signupDto.password!==signupDto.confirmPassword)
+        {
+            throw new UnauthorizedException('Password does not match');
+        }
        return this.userService.createUser(signupDto);
       }
     

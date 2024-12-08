@@ -1,55 +1,60 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCourseDto } from 'src/courses/dto/createcourse.dto';
-import { UpdateCourseDto } from 'src/courses/dto/updateCourse.dto';
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Course, CourseDocument } from './schema/course';
 
 @Injectable()
-export class CoursesService {
+export class CourseService {
+  constructor(
+    @InjectModel('Course') private readonly courseModel: Model<CourseDocument>,
+  ) {}
 
-    private courses = [
-        { id: 1, title: 'Python Programming', description: 'Learn the basics of Python', instructor: 'John Doe' },
-        { id: 2, title: 'JavaScript Fundamentals', description: 'Deep dive into advanced JavaScript features', instructor: 'Paul' },
-      ];
-    
-      findAll() {
-        return this.courses;
-      }
+  async create(createCourseDto: Partial<Course>): Promise<Course> {
+    const newCourse = new this.courseModel(createCourseDto);
+    return newCourse.save();
+  }
 
-      findOne(courseId: number) {
-        const course = this.courses.find(course => course.id === courseId);
-    
-        if (!course) {
-          throw new NotFoundException(`Course with ID ${courseId} not found`);
-        }
-        
-        return course;
-      }
+  async findAll(): Promise<Course[]> {
+    return this.courseModel.find().exec();
+  }
 
-      create(courseData: CreateCourseDto) {
-        const newCourse = {
-          id: this.courses.length + 1,  
-          ...courseData,
-        };
-        this.courses.push(newCourse);
-        return newCourse;
-      }
+  async findOne(id: string): Promise<Course | null> {
+    return this.courseModel.findById(id).exec();
+  }
 
-      update(courseId: number, updateCourseDto: UpdateCourseDto) {
-        const course = this.findOne(courseId);  // Find the course by ID
-    
-        const updatedCourse = { ...course, ...updateCourseDto };
-        this.courses = this.courses.map(c => (c.id === courseId ? updatedCourse : c));
-    
-        return updatedCourse;
-      }
+  async update(
+    id: string,
+    updateCourseDto: Partial<Course>,
+  ): Promise<Course | null> {
+    return this.courseModel
+      .findByIdAndUpdate(id, updateCourseDto, {
+        new: true,
+      })
+      .exec();
+  }
 
-      remove(courseId: number) {
-        const courseIndex = this.courses.findIndex(course => course.id === courseId);
-    
-        if (courseIndex === -1) {
-          throw new NotFoundException(`Course with ID ${courseId} not found`);
-        }
-    
-        this.courses.splice(courseIndex, 1);  
-      }
+  async remove(id: string): Promise<Course | null> {
+    return this.courseModel.findByIdAndDelete(id).exec();
+  }
 
+  async getCoursesByInstructor(email: string): Promise<Course[]> {
+    return this.courseModel.find({ instructorEmail: email }).exec();
+  }
+
+  async enrollUserInCourse(
+    courseId: string,
+    userEmail: string,
+  ): Promise<Course | null> {
+    return this.courseModel
+      .findByIdAndUpdate(
+        courseId,
+        { $addToSet: { enrolledStudents: userEmail } },
+        { new: true },
+      )
+      .exec();
+  }
+
+  async getEnrolledCourses(userEmail: string): Promise<Course[]> {
+    return this.courseModel.find({ enrolledStudents: userEmail }).exec();
+  }
 }

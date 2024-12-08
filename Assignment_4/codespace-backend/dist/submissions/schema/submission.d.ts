@@ -1,17 +1,17 @@
-import { Document } from 'mongoose';
-export declare class Submission extends Document {
+import { HydratedDocument } from 'mongoose';
+export type ProblemDocument = HydratedDocument<Submission>;
+export declare class Submission {
     problemId: string;
-    userId: string;
+    userId: number;
     solution: string;
     result: 'success' | 'failure' | 'pending';
-    submittedAt: Date;
 }
-export declare const SubmissionSchema: import("mongoose").Schema<Submission, import("mongoose").Model<Submission, any, any, any, Document<unknown, any, Submission> & Submission & Required<{
-    _id: unknown;
-}> & {
+export declare const SubmissionSchema: import("mongoose").Schema<Submission, import("mongoose").Model<Submission, any, any, any, import("mongoose").Document<unknown, any, Submission> & Submission & {
+    _id: import("mongoose").Types.ObjectId;
+} & {
     __v: number;
-}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Submission, Document<unknown, {}, import("mongoose").FlatRecord<Submission>> & import("mongoose").FlatRecord<Submission> & Required<{
-    _id: unknown;
-}> & {
+}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Submission, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Submission>> & import("mongoose").FlatRecord<Submission> & {
+    _id: import("mongoose").Types.ObjectId;
+} & {
     __v: number;
 }>;

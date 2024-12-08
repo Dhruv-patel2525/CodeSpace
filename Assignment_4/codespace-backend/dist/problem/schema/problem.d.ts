@@ -1,13 +1,18 @@
 import { HydratedDocument } from "mongoose";
 export type ProblemDocument = HydratedDocument<Problem>;
 export declare class Problem {
-    id: number;
+    problemId: number;
     title: string;
-    description: string;
-    input: string;
-    output: string;
+    tags: string;
     difficulty: string;
-    tag: string;
+    avgtime: number;
+    submissions: number;
+    description: string;
+    inputFormat: string;
+    outputFormat: string;
+    constraints: [];
+    examples: [];
+    templates: [];
 }
 export declare const ProblemSchema: import("mongoose").Schema<Problem, import("mongoose").Model<Problem, any, any, any, import("mongoose").Document<unknown, any, Problem> & Problem & {
     _id: import("mongoose").Types.ObjectId;

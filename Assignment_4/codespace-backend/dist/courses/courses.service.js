@@ -5,50 +5,57 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CoursesService = void 0;
+exports.CourseService = void 0;
 const common_1 = require("@nestjs/common");
-let CoursesService = class CoursesService {
-    constructor() {
-        this.courses = [
-            { id: 1, title: 'Python Programming', description: 'Learn the basics of Python', instructor: 'John Doe' },
-            { id: 2, title: 'JavaScript Fundamentals', description: 'Deep dive into advanced JavaScript features', instructor: 'Paul' },
-        ];
+const mongoose_1 = require("@nestjs/mongoose");
+const mongoose_2 = require("mongoose");
+let CourseService = class CourseService {
+    constructor(courseModel) {
+        this.courseModel = courseModel;
     }
-    findAll() {
-        return this.courses;
+    async create(createCourseDto) {
+        const newCourse = new this.courseModel(createCourseDto);
+        return newCourse.save();
     }
-    findOne(courseId) {
-        const course = this.courses.find(course => course.id === courseId);
-        if (!course) {
-            throw new common_1.NotFoundException(`Course with ID ${courseId} not found`);
-        }
-        return course;
+    async findAll() {
+        return this.courseModel.find().exec();
     }
-    create(courseData) {
-        const newCourse = {
-            id: this.courses.length + 1,
-            ...courseData,
-        };
-        this.courses.push(newCourse);
-        return newCourse;
+    async findOne(id) {
+        return this.courseModel.findById(id).exec();
     }
-    update(courseId, updateCourseDto) {
-        const course = this.findOne(courseId);
-        const updatedCourse = { ...course, ...updateCourseDto };
-        this.courses = this.courses.map(c => (c.id === courseId ? updatedCourse : c));
-        return updatedCourse;
+    async update(id, updateCourseDto) {
+        return this.courseModel
+            .findByIdAndUpdate(id, updateCourseDto, {
+            new: true,
+        })
+            .exec();
     }
-    remove(courseId) {
-        const courseIndex = this.courses.findIndex(course => course.id === courseId);
-        if (courseIndex === -1) {
-            throw new common_1.NotFoundException(`Course with ID ${courseId} not found`);
-        }
-        this.courses.splice(courseIndex, 1);
+    async remove(id) {
+        return this.courseModel.findByIdAndDelete(id).exec();
+    }
+    async getCoursesByInstructor(email) {
+        return this.courseModel.find({ instructorEmail: email }).exec();
+    }
+    async enrollUserInCourse(courseId, userEmail) {
+        return this.courseModel
+            .findByIdAndUpdate(courseId, { $addToSet: { enrolledStudents: userEmail } }, { new: true })
+            .exec();
+    }
+    async getEnrolledCourses(userEmail) {
+        return this.courseModel.find({ enrolledStudents: userEmail }).exec();
     }
 };
-exports.CoursesService = CoursesService;
-exports.CoursesService = CoursesService = __decorate([
-    (0, common_1.Injectable)()
-], CoursesService);
+exports.CourseService = CourseService;
+exports.CourseService = CourseService = __decorate([
+    (0, common_1.Injectable)(),
+    __param(0, (0, mongoose_1.InjectModel)('Course')),
+    __metadata("design:paramtypes", [mongoose_2.Model])
+], CourseService);
 //# sourceMappingURL=courses.service.js.map

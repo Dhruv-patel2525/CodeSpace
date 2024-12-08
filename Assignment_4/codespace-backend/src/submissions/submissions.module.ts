@@ -3,10 +3,12 @@ import { SubmissionsController } from './submissions.controller';
 import { SubmissionsService } from './submissions.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Submission, SubmissionSchema } from './schema/submission';
+import { ProblemModule } from 'src/problem/problem.module';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Submission.name, schema: SubmissionSchema }]), // Register Submission schema
+    ProblemModule,
+    MongooseModule.forFeature([{ name: Submission.name, schema: SubmissionSchema }]), 
   ],
   controllers: [SubmissionsController],
   providers: [SubmissionsService]

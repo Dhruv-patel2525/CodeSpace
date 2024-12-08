@@ -2,7 +2,6 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { ProblemService } from './problem.service';
 import { CreateProblemDto } from './dto/create-problem.dto';
 import { UpdateProblemDto } from './dto/update-problem.dto';
-import { AuthGuard } from 'src/auth/guards/auth.guards';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { UserRole } from 'src/auth/enums/roles.enum';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
@@ -13,7 +12,7 @@ export class ProblemController {
   constructor(private readonly problemService: ProblemService) {}
   @Roles(UserRole.ADMIN)
   @UseGuards(RolesGuard)
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createProblemDto: CreateProblemDto) {
     return this.problemService.create(createProblemDto);

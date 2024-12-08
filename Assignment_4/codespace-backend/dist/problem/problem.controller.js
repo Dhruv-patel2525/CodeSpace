@@ -17,7 +17,6 @@ const common_1 = require("@nestjs/common");
 const problem_service_1 = require("./problem.service");
 const create_problem_dto_1 = require("./dto/create-problem.dto");
 const update_problem_dto_1 = require("./dto/update-problem.dto");
-const auth_guards_1 = require("../auth/guards/auth.guards");
 const roles_decorator_1 = require("../auth/decorators/roles.decorator");
 const roles_enum_1 = require("../auth/enums/roles.enum");
 const roles_guard_1 = require("../auth/guards/roles.guard");
@@ -46,7 +45,7 @@ exports.ProblemController = ProblemController;
 __decorate([
     (0, roles_decorator_1.Roles)(roles_enum_1.UserRole.ADMIN),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
-    (0, common_1.UseGuards)(auth_guards_1.AuthGuard),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

@@ -18,7 +18,7 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], CreateProblemDto.prototype, "id", void 0);
+], CreateProblemDto.prototype, "problemId", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
@@ -28,17 +28,7 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateProblemDto.prototype, "description", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateProblemDto.prototype, "input", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateProblemDto.prototype, "output", void 0);
+], CreateProblemDto.prototype, "tags", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
@@ -46,7 +36,40 @@ __decorate([
 ], CreateProblemDto.prototype, "difficulty", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateProblemDto.prototype, "avgtime", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateProblemDto.prototype, "submissions", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateProblemDto.prototype, "tag", void 0);
+], CreateProblemDto.prototype, "description", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateProblemDto.prototype, "inputFormat", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateProblemDto.prototype, "outputFormat", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], CreateProblemDto.prototype, "constraints", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], CreateProblemDto.prototype, "examples", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], CreateProblemDto.prototype, "templates", void 0);
 //# sourceMappingURL=create-problem.dto.js.map

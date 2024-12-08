@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
-const bcrypt_1 = require("bcrypt");
+const bcryptjs_1 = require("bcryptjs");
 const users_service_1 = require("../users/users.service");
 let AuthService = class AuthService {
     constructor(userService, jwtService) {
@@ -28,12 +28,13 @@ let AuthService = class AuthService {
     }
     async validateUser(input) {
         const user = await this.userService.getUserProfile(input.email);
-        const isPasswordMatch = await (0, bcrypt_1.compare)(input.password, user?.password);
+        const isPasswordMatch = await (0, bcryptjs_1.compare)(input.password, user?.password);
         if (user && isPasswordMatch) {
             return {
                 userId: user.userId,
                 email: user.email,
                 role: user.role,
+                name: user.name,
             };
         }
         return null;
@@ -47,9 +48,12 @@ let AuthService = class AuthService {
         const refreshToken = await this.jwtService.signAsync(payload, { secret: process.env.REFRESH_JWT_SECRET,
             expiresIn: process.env.REFRESH_JWT_EXPIRE_IN,
         });
-        return { accessToken, refreshToken, userId: user.userId, email: user.email };
+        return { accessToken, refreshToken, userId: user.userId, email: user.email, role: user.role, name: user.name };
     }
     async registerUser(signupDto) {
+        if (signupDto.password !== signupDto.confirmPassword) {
+            throw new common_1.UnauthorizedException('Password does not match');
+        }
         return this.userService.createUser(signupDto);
     }
     async refreshToken(input) {
@@ -66,7 +70,7 @@ let AuthService = class AuthService {
     }
     async changePassword(payload, changepassworddto) {
         const user = await this.userService.getUserProfile(payload.username);
-        const isMatched = await (0, bcrypt_1.compare)(changepassworddto.oldPassword, user.password);
+        const isMatched = await (0, bcryptjs_1.compare)(changepassworddto.oldPassword, user.password);
         if (!isMatched) {
             throw new common_1.UnauthorizedException("Old Password not matched");
         }
